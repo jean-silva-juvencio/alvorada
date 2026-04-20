@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Unidos do Alvorada | Bateria</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #e8f0fe 0%, #dce6f5 100%);
+            color: #0a1628;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* TEMA ESCURO */
+        body.dark {
+            background: linear-gradient(135deg, #0a1628 0%, #0f1a30 100%);
+            color: #ffffff;
+        }
+
+        body.dark .card-texto,
+        body.dark .inscreva-se,
+        body.dark .card-comando,
+        body.dark .footer,
+        body.dark .mapa-card {
+            background: linear-gradient(135deg, #1e3a5f, #142142);
+            border-color: rgba(255, 215, 0, 0.3);
+        }
+
+        body.dark .nav-links a,
+        body.dark .social-links a {
+            color: #ffffff;
+        }
+
+        body.dark .assinatura p,
+        body.dark .endereco-mapa {
+            color: #b0c4de;
+        }
+
+        /* HEADER FIXO */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 12px 20px;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            border-bottom: 2px solid #1e90ff;
+            transition: background 0.3s ease;
+        }
+
+        body.dark .header {
+            background: rgba(10, 22, 40, 0.95);
+            border-bottom-color: #FFD700;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #0a1628;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            padding: 8px 0;
+            position: relative;
+        }
+
+        body.dark .nav-links a {
+            color: #ffffff;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #1e90ff;
+            transition: width 0.3s;
+        }
+
+        body.dark .nav-links a::after {
+            background: #FFD700;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: #1e90ff;
+        }
+
+        body.dark .nav-links a:hover {
+            color: #FFD700;
+        }
+
+        .theme-btn {
+            background: #1e90ff;
+            border: none;
+            border-radius: 50px;
+            padding: 6px 16px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .theme-btn:hover {
+            transform: scale(1.05);
+            background: #FFD700;
+            color: #0a1628;
+        }
+
+        body.dark .theme-btn {
+            background: #FFD700;
+            color: #0a1628;
+        }
+
+        body.dark .theme-btn:hover {
+            background: #1e90ff;
+            color: white;
+        }
+
+        /* CLIMA */
+        .clima {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(30, 144, 255, 0.15);
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        body.dark .clima {
+            background: rgba(255, 215, 0, 0.15);
+        }
+
+        /* CONTEÚDO PRINCIPAL */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 100px 20px 40px;
+        }
+
+        /* CARROSSEL */
+        .carrossel {
+            width: 100%;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .slides-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .slide img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            max-height: 500px;
+        }
+
+        .indicadores {
+            position: absolute;
+            bottom: 15px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .indicador {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .indicador.active {
+            background: #1e90ff;
+            width: 25px;
+            border-radius: 10px;
+        }
+
+        body.dark .indicador.active {
+            background: #FFD700;
+        }
+
+        /* Card do texto digitado */
+        .card-texto {
+            background: white;
+            border-radius: 30px;
+            padding: 40px 30px;
+            text-align: center;
+            border: 1px solid rgba(30, 144, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, background 0.3s;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+
+        .card-texto:hover {
+            transform: translateY(-5px);
+        }
+
+        .typing-container {
+            min-height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 10;
+        }
+
+        #typed-text {
+            font-size: 2.5rem;
+            color: #1e90ff;
+            letter-spacing: 3px;
+            font-weight: bold;
+            line-height: 1.3;
+            text-align: center;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        body.dark #typed-text {
+            color: #FFD700;
+            background: #1e3a5f;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 4px;
+            height: 2.5rem;
+            background-color: #1e90ff;
+            margin-left: 8px;
+            animation: blink 0.7s infinite;
+            vertical-align: middle;
+        }
+
+        body.dark .cursor {
+            background-color: #FFD700;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        @media (max-width: 768px) {
+            .card-texto {
+                padding: 25px 20px;
+            }
+            #typed-text {
+                font-size: 1.3rem;
+                letter-spacing: 1px;
+            }
+            .cursor {
+                height: 1.5rem;
+            }
+            .header-container {
+                flex-direction: column;
+            }
+            .clima {
+                font-size: 0.7rem;
+            }
+        }
+
+        /* SEÇÃO INSCREVA-SE */
+        .inscreva-se {
+            background: white;
+            border-radius: 30px;
+            padding: 40px 30px;
+            margin-bottom: 25px;
+            margin-top: 0;
+            text-align: center;
+            border: 1px solid rgba(30, 144, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .inscreva-se:hover {
+            transform: translateY(-5px);
+        }
+
+        .inscreva-se h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #1e90ff;
+        }
+
+        body.dark .inscreva-se h2 {
+            color: #FFD700;
+        }
+
+        .inscreva-se p {
+            color: #4a627a;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+
+        body.dark .inscreva-se p {
+            color: #b0c4de;
+        }
+
+        /* BOTÃO ANIMADO - LINK */
+        .btn-inscrever {
+            background: linear-gradient(135deg, #1e90ff, #0a1628);
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(30, 144, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+            animation: pulse 2s infinite;
+        }
+
+        body.dark .btn-inscrever {
+            background: linear-gradient(135deg, #FFD700, #1e3a5f);
+            color: #0a1628;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 5px 20px rgba(30, 144, 255, 0.4);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 8px 30px rgba(30, 144, 255, 0.6);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 5px 20px rgba(30, 144, 255, 0.4);
+            }
+        }
+
+        body.dark .btn-inscrever {
+            animation: pulseDark 2s infinite;
+        }
+
+        @keyframes pulseDark {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 8px 30px rgba(255, 215, 0, 0.6);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+            }
+        }
+
+        .btn-inscrever::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-inscrever:hover::before {
+            left: 100%;
+        }
+
+        .btn-inscrever:hover {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #FFD700, #1e90ff);
+            color: #0a1628;
+            animation: none;
+        }
+
+        @media (max-width: 768px) {
+            .btn-inscrever {
+                padding: 12px 30px;
+                font-size: 1rem;
+                width: 100%;
+                max-width: 280px;
+            }
+        }
+
+        /* SEÇÃO COMANDO DA BATERIA */
+        .comando {
+            text-align: center;
+            margin-bottom: 30px;
+            margin-top: 0;
+        }
+
+        .comando h2 {
+            font-size: 2rem;
+            color: #1e90ff;
+            margin-bottom: 40px;
+        }
+
+        body.dark .comando h2 {
+            color: #FFD700;
+        }
+
+        .cards-comando {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .card-comando {
+            background: white;
+            border-radius: 30px;
+            padding: 30px;
+            width: 280px;
+            text-align: center;
+            border: 1px solid rgba(30, 144, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .card-comando:hover {
+            transform: translateY(-10px);
+        }
+
+        .foto {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1e90ff, #0a1628);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            border: 3px solid #1e90ff;
+        }
+
+        body.dark .foto {
+            background: linear-gradient(135deg, #FFD700, #1e3a5f);
+            border-color: #FFD700;
+        }
+
+        .card-comando h3 {
+            color: #1e90ff;
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+
+        body.dark .card-comando h3 {
+            color: #FFD700;
+        }
+
+        .card-comando .cargo {
+            color: #4a627a;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        body.dark .card-comando .cargo {
+            color: #b0c4de;
+        }
+
+        .card-comando .tempo {
+            color: #4a627a;
+            font-size: 0.9rem;
+        }
+
+        body.dark .card-comando .tempo {
+            color: #b0c4de;
+        }
+
+        /* MAPA */
+        .mapa-card {
+            background: white;
+            border-radius: 30px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(30, 144, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s;
+        }
+
+        .mapa-card h3 {
+            color: #1e90ff;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        body.dark .mapa-card h3 {
+            color: #FFD700;
+        }
+
+        .mapa-container {
+            width: 100%;
+            height: 300px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .mapa-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .endereco-mapa {
+            text-align: center;
+            color: #4a627a;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        /* BOTÃO MAPA SOFISTICADO */
+        .btn-mapa {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #1e90ff, #0a1628);
+            color: white;
+            text-decoration: none;
+            padding: 14px 32px;
+            border-radius: 60px;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 20px rgba(30, 144, 255, 0.4);
+            animation: mapaPulse 2s infinite;
+        }
+
+        body.dark .btn-mapa {
+            background: linear-gradient(135deg, #FFD700, #1e3a5f);
+            color: #0a1628;
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        @keyframes mapaPulse {
+            0% { transform: scale(1); box-shadow: 0 5px 20px rgba(30, 144, 255, 0.4); }
+            50% { transform: scale(1.03); box-shadow: 0 8px 30px rgba(30, 144, 255, 0.7); }
+            100% { transform: scale(1); box-shadow: 0 5px 20px rgba(30, 144, 255, 0.4); }
+        }
+
+        body.dark .btn-mapa {
+            animation: mapaPulseDark 2s infinite;
+        }
+
+        @keyframes mapaPulseDark {
+            0% { transform: scale(1); box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4); }
+            50% { transform: scale(1.03); box-shadow: 0 8px 30px rgba(255, 215, 0, 0.7); }
+            100% { transform: scale(1); box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4); }
+        }
+
+        .btn-mapa:hover {
+            transform: scale(1.08);
+            background: linear-gradient(135deg, #FFD700, #1e90ff);
+            color: #0a1628;
+            animation: none;
+        }
+
+        .btn-mapa .icone-mapa {
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+        }
+
+        .btn-mapa:hover .icone-mapa {
+            transform: translateX(5px);
+        }
+
+        /* RODAPÉ COM FAIXA AZUL */
+        .footer {
+            text-align: center;
+            padding: 0;
+            margin-top: 20px;
+            border-radius: 30px 30px 0 0;
+            overflow: hidden;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 0;
+            flex-wrap: wrap;
+            padding: 30px 20px 20px;
+            background: #e8f0fe;
+        }
+
+        body.dark .social-links {
+            background: #0f1a30;
+        }
+
+        .social-links a {
+            color: #0a1628;
+            text-decoration: none;
+            padding: 8px 20px;
+            border-radius: 50px;
+            background: white;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        body.dark .social-links a {
+            color: #ffffff;
+            background: #1e3a5f;
+        }
+
+        .social-links a:hover {
+            background: #1e90ff;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        body.dark .social-links a:hover {
+            background: #FFD700;
+            color: #0a1628;
+        }
+
+        /* FAIXA AZUL DA ASSINATURA */
+        .faixa-assinatura {
+            background: linear-gradient(135deg, #0a1628, #1e3a5f);
+            padding: 25px 20px;
+            width: 100%;
+        }
+
+        body.dark .faixa-assinatura {
+            background: linear-gradient(135deg, #0a1628, #1a2a4a);
+        }
+
+        .assinatura {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .assinatura p {
+            color: white;
+            margin: 8px 0;
+            font-size: 0.9rem;
+        }
+
+        .assinatura .destaque {
+            color: #FFD700;
+            font-weight: bold;
+        }
+
+        .assinatura .copyright {
+            font-size: 0.8rem;
+            margin-top: 15px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Efeitos de papel picado e foguetes */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            opacity: 0.8;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .firework {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 5;
+            animation: explode 1.5s ease-out forwards;
+        }
+
+        @keyframes explode {
+            0% { opacity: 1; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1.5); }
+            100% { opacity: 0; transform: scale(2); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header" id="header">
+    <div class="header-container">
+        <div class="nav-links">
+            <a href="index.html" class="active">🏠 INÍCIO</a>
+            <a href="chamada.html">✅ CHAMADA</a>
+            <a href="diretoria.html">👑 DIRETORIA</a>
+            <a href="./solicitaçoes.html">📋 SOLICITAÇÕES</a>
+            <button class="theme-btn" id="themeToggle" onclick="toggleTheme()">🌓 TEMA</button>
+        </div>
+        <div class="clima">
+            🌡️ 32°C | Manaus-AM
+        </div>
+    </div>
+</div>
+
+<div class="main-content">
+    <!-- CARROSSEL COM 3 IMAGENS -->
+    <div class="carrossel">
+        <div class="slides-container">
+            <div class="slide active">
+                <img src="./imagem.index/alvorada.jpg" alt="Unidos do Alvorada 1">
+            </div>
+            <div class="slide">
+                <img src="./imagem.index/alvorada2.jpg" alt="Unidos do Alvorada 2">
+            </div>
+            <div class="slide">
+                <img src="./imagem.index/alvorada3.jpg" alt="Unidos do Alvorada 3">
+            </div>
+        </div>
+        <div class="indicadores" id="indicadores"></div>
+    </div>
+
+    <!-- Card do texto digitado -->
+    <div class="card-texto" id="textCard">
+        <div class="typing-container">
+            <span id="typed-text"></span>
+            <span class="cursor"></span>
+        </div>
+    </div>
+
+    <!-- SEÇÃO INSCREVA-SE -->
+    <div class="inscreva-se">
+        <h2>📝 INSCREVA-SE</h2>
+        <p>Quer tocar na bateria da Unidos do Alvorada?<br>Venha fazer parte do espetáculo!</p>
+        <a href="formulario.html" class="btn-inscrever">🎵 QUERO PARTICIPAR 🎵</a>
+    </div>
+
+    <!-- SEÇÃO COMANDO DA BATERIA -->
+    <div class="comando">
+        <h2>🎭 COMANDO DA BATERIA</h2>
+        <div class="cards-comando">
+            <div class="card-comando">
+                <div class="foto">🥁</div>
+                <h3>CARLINHOS</h3>
+                <div class="cargo">MESTRE DE BATERIA</div>
+                <div class="tempo">⚡ 15 anos de experiência</div>
+                <div class="tempo">"O ritmo é a alma do samba"</div>
+            </div>
+            <div class="card-comando">
+                <div class="foto">👑</div>
+                <h3>MARCIO SILVA</h3>
+                <div class="cargo">DIRETOR DE BATERIA</div>
+                <div class="tempo">⚡ 10 anos na escola</div>
+                <div class="tempo">"União e disciplina no ritmo"</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAPA -->
+    <div class="mapa-card">
+        <h3>📍 ONDE FICAMOS</h3>
+        <div class="mapa-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.0!2d-60.0!3d-3.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zM8KwIDAnMC4wIlMgNjDCsDAnMC4wIlc!5e0!3m2!1spt-BR!2sbr!4v1234567890" 
+                allowfullscreen="" 
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+        <div class="endereco-mapa">
+            📍 Rua São Bernardo, 93 - Alvorada I, Manaus - AM, 69043-610
+        </div>
+        <div style="text-align: center;">
+            <a href="https://maps.app.goo.gl/Gk2rszenvhiXKukR6" target="_blank" class="btn-mapa">
+                <span class="icone-mapa">🗺️</span> ABRIR NO GOOGLE MAPS <span>→</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- RODAPÉ COM FAIXA AZUL -->
+    <div class="footer">
+        <div class="social-links">
+            <a href="#" onclick="alert('📷 Instagram em breve!')">📷 Instagram</a>
+            <a href="#" onclick="alert('📘 Facebook em breve!')">📘 Facebook</a>
+            <a href="#" onclick="alert('📺 YouTube em breve!')">📺 YouTube</a>
+            <a href="#" onclick="alert('💬 WhatsApp em breve!')">💬 WhatsApp</a>
+        </div>
+        <div class="faixa-assinatura">
+            <div class="assinatura">
+                <p>Desenvolvido por <span class="destaque">Jean Silva</span></p>
+                <p>✨ Tecnologia a favor do samba ✨</p>
+                <div class="copyright">
+                    <p>© 2026 Unidos do Alvorada. Todos os direitos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // TEMA ESCURO / CLARO
+    function toggleTheme() {
+        const body = document.body;
+        if (body.classList.contains('dark')) {
+            body.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        } else {
+            body.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        }
+    }
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark');
+    } else {
+        document.body.classList.remove('dark');
+    }
+
+    // EFEITO DE DIGITAÇÃO
+    const phrases = [
+        "ARROCHA ALVORADA 🎵",
+        "A SAUDADE APERTOU 🎵",
+        "A ESPERANÇA CONTINUA 🎵",
+        "Esse é meu lugar, a minha raiz, eu sou Alvorada, eu sou feliz 🎵",
+        "Alvorada do meu, do seu, do nosso coração 🎵"
+    ];
+    
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let currentText = '';
+    const typedTextElement = document.getElementById('typed-text');
+    
+    function typeEffect() {
+        const currentPhrase = phrases[phraseIndex];
+        
+        if (isDeleting) {
+            currentText = currentPhrase.substring(0, charIndex - 1);
+            charIndex--;
+        } else {
+            currentText = currentPhrase.substring(0, charIndex + 1);
+            charIndex++;
+        }
+        
+        typedTextElement.textContent = currentText;
+        
+        if (!isDeleting && charIndex === currentPhrase.length) {
+            isDeleting = true;
+            setTimeout(typeEffect, 2000);
+            return;
+        }
+        
+        if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            phraseIndex = (phraseIndex + 1) % phrases.length;
+            setTimeout(typeEffect, 500);
+            return;
+        }
+        
+        const speed = isDeleting ? 50 : 100;
+        setTimeout(typeEffect, speed);
+    }
+    
+    typeEffect();
+
+    // CARROSSEL DE IMAGENS
+    const slides = document.querySelectorAll('.slide');
+    const indicadoresDiv = document.getElementById('indicadores');
+    let currentSlide = 0;
+    let interval;
+
+    slides.forEach((_, index) => {
+        const indicador = document.createElement('div');
+        indicador.classList.add('indicador');
+        if (index === 0) indicador.classList.add('active');
+        indicador.addEventListener('click', () => goToSlide(index));
+        indicadoresDiv.appendChild(indicador);
+    });
+
+    const indicadores = document.querySelectorAll('.indicador');
+
+    function goToSlide(index) {
+        slides[currentSlide].classList.remove('active');
+        indicadores[currentSlide].classList.remove('active');
+        currentSlide = index;
+        slides[currentSlide].classList.add('active');
+        indicadores[currentSlide].classList.add('active');
+    }
+
+    function nextSlide() {
+        let next = (currentSlide + 1) % slides.length;
+        goToSlide(next);
+    }
+
+    function startCarrossel() {
+        interval = setInterval(nextSlide, 4000);
+    }
+
+    startCarrossel();
+
+    // EFEITOS DE PAPEL PICADO E FOGUETES
+    const textCard = document.getElementById('textCard');
+    const header = document.getElementById('header');
+    
+    function createConfetti(parent, isIntense = true) {
+        if (!parent) return;
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        
+        const colors = ['#FFD700', '#1e90ff', '#ffffff', '#FF6347', '#00FF7F', '#FF69B4'];
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        
+        const parentRect = parent.getBoundingClientRect();
+        let x;
+        if (Math.random() > 0.6) {
+            x = Math.random() > 0.5 ? -10 : parentRect.width - 10;
+        } else {
+            x = Math.random() * (parentRect.width - 20);
+        }
+        
+        confetti.style.left = x + 'px';
+        confetti.style.top = '-10px';
+        
+        const size = isIntense ? Math.random() * 12 + 6 : Math.random() * 8 + 4;
+        confetti.style.width = size + 'px';
+        confetti.style.height = size + 'px';
+        confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0%';
+        
+        parent.appendChild(confetti);
+        
+        let posY = -10;
+        let opacity = 0.9;
+        const speed = isIntense ? 20 : 35;
+        const intervalConf = setInterval(() => {
+            posY += 2;
+            opacity -= 0.008;
+            confetti.style.top = posY + 'px';
+            confetti.style.opacity = opacity;
+            
+            if (posY > parentRect.height || opacity <= 0) {
+                clearInterval(intervalConf);
+                confetti.remove();
+            }
+        }, speed);
+    }
+    
+    function createFirework() {
+        if (!textCard) return;
+        const firework = document.createElement('div');
+        firework.classList.add('firework');
+        
+        const cardRect = textCard.getBoundingClientRect();
+        const x = Math.random() * (cardRect.width - 10);
+        const y = Math.random() * (cardRect.height - 10);
+        
+        firework.style.left = x + 'px';
+        firework.style.top = y + 'px';
+        firework.style.backgroundColor = ['#FFD700', '#FF6347', '#FF69B4', '#00FFFF', '#1e90ff'][Math.floor(Math.random() * 5)];
+        
+        textCard.appendChild(firework);
+        
+        setTimeout(() => {
+            firework.remove();
+        }, 1500);
+    }
+    
+    setInterval(() => createConfetti(textCard, true), 120);
+    setInterval(createFirework, 700);
+    setInterval(() => createConfetti(header, false), 400);
+</script>
+
+</body>
+</html>

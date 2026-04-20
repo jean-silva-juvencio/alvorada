@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Unidos do Alvorada | Diretoria</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #e8f0fe 0%, #dce6f5 100%);
+            color: #0a1628;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark {
+            background: linear-gradient(135deg, #0a1628 0%, #0f1a30 100%);
+            color: #ffffff;
+        }
+
+        body.dark .card {
+            background: linear-gradient(135deg, #1e3a5f, #142142);
+            border-color: rgba(255, 215, 0, 0.3);
+        }
+
+        body.dark .card-dash {
+            background: #0f1a30;
+        }
+
+        body.dark .grafico-card {
+            background: #0f1a30;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 12px 20px;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            border-bottom: 2px solid #1e90ff;
+            transition: background 0.3s ease;
+        }
+
+        body.dark .header {
+            background: rgba(10, 22, 40, 0.95);
+            border-bottom-color: #FFD700;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #0a1628;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            padding: 8px 0;
+            position: relative;
+        }
+
+        body.dark .nav-links a { color: #ffffff; }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #1e90ff;
+            transition: width 0.3s;
+        }
+        body.dark .nav-links a::after { background: #FFD700; }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-links a:hover { color: #1e90ff; }
+        body.dark .nav-links a:hover { color: #FFD700; }
+        .nav-links a.active { color: #1e90ff; }
+
+        .theme-btn {
+            background: #1e90ff;
+            border: none;
+            border-radius: 50px;
+            padding: 6px 16px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s;
+        }
+        .theme-btn:hover { transform: scale(1.05); background: #FFD700; color: #0a1628; }
+        body.dark .theme-btn { background: #FFD700; color: #0a1628; }
+        body.dark .theme-btn:hover { background: #1e90ff; color: white; }
+
+        .main-content { max-width: 1400px; margin: 0 auto; padding: 100px 20px 40px; }
+        
+        .card {
+            background: white;
+            border-radius: 30px;
+            padding: 30px;
+            border: 1px solid rgba(30, 144, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s;
+            margin-bottom: 25px;
+        }
+        .card h1 { color: #1e90ff; margin-bottom: 5px; }
+        body.dark .card h1 { color: #FFD700; }
+
+        .dashboard {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .card-dash {
+            flex: 1;
+            background: #e8f0fe;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+        }
+        .card-dash .numero { font-size: 2.5rem; font-weight: bold; color: #1e90ff; }
+        body.dark .card-dash .numero { color: #FFD700; }
+        .card-dash .label { font-size: 0.9rem; }
+
+        .destaque-idade {
+            background: linear-gradient(135deg, #1e90ff, #0a1628);
+            color: white;
+            text-align: center;
+            padding: 25px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+        }
+        body.dark .destaque-idade {
+            background: linear-gradient(135deg, #FFD700, #1e3a5f);
+            color: #0a1628;
+        }
+        .destaque-idade .numero { font-size: 3rem; font-weight: bold; }
+        .destaque-idade .label { font-size: 1rem; margin-top: 10px; }
+
+        .filtro-container {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .filtro-container label {
+            font-weight: 600;
+        }
+        .filtro-container select {
+            padding: 10px 15px;
+            border-radius: 12px;
+            border: 1px solid #ccc;
+            flex: 1;
+            min-width: 200px;
+            font-size: 0.9rem;
+        }
+        body.dark .filtro-container select {
+            background: #0f1a30;
+            border-color: #1e3a5f;
+            color: white;
+        }
+
+        .graficos-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+        .grafico-card {
+            background: #e8f0fe;
+            border-radius: 20px;
+            padding: 20px;
+        }
+        .grafico-card h3 {
+            margin-bottom: 15px;
+            color: #1e90ff;
+            text-align: center;
+        }
+        body.dark .grafico-card h3 {
+            color: #FFD700;
+        }
+        canvas { max-height: 250px; width: 100% !important; }
+
+        .ultimas-chamadas {
+            margin-bottom: 25px;
+        }
+        .ultimas-chamadas table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .ultimas-chamadas th, .ultimas-chamadas td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+        }
+        body.dark .ultimas-chamadas th, body.dark .ultimas-chamadas td {
+            border-bottom-color: #1e3a5f;
+        }
+
+        .acesso-rapido {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .btn-rapido {
+            background: linear-gradient(135deg, #1e90ff, #0a1628);
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        body.dark .btn-rapido {
+            background: linear-gradient(135deg, #FFD700, #1e3a5f);
+            color: #0a1628;
+        }
+        .btn-rapido:hover { transform: scale(1.05); }
+
+        .footer { text-align: center; padding: 30px 20px; margin-top: 30px; border-radius: 30px 30px 0 0; background: linear-gradient(135deg, #0a1628, #1e3a5f); }
+        .footer p { color: white; margin: 5px 0; font-size: 0.9rem; }
+        .footer .destaque { color: #FFD700; font-weight: bold; }
+
+        @media (max-width: 768px) {
+            .graficos-grid { grid-template-columns: 1fr; }
+            .dashboard { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="header-container">
+        <div class="nav-links">
+            <a href="index.html">🏠 INÍCIO</a>
+            <a href="chamada.html">✅ CHAMADA</a>
+            <a href="diretoria.html" class="active">👑 DIRETORIA</a>
+            <a href="solicitacoes.html">📋 SOLICITAÇÕES</a>
+            <button class="theme-btn" onclick="toggleTheme()">🌓 TEMA</button>
+        </div>
+    </div>
+</div>
+
+<div class="main-content">
+    <div class="card">
+        <h1>👑 DIRETORIA</h1>
+        <p>Painel administrativo com estatísticas da bateria</p>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="dashboard" id="dashboard">
+        <div class="card-dash"><div class="numero" id="totalRitmistas">0</div><div class="label">👥 TOTAL RITMISTAS</div></div>
+        <div class="card-dash"><div class="numero" id="totalAtivos">0</div><div class="label">🟢 ATIVOS</div></div>
+        <div class="card-dash"><div class="numero" id="totalPendentes">0</div><div class="label">🟡 PENDENTES</div></div>
+        <div class="card-dash"><div class="numero" id="totalInativos">0</div><div class="label">🔴 INATIVOS</div></div>
+    </div>
+
+    <!-- MÉDIA DE IDADE EM DESTAQUE -->
+    <div class="destaque-idade">
+        <div class="numero" id="mediaIdade">0</div>
+        <div class="label">🎂 MÉDIA DE IDADE DOS RITMISTAS</div>
+    </div>
+
+    <!-- FILTRO POR INSTRUMENTO -->
+    <div class="filtro-container">
+        <label>🎛️ FILTRAR POR INSTRUMENTO:</label>
+        <select id="filtroInstrumento" onchange="aplicarFiltro()">
+            <option value="todos">🥁 Todos os instrumentos</option>
+            <option value="Surdo">🥁 Surdo</option>
+            <option value="Caixa">🥁 Caixa</option>
+            <option value="Repique">🥁 Repique</option>
+            <option value="Tamborim">🥁 Tamborim</option>
+            <option value="Chocalho">🥁 Chocalho</option>
+            <option value="Cuíca">🥁 Cuíca</option>
+        </select>
+    </div>
+
+    <!-- GRÁFICOS PRINCIPAIS -->
+    <div class="graficos-grid">
+        <div class="grafico-card"><h3>🥧 PRESENÇA GERAL</h3><canvas id="graficoPresenca"></canvas></div>
+        <div class="grafico-card"><h3>⭐ NÍVEL DE EXPERIÊNCIA</h3><canvas id="graficoNivel"></canvas></div>
+        <div class="grafico-card"><h3>👕 TAMANHO DA CAMISA</h3><canvas id="graficoCamisa"></canvas></div>
+        <div class="grafico-card"><h3>🏘️ RITMISTAS POR BAIRRO</h3><canvas id="graficoBairro"></canvas></div>
+    </div>
+
+    <!-- PRESENÇAS E FALTAS (PIZZA) -->
+    <div class="card">
+        <h3 style="text-align: center;">📊 PRESENÇAS E FALTAS</h3>
+        <canvas id="graficoPresencaFalta" style="max-height: 300px;"></canvas>
+    </div>
+
+    <!-- EVOLUÇÃO MENSAL -->
+    <div class="card">
+        <h3 style="text-align: center;">📈 EVOLUÇÃO MENSAL DA PRESENÇA</h3>
+        <canvas id="graficoMensal" style="max-height: 300px;"></canvas>
+    </div>
+
+    <!-- ÚLTIMAS CHAMADAS -->
+    <div class="card">
+        <h3>📋 ÚLTIMAS CHAMADAS</h3>
+        <div class="ultimas-chamadas">
+            <table id="tabelaChamadas">
+                <thead><tr><th>Data</th><th>Presentes</th><th>Ausentes</th><th>Total</th><th>%</th></tr></thead>
+                <tbody id="tbodyChamadas"><tr><td colspan="5">Carregando...<\/td><\/tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ACESSO RÁPIDO -->
+    <div class="acesso-rapido">
+        <a href="chamada.html" class="btn-rapido">✅ CHAMADA</a>
+        <a href="solicitacoes.html" class="btn-rapido">📋 SOLICITAÇÕES</a>
+        <a href="formulario.html" class="btn-rapido">📝 FORMULÁRIO</a>
+    </div>
+
+    <div class="footer">
+        <p>Desenvolvido por <span class="destaque">Jean Silva</span></p>
+        <p>✨ Tecnologia a favor do samba ✨</p>
+        <p>© 2026 Unidos do Alvorada. Todos os direitos reservados.</p>
+    </div>
+</div>
+
+<script>
+    function toggleTheme() {
+        const body = document.body;
+        if (body.classList.contains('dark')) {
+            body.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        } else {
+            body.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        }
+    }
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') document.body.classList.add('dark');
+
+    const URL_SCRIPT = 'https://script.google.com/macros/s/AKfycbzpSa3TKzqegv2W0dteMp0aytiGDWEl2GHUQYDJHu89XMG5StkfenemE9p_PVsvWMfCdg/exec';
+
+    let ritmistas = [];
+    let presencas = [];
+    let filtroAtual = 'todos';
+    let charts = {};
+
+    async function carregarDados() {
+        try {
+            const response = await fetch(`${URL_SCRIPT}?acao=buscarTodosRitmistas`);
+            const data = await response.json();
+            if (data.success) ritmistas = data.ritmistas;
+        } catch (error) { console.error('Erro ao carregar ritmistas:', error); }
+
+        try {
+            const response = await fetch(`${URL_SCRIPT}?acao=buscarPresencas`);
+            const data = await response.json();
+            if (data.success) presencas = data.presencas;
+        } catch (error) { console.error('Erro ao carregar presenças:', error); }
+
+        atualizarDashboard();
+        atualizarUltimasChamadas();
+        renderizarGraficos();
+    }
+
+    function atualizarDashboard() {
+        const ritmistasFiltrados = getRitmistasFiltrados();
+        const total = ritmistasFiltrados.length;
+        const ativos = ritmistasFiltrados.filter(r => r.status === 'Ativo').length;
+        const pendentes = ritmistasFiltrados.filter(r => r.status === 'Pendente').length;
+        const inativos = ritmistasFiltrados.filter(r => r.status === 'Desativado').length;
+        document.getElementById('totalRitmistas').textContent = total;
+        document.getElementById('totalAtivos').textContent = ativos;
+        document.getElementById('totalPendentes').textContent = pendentes;
+        document.getElementById('totalInativos').textContent = inativos;
+
+        // Média de idade
+        let somaIdade = 0, countIdade = 0;
+        const anoAtual = new Date().getFullYear();
+        ritmistasFiltrados.forEach(r => {
+            if (r.dataNasc && r.dataNasc.length >= 4) {
+                let anoNasc = parseInt(r.dataNasc.substring(0, 4));
+                if (!isNaN(anoNasc) && anoNasc > 1900 && anoNasc <= anoAtual) {
+                    somaIdade += anoAtual - anoNasc;
+                    countIdade++;
+                }
+            }
+        });
+        const media = countIdade > 0 ? Math.round(somaIdade / countIdade) : 0;
+        document.getElementById('mediaIdade').textContent = `${media} anos`;
+    }
+
+    function atualizarUltimasChamadas() {
+        const tbody = document.getElementById('tbodyChamadas');
+        tbody.innerHTML = '';
+        const ultimas = [...presencas].reverse().slice(0, 10);
+        if (ultimas.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="5">Nenhuma chamada registrada<\/td><\/tr>';
+            return;
+        }
+        ultimas.forEach(c => {
+            const row = tbody.insertRow();
+            row.insertCell(0).textContent = c.data;
+            row.insertCell(1).textContent = c.presentes || 0;
+            row.insertCell(2).textContent = c.ausentes || 0;
+            row.insertCell(3).textContent = (c.presentes || 0) + (c.ausentes || 0);
+            const percentual = c.presentes && c.ausentes ? Math.round((c.presentes / (c.presentes + c.ausentes)) * 100) : 0;
+            row.insertCell(4).textContent = `${percentual}%`;
+        });
+    }
+
+    function aplicarFiltro() {
+        filtroAtual = document.getElementById('filtroInstrumento').value;
+        atualizarDashboard();
+        renderizarGraficos();
+    }
+
+    function getRitmistasFiltrados() {
+        if (filtroAtual === 'todos') return ritmistas;
+        return ritmistas.filter(r => r.instrumento && r.instrumento.toLowerCase() === filtroAtual.toLowerCase());
+    }
+
+    function renderizarGraficos() {
+        const ritmistasFiltrados = getRitmistasFiltrados();
+
+        // Gráfico de presença geral (pizza com porcentagem)
+        let totalPresentesGeral = 0, totalFaltasGeral = 0;
+        presencas.forEach(p => {
+            totalPresentesGeral += p.presentes || 0;
+            totalFaltasGeral += p.ausentes || 0;
+        });
+        const totalGeral = totalPresentesGeral + totalFaltasGeral;
+        const pctPresente = totalGeral > 0 ? Math.round((totalPresentesGeral / totalGeral) * 100) : 0;
+        const pctFalta = totalGeral > 0 ? Math.round((totalFaltasGeral / totalGeral) * 100) : 0;
+        
+        if (charts.presenca) charts.presenca.destroy();
+        charts.presenca = new Chart(document.getElementById('graficoPresenca'), {
+            type: 'pie',
+            data: { 
+                labels: [`✅ Presentes ${pctPresente}%`, `❌ Ausentes ${pctFalta}%`], 
+                datasets: [{ data: [totalPresentesGeral, totalFaltasGeral], backgroundColor: ['#00cc66', '#ff4444'] }] 
+            },
+            options: {
+                plugins: {
+                    tooltip: { callbacks: { label: (ctx) => `${ctx.label}: ${ctx.raw}` } }
+                }
+            }
+        });
+
+        // Gráfico de nível de experiência (pizza com porcentagem)
+        const niveis = { 'Primeira vez': 0, 'Básico': 0, 'Intermediário': 0, 'Avançado': 0 };
+        ritmistasFiltrados.forEach(r => { if (r.nivel) niveis[r.nivel]++; });
+        const totalNiveis = Object.values(niveis).reduce((a, b) => a + b, 0);
+        const niveisLabels = Object.keys(niveis).map(k => {
+            const pct = totalNiveis > 0 ? Math.round((niveis[k] / totalNiveis) * 100) : 0;
+            return `${k} (${pct}%)`;
+        });
+        if (charts.nivel) charts.nivel.destroy();
+        charts.nivel = new Chart(document.getElementById('graficoNivel'), {
+            type: 'pie',
+            data: { 
+                labels: niveisLabels, 
+                datasets: [{ data: Object.values(niveis), backgroundColor: ['#00cc66', '#1e90ff', '#FFD700', '#ff4444'] }] 
+            }
+        });
+
+        // Gráfico de tamanho da camisa (barras com números)
+        const camisas = { 'PP': 0, 'P': 0, 'M': 0, 'G': 0, 'GG': 0, 'GGG': 0, 'XGG': 0 };
+        ritmistasFiltrados.forEach(r => { if (r.blusa) camisas[r.blusa.toUpperCase()]++; });
+        if (charts.camisa) charts.camisa.destroy();
+        charts.camisa = new Chart(document.getElementById('graficoCamisa'), {
+            type: 'bar',
+            data: { 
+                labels: Object.keys(camisas), 
+                datasets: [{ label: 'Quantidade', data: Object.values(camisas), backgroundColor: '#1e90ff' }] 
+            },
+            options: {
+                plugins: {
+                    tooltip: { callbacks: { label: (ctx) => `${ctx.raw} ritmistas` } }
+                }
+            }
+        });
+
+        // Gráfico de bairro (barras com números)
+        const bairros = {};
+        ritmistasFiltrados.forEach(r => { if (r.bairro) bairros[r.bairro] = (bairros[r.bairro] || 0) + 1; });
+        const bairrosSorted = Object.entries(bairros).sort((a, b) => b[1] - a[1]).slice(0, 10);
+        if (charts.bairro) charts.bairro.destroy();
+        charts.bairro = new Chart(document.getElementById('graficoBairro'), {
+            type: 'bar',
+            data: { 
+                labels: bairrosSorted.map(b => b[0]), 
+                datasets: [{ label: 'Quantidade', data: bairrosSorted.map(b => b[1]), backgroundColor: '#FFD700' }] 
+            },
+            options: {
+                plugins: {
+                    tooltip: { callbacks: { label: (ctx) => `${ctx.raw} ritmistas` } }
+                }
+            }
+        });
+
+        // Gráfico de presenças e faltas (PIZZA com porcentagem)
+        let totalPresencas = 0, totalFaltas = 0;
+        presencas.forEach(p => {
+            totalPresencas += p.presentes || 0;
+            totalFaltas += p.ausentes || 0;
+        });
+        const totalPF = totalPresencas + totalFaltas;
+        const pctP = totalPF > 0 ? Math.round((totalPresencas / totalPF) * 100) : 0;
+        const pctF = totalPF > 0 ? Math.round((totalFaltas / totalPF) * 100) : 0;
+        
+        if (charts.presencaFalta) charts.presencaFalta.destroy();
+        charts.presencaFalta = new Chart(document.getElementById('graficoPresencaFalta'), {
+            type: 'pie',
+            data: { 
+                labels: [`✅ Presentes ${pctP}%`, `❌ Faltas ${pctF}%`], 
+                datasets: [{ data: [totalPresencas, totalFaltas], backgroundColor: ['#00cc66', '#ff4444'] }] 
+            }
+        });
+
+        // Gráfico mensal (evolução) com números nas barras
+        const meses = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+        const presencaMensal = new Array(12).fill(0);
+        const totalMensal = new Array(12).fill(0);
+        presencas.forEach(p => {
+            if (p.data) {
+                const mes = new Date(p.data).getMonth();
+                presencaMensal[mes] += p.presentes || 0;
+                totalMensal[mes] += (p.presentes || 0) + (p.ausentes || 0);
+            }
+        });
+        const pctMensal = meses.map((_, i) => totalMensal[i] > 0 ? Math.round((presencaMensal[i] / totalMensal[i]) * 100) : 0);
+        if (charts.mensal) charts.mensal.destroy();
+        charts.mensal = new Chart(document.getElementById('graficoMensal'), {
+            type: 'bar',
+            data: { 
+                labels: meses, 
+                datasets: [{ label: 'Presença (%)', data: pctMensal, backgroundColor: '#1e90ff' }] 
+            },
+            options: {
+                plugins: {
+                    tooltip: { callbacks: { label: (ctx) => `${ctx.raw}%` } }
+                }
+            }
+        });
+    }
+
+    carregarDados();
+    setInterval(carregarDados, 30000);
+</script>
+
+</body>
+</html>

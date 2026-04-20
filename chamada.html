@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Unidos do Alvorada | Chamada da Bateria</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #e8f0fe 0%, #dce6f5 100%);
+            color: #0a1628;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark {
+            background: linear-gradient(135deg, #0a1628 0%, #0f1a30 100%);
+            color: #ffffff;
+        }
+
+        body.dark .card {
+            background: linear-gradient(135deg, #1e3a5f, #142142);
+            border-color: rgba(255, 215, 0, 0.3);
+        }
+
+        body.dark table th {
+            background: #0f1a30;
+            color: #FFD700;
+        }
+
+        body.dark table td {
+            border-bottom-color: rgba(255, 215, 0, 0.2);
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 12px 20px;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            border-bottom: 2px solid #1e90ff;
+            transition: background 0.3s ease;
+        }
+
+        body.dark .header {
+            background: rgba(10, 22, 40, 0.95);
+            border-bottom-color: #FFD700;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #0a1628;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            padding: 8px 0;
+            position: relative;
+        }
+
+        body.dark .nav-links a { color: #ffffff; }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #1e90ff;
+            transition: width 0.3s;
+        }
+        body.dark .nav-links a::after { background: #FFD700; }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-links a:hover { color: #1e90ff; }
+        body.dark .nav-links a:hover { color: #FFD700; }
+        .nav-links a.active { color: #1e90ff; }
+
+        .theme-btn {
+            background: #1e90ff;
+            border: none;
+            border-radius: 50px;
+            padding: 6px 16px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s;
+        }
+        .theme-btn:hover { transform: scale(1.05); background: #FFD700; color: #0a1628; }
+        body.dark .theme-btn { background: #FFD700; color: #0a1628; }
+        body.dark .theme-btn:hover { background: #1e90ff; color: white; }
+
+        .main-content { max-width: 1400px; margin: 0 auto; padding: 100px 20px 40px; }
+        .card {
+            background: white;
+            border-radius: 30px;
+            padding: 30px;
+            border: 1px solid rgba(30, 144, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s;
+        }
+        .card h1 { color: #1e90ff; margin-bottom: 5px; }
+        body.dark .card h1 { color: #FFD700; }
+
+        .data-container {
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .data-container label { font-weight: 600; }
+        .data-container input {
+            padding: 10px 15px;
+            border-radius: 12px;
+            border: 1px solid #ccc;
+            background: white;
+            font-size: 1rem;
+        }
+        body.dark .data-container input { background: #0f1a30; border-color: #1e3a5f; color: white; }
+
+        .filtros {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .filtros input, .filtros select {
+            padding: 10px 15px;
+            border-radius: 12px;
+            border: 1px solid #ccc;
+            flex: 1;
+            min-width: 150px;
+            font-size: 0.9rem;
+        }
+        .btn-recarga {
+            background: linear-gradient(135deg, #FFD700, #1e90ff);
+            color: #0a1628;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .btn-recarga:hover { transform: scale(1.02); background: #FFD700; color: #0a1628; }
+        body.dark .filtros input, body.dark .filtros select { background: #0f1a30; border-color: #1e3a5f; color: white; }
+
+        .tabela-container { overflow-x: auto; margin-bottom: 25px; }
+        table { width: 100%; border-collapse: collapse; }
+        table th { text-align: left; padding: 12px; background: #e8f0fe; font-weight: 600; }
+        body.dark table th { background: #0f1a30; color: #FFD700; }
+        table td { padding: 12px; border-bottom: 1px solid #e0e0e0; }
+        body.dark table td { border-bottom-color: rgba(255, 215, 0, 0.2); }
+
+        .linha-presente { background-color: #d4edda !important; }
+        .linha-ausente { background-color: #f8d7da !important; }
+        body.dark .linha-presente { background-color: #155724 !important; }
+        body.dark .linha-ausente { background-color: #721c24 !important; }
+
+        .btn-presenca {
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 10px;
+            transition: all 0.2s;
+            width: 45px;
+        }
+        .btn-presente { color: #00cc66; }
+        .btn-presente:hover { background: #00cc66; color: white; }
+        .btn-ausente { color: #ff4444; }
+        .btn-ausente:hover { background: #ff4444; color: white; }
+        .btn-presente-ativo { background: #00cc66; color: white; }
+        .btn-ausente-ativo { background: #ff4444; color: white; }
+
+        .resumo {
+            background: #e8f0fe;
+            border-radius: 20px;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        body.dark .resumo { background: #0f1a30; }
+        .resumo-item { text-align: center; flex: 1; }
+        .resumo-valor { font-size: 2rem; font-weight: bold; color: #1e90ff; }
+        body.dark .resumo-valor { color: #FFD700; }
+        .resumo-label { font-size: 0.8rem; }
+
+        .botoes-acao { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; margin-top: 20px; }
+        .btn-acao {
+            background: linear-gradient(135deg, #1e90ff, #0a1628);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        body.dark .btn-acao { background: linear-gradient(135deg, #FFD700, #1e3a5f); color: #0a1628; }
+        .btn-acao:hover { transform: scale(1.05); background: linear-gradient(135deg, #FFD700, #1e90ff); color: #0a1628; }
+        .btn-acao:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+        .status-carregamento { text-align: center; padding: 20px; color: #1e90ff; font-weight: bold; }
+
+        .footer { text-align: center; padding: 30px 20px; margin-top: 30px; border-radius: 30px 30px 0 0; background: linear-gradient(135deg, #0a1628, #1e3a5f); }
+        .footer p { color: white; margin: 5px 0; font-size: 0.9rem; }
+        .footer .destaque { color: #FFD700; font-weight: bold; }
+
+        .alerta {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #00cc66;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            animation: fadeOut 3s forwards;
+            z-index: 1000;
+        }
+        .alerta-erro { background: #ff4444; }
+        .alerta-aviso { background: #ff9800; }
+        @keyframes fadeOut { 0% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
+
+        @media (max-width: 768px) {
+            .btn-acao { padding: 10px 18px; font-size: 0.8rem; }
+            .resumo-valor { font-size: 1.5rem; }
+            table th, table td { padding: 8px; font-size: 0.8rem; }
+            .filtros { flex-direction: column; }
+            .btn-recarga { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="header-container">
+        <div class="nav-links">
+            <a href="chamada.html" class="active">✅ CHAMADA</a>
+            <a href="index.html">🏠 INÍCIO</a>
+            <button class="theme-btn" onclick="toggleTheme()">🌓 TEMA</button>
+        </div>
+    </div>
+</div>
+
+<div class="main-content">
+    <div class="card">
+        <h1>✅ CHAMADA DA BATERIA</h1>
+        <p style="margin-bottom: 20px;">Marque a presença dos ritmistas nos ensaios</p>
+
+        <div class="data-container">
+            <label>📅 Data do ensaio:</label>
+            <input type="date" id="dataEnsaio" value="2026-04-20">
+        </div>
+
+        <div class="filtros">
+            <input type="text" id="buscaNome" placeholder="🔍 Buscar por nome..." onkeyup="filtrarTabela()">
+            <select id="filtroInstrumento" onchange="filtrarTabela()">
+                <option value="todos">🥁 Todos os instrumentos</option>
+                <option value="Surdo">🥁 Surdo</option>
+                <option value="Caixa">🥁 Caixa</option>
+                <option value="Repique">🥁 Repique</option>
+                <option value="Tamborim">🥁 Tamborim</option>
+                <option value="Chocalho">🥁 Chocalho</option>
+                <option value="Cuíca">🥁 Cuíca</option>
+            </select>
+            <button class="btn-recarga" onclick="carregarRitmistas()">🔄 CARREGAR PÁGINA</button>
+        </div>
+
+        <div id="statusCarregamento" class="status-carregamento">🔄 Carregando ritmistas da planilha...</div>
+
+        <div class="tabela-container">
+            <table id="tabelaChamada">
+                <thead>
+                    <tr><th>RITMISTA</th><th>INSTRUMENTO</th><th>✅ PRESENTE</th><th>❌ AUSENTE</th></tr>
+                </thead>
+                <tbody id="tabelaBody">
+                    <tr><td colspan="4" style="text-align: center;">Aguardando carregamento...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="resumo">
+            <div class="resumo-item"><div class="resumo-valor" id="totalPresentes">0</div><div class="resumo-label">✅ PRESENTES</div></div>
+            <div class="resumo-item"><div class="resumo-valor" id="totalAusentes">0</div><div class="resumo-label">❌ AUSENTES</div></div>
+            <div class="resumo-item"><div class="resumo-valor" id="totalGeral">0</div><div class="resumo-label">👥 TOTAL</div></div>
+        </div>
+
+        <div class="botoes-acao">
+            <button class="btn-acao" id="btnSalvar" onclick="salvarChamada()">💾 SALVAR CHAMADA</button>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <p>Desenvolvido por <span class="destaque">Jean Silva</span></p>
+    <p>✨ Tecnologia a favor do samba ✨</p>
+    <p>© 2026 Unidos do Alvorada. Todos os direitos reservados.</p>
+</div>
+
+<script>
+    // TEMA
+    function toggleTheme() {
+        const body = document.body;
+        if (body.classList.contains('dark')) {
+            body.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        } else {
+            body.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        }
+    }
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') document.body.classList.add('dark');
+
+    // ⚠️ SEU URL DO GOOGLE APPS SCRIPT ⚠️
+    const URL_SCRIPT = 'https://script.google.com/macros/s/AKfycbwcXt8fFwvi9hbcCYlDkt7ik2j3h7wjP33Gg7RQPf4KHaxE-noFU5tAZE__KW5Bq9zoww/exec';
+
+    let ritmistas = [];
+    let filtroNome = '';
+    let filtroInstrumento = 'todos';
+    let intervaloAtualizacao = null;
+    let chamadasSalvas = JSON.parse(localStorage.getItem('chamadas')) || {};
+
+    async function carregarRitmistas() {
+        const statusDiv = document.getElementById('statusCarregamento');
+        statusDiv.innerHTML = '🔄 Carregando ritmistas da planilha...';
+        statusDiv.style.color = '#1e90ff';
+        
+        try {
+            const response = await fetch(`${URL_SCRIPT}?acao=buscarRitmistas`);
+            const data = await response.json();
+            
+            if (data.success && data.ritmistas) {
+                ritmistas = data.ritmistas.map(r => ({ ...r, presente: null }));
+                renderizarTabela();
+                statusDiv.innerHTML = `✅ ${ritmistas.length} ritmistas carregados! Última atualização: ${new Date().toLocaleTimeString()}`;
+                statusDiv.style.color = '#00cc66';
+                setTimeout(() => { statusDiv.innerHTML = '✅ Pronto para chamada'; }, 3000);
+            } else {
+                statusDiv.innerHTML = '❌ Nenhum ritmista encontrado. Verifique se há ritmistas com status "Ativo" na planilha.';
+                statusDiv.style.color = '#ff4444';
+            }
+        } catch (error) {
+            statusDiv.innerHTML = '❌ Erro de conexão com a planilha!';
+            statusDiv.style.color = '#ff4444';
+            mostrarAlerta('Erro de conexão com a planilha!', 'erro');
+        }
+    }
+
+    function renderizarTabela() {
+        const tbody = document.getElementById('tabelaBody');
+        tbody.innerHTML = '';
+        
+        let presentes = 0, ausentes = 0;
+        
+        const filtrados = ritmistas.filter(r => {
+            const matchNome = r.nome.toLowerCase().includes(filtroNome.toLowerCase());
+            let matchInstrumento = true;
+            if (filtroInstrumento !== 'todos') {
+                const instRitmista = r.instrumento.toLowerCase().trim();
+                const instFiltro = filtroInstrumento.toLowerCase().trim();
+                matchInstrumento = instRitmista === instFiltro;
+            }
+            return matchNome && matchInstrumento;
+        });
+        
+        if (filtrados.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="4" style="text-align: center;">Nenhum ritmista encontrado</td></tr>';
+            document.getElementById('totalGeral').textContent = '0';
+            document.getElementById('totalPresentes').textContent = '0';
+            document.getElementById('totalAusentes').textContent = '0';
+            return;
+        }
+        
+        filtrados.forEach(ritmista => {
+            const row = tbody.insertRow();
+            
+            if (ritmista.presente === true) {
+                row.classList.add('linha-presente');
+                presentes++;
+            } else if (ritmista.presente === false) {
+                row.classList.add('linha-ausente');
+                ausentes++;
+            }
+            
+            const cellNome = row.insertCell(0);
+            cellNome.textContent = ritmista.nome;
+            cellNome.style.fontWeight = 'bold';
+            
+            const cellInst = row.insertCell(1);
+            cellInst.textContent = ritmista.instrumento;
+            
+            const cellPresente = row.insertCell(2);
+            const btnPresente = document.createElement('button');
+            btnPresente.textContent = '✅';
+            btnPresente.className = 'btn-presenca btn-presente';
+            if (ritmista.presente === true) btnPresente.classList.add('btn-presente-ativo');
+            btnPresente.onclick = (function(r) {
+                return function() { togglePresenca(r, true); };
+            })(ritmista);
+            cellPresente.appendChild(btnPresente);
+            
+            const cellAusente = row.insertCell(3);
+            const btnAusente = document.createElement('button');
+            btnAusente.textContent = '❌';
+            btnAusente.className = 'btn-presenca btn-ausente';
+            if (ritmista.presente === false) btnAusente.classList.add('btn-ausente-ativo');
+            btnAusente.onclick = (function(r) {
+                return function() { togglePresenca(r, false); };
+            })(ritmista);
+            cellAusente.appendChild(btnAusente);
+        });
+        
+        document.getElementById('totalPresentes').textContent = presentes;
+        document.getElementById('totalAusentes').textContent = ausentes;
+        document.getElementById('totalGeral').textContent = filtrados.length;
+    }
+    
+    function togglePresenca(ritmista, valor) {
+        if (ritmista.presente === valor) {
+            ritmista.presente = null;
+        } else {
+            ritmista.presente = valor;
+        }
+        renderizarTabela();
+    }
+    
+    function filtrarTabela() {
+        filtroNome = document.getElementById('buscaNome').value;
+        filtroInstrumento = document.getElementById('filtroInstrumento').value;
+        renderizarTabela();
+    }
+    
+    function getDiaSemana(dataString) {
+        const dias = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+        return dias[new Date(dataString).getDay()];
+    }
+    
+    function verificarTodosMarcados() {
+        return ritmistas.every(r => r.presente !== null);
+    }
+    
+    function verificarChamadaJaSalva(data) {
+        return chamadasSalvas[data] === true;
+    }
+    
+    function marcarChamadaComoSalva(data) {
+        chamadasSalvas[data] = true;
+        localStorage.setItem('chamadas', JSON.stringify(chamadasSalvas));
+    }
+    
+    async function salvarChamada() {
+        const data = document.getElementById('dataEnsaio').value;
+        const btnSalvar = document.getElementById('btnSalvar');
+        
+        if (!data) {
+            mostrarAlerta('❌ Selecione uma data!', 'erro');
+            return;
+        }
+        
+        if (verificarChamadaJaSalva(data)) {
+            mostrarAlerta('⚠️ Chamada deste dia já foi salva! Para alterar, entre em contato com o administrador.', 'aviso');
+            return;
+        }
+        
+        if (!verificarTodosMarcados()) {
+            mostrarAlerta('❌ Marque TODOS os ritmistas (Presente ou Ausente) antes de salvar!', 'erro');
+            return;
+        }
+        
+        const presencas = ritmistas.map(r => ({
+            nome: r.nome,
+            instrumento: r.instrumento,
+            presenca: r.presente === true ? 'Presente' : 'Ausente'
+        }));
+        
+        btnSalvar.disabled = true;
+        btnSalvar.textContent = '⏳ SALVANDO...';
+        
+        try {
+            await fetch(URL_SCRIPT, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    acao: 'salvarChamada',
+                    data: data,
+                    diaSemana: getDiaSemana(data),
+                    presencas: presencas
+                })
+            });
+            
+            marcarChamadaComoSalva(data);
+            mostrarAlerta('✅ Chamada salva com sucesso!');
+            btnSalvar.textContent = '✅ SALVO!';
+            
+            setTimeout(() => {
+                btnSalvar.textContent = '💾 SALVAR CHAMADA';
+                btnSalvar.disabled = false;
+            }, 2000);
+            
+        } catch (error) {
+            mostrarAlerta('⚠️ Erro ao salvar! Tente novamente.', 'erro');
+            btnSalvar.textContent = '💾 SALVAR CHAMADA';
+            btnSalvar.disabled = false;
+        }
+    }
+    
+    function mostrarAlerta(mensagem, tipo = 'sucesso') {
+        const alerta = document.createElement('div');
+        alerta.className = `alerta ${tipo === 'erro' ? 'alerta-erro' : (tipo === 'aviso' ? 'alerta-aviso' : '')}`;
+        alerta.textContent = mensagem;
+        document.body.appendChild(alerta);
+        setTimeout(() => alerta.remove(), 3000);
+    }
+    
+    function iniciarAtualizacaoAutomatica() {
+        if (intervaloAtualizacao) clearInterval(intervaloAtualizacao);
+        intervaloAtualizacao = setInterval(carregarRitmistas, 20000);
+    }
+    
+    carregarRitmistas();
+    iniciarAtualizacaoAutomatica();
+</script>
+
+</body>
+</html>
