@@ -34,6 +34,42 @@
             background: #0f1a30;
         }
 
+        body.dark .ranking-item {
+            background: #0f1a30;
+        }
+
+        body.dark .chamada-row {
+            border-bottom-color: #1e3a5f;
+        }
+
+        @keyframes brilho {
+            0% { background-color: rgba(255, 215, 0, 0.1); transform: scale(1); }
+            50% { background-color: rgba(255, 215, 0, 0.4); transform: scale(1.02); }
+            100% { background-color: rgba(255, 215, 0, 0.1); transform: scale(1); }
+        }
+
+        @keyframes brilhoDark {
+            0% { background-color: rgba(255, 215, 0, 0.2); transform: scale(1); }
+            50% { background-color: rgba(255, 215, 0, 0.6); transform: scale(1.02); }
+            100% { background-color: rgba(255, 215, 0, 0.2); transform: scale(1); }
+        }
+
+        .ranking-item.primeiro {
+            animation: brilho 2s infinite;
+            border-left: 4px solid #FFD700;
+        }
+        .ranking-item.segundo {
+            animation: brilho 2s infinite 0.5s;
+            border-left: 4px solid #C0C0C0;
+        }
+        .ranking-item.terceiro {
+            animation: brilho 2s infinite 1s;
+            border-left: 4px solid #CD7F32;
+        }
+        body.dark .ranking-item.primeiro { animation: brilhoDark 2s infinite; }
+        body.dark .ranking-item.segundo { animation: brilhoDark 2s infinite 0.5s; }
+        body.dark .ranking-item.terceiro { animation: brilhoDark 2s infinite 1s; }
+
         .header {
             position: fixed;
             top: 0;
@@ -111,7 +147,72 @@
         body.dark .theme-btn { background: #FFD700; color: #0a1628; }
         body.dark .theme-btn:hover { background: #1e90ff; color: white; }
 
-        .main-content { max-width: 1400px; margin: 0 auto; padding: 100px 20px 40px; }
+        .btn-planilha {
+            background: linear-gradient(135deg, #00cc66, #009944);
+            color: white;
+            text-decoration: none;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        .btn-planilha:hover { transform: scale(1.05); background: linear-gradient(135deg, #009944, #00cc66); }
+        body.dark .btn-planilha { background: linear-gradient(135deg, #FFD700, #1e3a5f); color: #0a1628; }
+        body.dark .btn-planilha:hover { background: linear-gradient(135deg, #1e3a5f, #FFD700); }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        .card-header h1 { margin-bottom: 0; }
+
+        .info-acesso {
+            display: flex;
+            justify-content: flex-end;
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        body.dark .info-acesso { color: #b0c4de; }
+
+        .alerta-planilha {
+            background: #ff9800;
+            color: #0a1628;
+            padding: 12px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .alerta-planilha.critico { background: #ff4444; color: white; }
+        .alerta-planilha button {
+            background: #0a1628;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        body.dark .alerta-planilha button { background: #FFD700; color: #0a1628; }
+
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 100px 20px 40px;
+        }
         
         .card {
             background: white;
@@ -163,11 +264,57 @@
             margin-bottom: 25px;
             flex-wrap: wrap;
             align-items: center;
+            justify-content: center;
         }
-        .filtro-container label {
+        .filtro-periodo {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .filtro-periodo button, .filtro-data button, .filtro-chamadas button {
+            background: #1e90ff;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .filtro-periodo button:hover, .filtro-data button:hover, .filtro-chamadas button:hover { transform: scale(1.05); background: #FFD700; color: #0a1628; }
+        .filtro-periodo button.ativo, .filtro-data button.ativo, .filtro-chamadas button.ativo { background: #FFD700; color: #0a1628; }
+        body.dark .filtro-periodo button, body.dark .filtro-data button, body.dark .filtro-chamadas button { background: #FFD700; color: #0a1628; }
+        body.dark .filtro-periodo button.ativo, body.dark .filtro-data button.ativo, body.dark .filtro-chamadas button.ativo { background: #1e90ff; color: white; }
+
+        .data-range {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .data-range input {
+            padding: 8px 12px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+        }
+        body.dark .data-range input {
+            background: #0f1a30;
+            border-color: #1e3a5f;
+            color: white;
+        }
+
+        .filtro-instrumento {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .filtro-instrumento label {
             font-weight: 600;
         }
-        .filtro-container select {
+        .filtro-instrumento select {
             padding: 10px 15px;
             border-radius: 12px;
             border: 1px solid #ccc;
@@ -175,7 +322,7 @@
             min-width: 200px;
             font-size: 0.9rem;
         }
-        body.dark .filtro-container select {
+        body.dark .filtro-instrumento select {
             background: #0f1a30;
             border-color: #1e3a5f;
             color: white;
@@ -202,20 +349,206 @@
         }
         canvas { max-height: 250px; width: 100% !important; }
 
-        .ultimas-chamadas {
-            margin-bottom: 25px;
+        .resumo-presenca {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 20px;
+            flex-wrap: wrap;
         }
-        .ultimas-chamadas table {
+        .resumo-presenca-item {
+            text-align: center;
+            padding: 15px 30px;
+            border-radius: 15px;
+            background: rgba(255,255,255,0.5);
+        }
+        body.dark .resumo-presenca-item {
+            background: rgba(0,0,0,0.3);
+        }
+        .resumo-presenca-item .valor { font-size: 2rem; font-weight: bold; }
+        .resumo-presenca-item .label { font-size: 0.9rem; }
+        .presenca { color: #00cc66; }
+        .falta { color: #ff4444; }
+
+        .ranking-container {
+            margin-top: 20px;
+        }
+        .ranking-tabs {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .ranking-tab {
+            background: #1e90ff;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .ranking-tab:hover { transform: scale(1.05); background: #FFD700; color: #0a1628; }
+        .ranking-tab.ativo { background: #FFD700; color: #0a1628; }
+        body.dark .ranking-tab { background: #FFD700; color: #0a1628; }
+        body.dark .ranking-tab.ativo { background: #1e90ff; color: white; }
+
+        .ranking-filtros {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .ranking-filtros select {
+            padding: 8px 15px;
+            border-radius: 12px;
+            border: 1px solid #ccc;
+            font-size: 0.9rem;
+        }
+        body.dark .ranking-filtros select {
+            background: #0f1a30;
+            border-color: #1e3a5f;
+            color: white;
+        }
+
+        .ranking-lista {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .ranking-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 20px;
+            background: #e8f0fe;
+            border-radius: 15px;
+            transition: transform 0.2s;
+        }
+        .ranking-item:hover { transform: translateX(5px); }
+        body.dark .ranking-item { background: #0f1a30; }
+        .ranking-posicao {
+            width: 50px;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .ranking-info {
+            flex: 1;
+        }
+        .ranking-nome {
+            font-weight: bold;
+            font-size: 1rem;
+        }
+        .ranking-instrumento {
+            font-size: 0.8rem;
+            color: #666;
+        }
+        body.dark .ranking-instrumento { color: #b0c4de; }
+        .ranking-presenca {
+            text-align: right;
+            font-weight: bold;
+            color: #00cc66;
+        }
+
+        .chamadas-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .chamadas-filtros {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .btn-exportar {
+            background: linear-gradient(135deg, #1e90ff, #0a1628);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        body.dark .btn-exportar { background: linear-gradient(135deg, #FFD700, #1e3a5f); color: #0a1628; }
+        .btn-ver-mais {
+            background: none;
+            border: 1px solid #1e90ff;
+            color: #1e90ff;
+            padding: 8px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 15px;
             width: 100%;
-            border-collapse: collapse;
         }
-        .ultimas-chamadas th, .ultimas-chamadas td {
-            padding: 10px;
-            text-align: left;
+        body.dark .btn-ver-mais { border-color: #FFD700; color: #FFD700; }
+        .btn-ver-mais:hover { background: #1e90ff; color: white; }
+        body.dark .btn-ver-mais:hover { background: #FFD700; color: #0a1628; }
+
+        .chamada-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
             border-bottom: 1px solid #ccc;
+            cursor: pointer;
+            transition: background 0.2s;
         }
-        body.dark .ultimas-chamadas th, body.dark .ultimas-chamadas td {
-            border-bottom-color: #1e3a5f;
+        .chamada-row:hover { background: rgba(30, 144, 255, 0.1); }
+        body.dark .chamada-row { border-bottom-color: #1e3a5f; }
+        .chamada-data { font-weight: bold; width: 110px; }
+        .chamada-presentes { width: 80px; color: #00cc66; }
+        .chamada-ausentes { width: 80px; color: #ff4444; }
+        .chamada-total { width: 70px; }
+        .chamada-percentual { width: 70px; font-weight: bold; }
+        .percentual-verde { color: #00cc66; }
+        .percentual-amarelo { color: #ff9800; }
+        .percentual-vermelho { color: #ff4444; }
+
+        .grafico-mini {
+            height: 250px;
+            margin-bottom: 20px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: white;
+            border-radius: 30px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        body.dark .modal-content { background: #1e3a5f; }
+        .modal-content h2 { margin-bottom: 20px; color: #1e90ff; }
+        body.dark .modal-content h2 { color: #FFD700; }
+        .modal-detalhe { margin-bottom: 10px; }
+        .fechar {
+            float: right;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .ultimas-chamadas {
+            margin-top: 20px;
         }
 
         .acesso-rapido {
@@ -247,6 +580,12 @@
         @media (max-width: 768px) {
             .graficos-grid { grid-template-columns: 1fr; }
             .dashboard { flex-direction: column; }
+            .ranking-item { flex-wrap: wrap; }
+            .ranking-presenca { width: 100%; text-align: left; margin-top: 5px; }
+            .card-header { flex-direction: column; align-items: flex-start; }
+            .chamada-row { flex-wrap: wrap; gap: 8px; }
+            .chamada-data { width: 100%; }
+            .grafico-mini { height: 200px; }
         }
     </style>
 </head>
@@ -258,7 +597,7 @@
             <a href="index.html">🏠 INÍCIO</a>
             <a href="chamada.html">✅ CHAMADA</a>
             <a href="diretoria.html" class="active">👑 DIRETORIA</a>
-            <a href="solicitacoes.html">📋 SOLICITAÇÕES</a>
+            <a href="./solicitaçoes.html">📋 SOLICITAÇÕES</a>
             <button class="theme-btn" onclick="toggleTheme()">🌓 TEMA</button>
         </div>
     </div>
@@ -266,11 +605,16 @@
 
 <div class="main-content">
     <div class="card">
-        <h1>👑 DIRETORIA</h1>
+        <div class="card-header">
+            <h1>👑 DIRETORIA</h1>
+            <button class="btn-planilha" id="btnAbrirPlanilha" onclick="abrirPlanilha()">📊 ABRIR PLANILHA</button>
+        </div>
         <p>Painel administrativo com estatísticas da bateria</p>
+        <div class="info-acesso" id="infoAcesso"></div>
     </div>
 
-    <!-- DASHBOARD -->
+    <div id="alertaPlanilha" style="display: none;"></div>
+
     <div class="dashboard" id="dashboard">
         <div class="card-dash"><div class="numero" id="totalRitmistas">0</div><div class="label">👥 TOTAL RITMISTAS</div></div>
         <div class="card-dash"><div class="numero" id="totalAtivos">0</div><div class="label">🟢 ATIVOS</div></div>
@@ -278,14 +622,12 @@
         <div class="card-dash"><div class="numero" id="totalInativos">0</div><div class="label">🔴 INATIVOS</div></div>
     </div>
 
-    <!-- MÉDIA DE IDADE EM DESTAQUE -->
     <div class="destaque-idade">
         <div class="numero" id="mediaIdade">0</div>
         <div class="label">🎂 MÉDIA DE IDADE DOS RITMISTAS</div>
     </div>
 
-    <!-- FILTRO POR INSTRUMENTO -->
-    <div class="filtro-container">
+    <div class="filtro-instrumento">
         <label>🎛️ FILTRAR POR INSTRUMENTO:</label>
         <select id="filtroInstrumento" onchange="aplicarFiltro()">
             <option value="todos">🥁 Todos os instrumentos</option>
@@ -298,39 +640,90 @@
         </select>
     </div>
 
-    <!-- GRÁFICOS PRINCIPAIS -->
     <div class="graficos-grid">
-        <div class="grafico-card"><h3>🥧 PRESENÇA GERAL</h3><canvas id="graficoPresenca"></canvas></div>
         <div class="grafico-card"><h3>⭐ NÍVEL DE EXPERIÊNCIA</h3><canvas id="graficoNivel"></canvas></div>
         <div class="grafico-card"><h3>👕 TAMANHO DA CAMISA</h3><canvas id="graficoCamisa"></canvas></div>
         <div class="grafico-card"><h3>🏘️ RITMISTAS POR BAIRRO</h3><canvas id="graficoBairro"></canvas></div>
     </div>
 
-    <!-- PRESENÇAS E FALTAS (PIZZA) -->
     <div class="card">
         <h3 style="text-align: center;">📊 PRESENÇAS E FALTAS</h3>
+        <div class="filtro-container">
+            <div class="filtro-periodo">
+                <button class="periodo-btn" data-periodo="semana">📅 SEMANA</button>
+                <button class="periodo-btn" data-periodo="mes">📅 MÊS</button>
+                <button class="periodo-btn" data-periodo="ano">📅 ANO</button>
+                <button class="periodo-btn ativo" data-periodo="personalizado">📅 PERSONALIZADO</button>
+            </div>
+        </div>
+        <div class="data-range" id="dataRange" style="justify-content: center; margin-bottom: 20px;">
+            <label>Data inicial:</label>
+            <input type="date" id="dataInicio" value="2026-04-01">
+            <label>Data final:</label>
+            <input type="date" id="dataFim" value="2026-04-30">
+        </div>
+        <div class="resumo-presenca" id="resumoPresenca">
+            <div class="resumo-presenca-item">
+                <div class="valor presenca" id="totalPresencas">0</div>
+                <div class="label">✅ PRESENÇAS</div>
+            </div>
+            <div class="resumo-presenca-item">
+                <div class="valor falta" id="totalFaltas">0</div>
+                <div class="label">❌ FALTAS</div>
+            </div>
+        </div>
         <canvas id="graficoPresencaFalta" style="max-height: 300px;"></canvas>
     </div>
 
-    <!-- EVOLUÇÃO MENSAL -->
     <div class="card">
         <h3 style="text-align: center;">📈 EVOLUÇÃO MENSAL DA PRESENÇA</h3>
         <canvas id="graficoMensal" style="max-height: 300px;"></canvas>
     </div>
 
-    <!-- ÚLTIMAS CHAMADAS -->
     <div class="card">
-        <h3>📋 ÚLTIMAS CHAMADAS</h3>
-        <div class="ultimas-chamadas">
-            <table id="tabelaChamadas">
-                <thead><tr><th>Data</th><th>Presentes</th><th>Ausentes</th><th>Total</th><th>%</th></tr></thead>
-                <tbody id="tbodyChamadas"><tr><td colspan="5">Carregando...<\/td><\/tr>
-                </tbody>
-            </table>
+        <h3 style="text-align: center;">🏆 RANKING DE PRESENÇA</h3>
+        <div class="ranking-tabs">
+            <button class="ranking-tab ativo" data-tipo="mais">🟢 MAIS PRESENTES</button>
+            <button class="ranking-tab" data-tipo="menos">🔴 MENOS PRESENTES</button>
+            <button class="ranking-tab" data-tipo="geral">📊 GERAL</button>
         </div>
+        <div class="ranking-filtros">
+            <select id="rankingInstrumento" onchange="atualizarRanking()">
+                <option value="todos">🥁 Todos os instrumentos</option>
+                <option value="Surdo">🥁 Surdo</option>
+                <option value="Caixa">🥁 Caixa</option>
+                <option value="Repique">🥁 Repique</option>
+                <option value="Tamborim">🥁 Tamborim</option>
+                <option value="Chocalho">🥁 Chocalho</option>
+                <option value="Cuíca">🥁 Cuíca</option>
+            </select>
+            <select id="rankingTop" onchange="atualizarRanking()">
+                <option value="3">🏆 TOP 3</option>
+                <option value="5">🏆 TOP 5</option>
+                <option value="10" selected>🏆 TOP 10</option>
+                <option value="20">🏆 TOP 20</option>
+            </select>
+        </div>
+        <div id="rankingLista" class="ranking-lista"></div>
     </div>
 
-    <!-- ACESSO RÁPIDO -->
+    <div class="card">
+        <h3 style="text-align: center;">📋 ÚLTIMAS CHAMADAS</h3>
+        <div class="chamadas-header">
+            <div class="chamadas-filtros">
+                <button class="chamada-filtro-btn ativo" data-chamada-periodo="todas">📅 TODAS</button>
+                <button class="chamada-filtro-btn" data-chamada-periodo="semana">📅 ÚLTIMA SEMANA</button>
+                <button class="chamada-filtro-btn" data-chamada-periodo="mes">📅 ÚLTIMO MÊS</button>
+            </div>
+            <button class="btn-exportar" onclick="exportarChamadasCSV()">📥 EXPORTAR CSV</button>
+        </div>
+        <div class="grafico-mini">
+            <canvas id="graficoTendencia"></canvas>
+        </div>
+        <div id="listaChamadas" class="ultimas-chamadas"></div>
+        <button class="btn-ver-mais" id="btnVerMais" onclick="carregarMaisChamadas()">📋 VER MAIS</button>
+    </div>
+
     <div class="acesso-rapido">
         <a href="chamada.html" class="btn-rapido">✅ CHAMADA</a>
         <a href="solicitacoes.html" class="btn-rapido">📋 SOLICITAÇÕES</a>
@@ -341,6 +734,14 @@
         <p>Desenvolvido por <span class="destaque">Jean Silva</span></p>
         <p>✨ Tecnologia a favor do samba ✨</p>
         <p>© 2026 Unidos do Alvorada. Todos os direitos reservados.</p>
+    </div>
+</div>
+
+<div id="modalChamada" class="modal">
+    <div class="modal-content">
+        <span class="fechar" onclick="fecharModal()">&times;</span>
+        <h2 id="modalTitulo">📋 Detalhes da Chamada</h2>
+        <div id="modalDetalhes"></div>
     </div>
 </div>
 
@@ -359,11 +760,86 @@
     if (savedTheme === 'dark') document.body.classList.add('dark');
 
     const URL_SCRIPT = 'https://script.google.com/macros/s/AKfycbzpSa3TKzqegv2W0dteMp0aytiGDWEl2GHUQYDJHu89XMG5StkfenemE9p_PVsvWMfCdg/exec';
+    const URL_PLANILHA = 'https://docs.google.com/spreadsheets/d/1TXGBvNBGyA073HYP-Hfh1huHW5McmQET0hLl0cWPLus/edit';
 
     let ritmistas = [];
     let presencas = [];
     let filtroAtual = 'todos';
+    let periodoAtual = 'personalizado';
+    let rankingTipo = 'mais';
+    let chamadasExibidas = 10;
+    let chamadaPeriodo = 'todas';
     let charts = {};
+    let todasChamadas = [];
+
+    function abrirPlanilha() {
+        const agora = new Date();
+        localStorage.setItem('ultimoAcessoPlanilha', agora.toISOString());
+        window.open(URL_PLANILHA, '_blank');
+        verificarAcessoPlanilha();
+        atualizarInfoAcesso();
+    }
+
+    function atualizarInfoAcesso() {
+        const ultimoAcesso = localStorage.getItem('ultimoAcessoPlanilha');
+        const infoDiv = document.getElementById('infoAcesso');
+        if (ultimoAcesso) {
+            const data = new Date(ultimoAcesso);
+            infoDiv.innerHTML = `🕐 Último acesso à planilha: ${data.toLocaleDateString('pt-BR')} ${data.toLocaleTimeString('pt-BR')}`;
+        } else {
+            infoDiv.innerHTML = `🕐 Nenhum acesso à planilha registrado. Clique no botão para abrir.`;
+        }
+    }
+
+    function verificarAcessoPlanilha() {
+        const ultimoAcesso = localStorage.getItem('ultimoAcessoPlanilha');
+        const alertaDiv = document.getElementById('alertaPlanilha');
+        
+        if (!ultimoAcesso) {
+            alertaDiv.style.display = 'block';
+            alertaDiv.innerHTML = `
+                <div class="alerta-planilha critico">
+                    <span>⚠️ ATENÇÃO: Você nunca abriu a planilha! Para manter os dados sincronizados, abra a planilha pelo menos 1 vez por mês.</span>
+                    <button onclick="abrirPlanilha()">📊 ABRIR PLANILHA AGORA</button>
+                </div>
+            `;
+            return;
+        }
+        
+        const ultimaData = new Date(ultimoAcesso);
+        const agora = new Date();
+        const diffDias = Math.floor((agora - ultimaData) / (1000 * 60 * 60 * 24));
+        
+        if (diffDias >= 30) {
+            alertaDiv.style.display = 'block';
+            alertaDiv.innerHTML = `
+                <div class="alerta-planilha critico">
+                    <span>⚠️ CRÍTICO: Último acesso à planilha foi há ${diffDias} dias! Abra a planilha imediatamente para evitar desconexão.</span>
+                    <button onclick="abrirPlanilha()">📊 ABRIR PLANILHA AGORA</button>
+                </div>
+            `;
+        } else if (diffDias >= 25) {
+            alertaDiv.style.display = 'block';
+            alertaDiv.innerHTML = `
+                <div class="alerta-planilha">
+                    <span>⚠️ ATENÇÃO: Último acesso à planilha foi há ${diffDias} dias. Abra a planilha em breve para manter a conexão.</span>
+                    <button onclick="abrirPlanilha()">📊 ABRIR PLANILHA</button>
+                </div>
+            `;
+        } else {
+            alertaDiv.style.display = 'none';
+        }
+    }
+
+    function formatarData(dataStr) {
+        try {
+            const data = new Date(dataStr);
+            if (isNaN(data.getTime())) return dataStr;
+            return data.toLocaleDateString('pt-BR');
+        } catch (e) {
+            return dataStr;
+        }
+    }
 
     async function carregarDados() {
         try {
@@ -375,12 +851,17 @@
         try {
             const response = await fetch(`${URL_SCRIPT}?acao=buscarPresencas`);
             const data = await response.json();
-            if (data.success) presencas = data.presencas;
+            if (data.success) {
+                presencas = data.presencas;
+                todasChamadas = [...presencas].sort((a, b) => new Date(b.data) - new Date(a.data));
+            }
         } catch (error) { console.error('Erro ao carregar presenças:', error); }
 
         atualizarDashboard();
-        atualizarUltimasChamadas();
+        atualizarChamadas();
+        atualizarPresencaFalta();
         renderizarGraficos();
+        atualizarRanking();
     }
 
     function atualizarDashboard() {
@@ -394,7 +875,6 @@
         document.getElementById('totalPendentes').textContent = pendentes;
         document.getElementById('totalInativos').textContent = inativos;
 
-        // Média de idade
         let somaIdade = 0, countIdade = 0;
         const anoAtual = new Date().getFullYear();
         ritmistasFiltrados.forEach(r => {
@@ -410,22 +890,187 @@
         document.getElementById('mediaIdade').textContent = `${media} anos`;
     }
 
-    function atualizarUltimasChamadas() {
-        const tbody = document.getElementById('tbodyChamadas');
-        tbody.innerHTML = '';
-        const ultimas = [...presencas].reverse().slice(0, 10);
-        if (ultimas.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="5">Nenhuma chamada registrada<\/td><\/tr>';
-            return;
+    function getChamadasFiltradas() {
+        const agora = new Date();
+        let inicio;
+        
+        if (chamadaPeriodo === 'semana') {
+            inicio = new Date(agora);
+            inicio.setDate(agora.getDate() - 7);
+        } else if (chamadaPeriodo === 'mes') {
+            inicio = new Date(agora.getFullYear(), agora.getMonth(), 1);
+        } else {
+            return todasChamadas;
         }
-        ultimas.forEach(c => {
-            const row = tbody.insertRow();
-            row.insertCell(0).textContent = c.data;
-            row.insertCell(1).textContent = c.presentes || 0;
-            row.insertCell(2).textContent = c.ausentes || 0;
-            row.insertCell(3).textContent = (c.presentes || 0) + (c.ausentes || 0);
-            const percentual = c.presentes && c.ausentes ? Math.round((c.presentes / (c.presentes + c.ausentes)) * 100) : 0;
-            row.insertCell(4).textContent = `${percentual}%`;
+        
+        return todasChamadas.filter(c => new Date(c.data) >= inicio);
+    }
+
+    function atualizarChamadas() {
+        const chamadasFiltradas = getChamadasFiltradas();
+        const chamadasExibir = chamadasFiltradas.slice(0, chamadasExibidas);
+        
+        const container = document.getElementById('listaChamadas');
+        container.innerHTML = '';
+        
+        chamadasExibir.forEach(c => {
+            const total = (c.presentes || 0) + (c.ausentes || 0);
+            const percentual = total > 0 ? Math.round((c.presentes / total) * 100) : 0;
+            let corClass = '';
+            if (percentual >= 70) corClass = 'percentual-verde';
+            else if (percentual >= 50) corClass = 'percentual-amarelo';
+            else corClass = 'percentual-vermelho';
+            
+            const row = document.createElement('div');
+            row.className = 'chamada-row';
+            row.onclick = () => verDetalhesChamada(c.data);
+            row.innerHTML = `
+                <div class="chamada-data">📅 ${formatarData(c.data)}</div>
+                <div class="chamada-presentes">✅ ${c.presentes || 0}</div>
+                <div class="chamada-ausentes">❌ ${c.ausentes || 0}</div>
+                <div class="chamada-total">👥 ${total}</div>
+                <div class="chamada-percentual ${corClass}">${percentual}%</div>
+            `;
+            container.appendChild(row);
+        });
+        
+        if (chamadasExibir.length === 0) {
+            container.innerHTML = '<div style="text-align: center; padding: 20px;">Nenhuma chamada registrada</div>';
+        }
+        
+        atualizarGraficoTendencia(chamadasFiltradas.slice(0, 10));
+    }
+    
+    function atualizarGraficoTendencia(dados) {
+        const labels = dados.map(c => formatarData(c.data)).reverse();
+        const valores = dados.map(c => {
+            const total = (c.presentes || 0) + (c.ausentes || 0);
+            return total > 0 ? Math.round((c.presentes / total) * 100) : 0;
+        }).reverse();
+        
+        if (charts.tendencia) charts.tendencia.destroy();
+        const ctx = document.getElementById('graficoTendencia').getContext('2d');
+        charts.tendencia = new Chart(ctx, {
+            type: 'line',
+            data: { 
+                labels: labels, 
+                datasets: [{ 
+                    label: 'Presença (%)', 
+                    data: valores, 
+                    borderColor: '#1e90ff', 
+                    backgroundColor: 'rgba(30,144,255,0.1)', 
+                    fill: true, 
+                    tension: 0.3,
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
+                    pointBackgroundColor: '#1e90ff'
+                }] 
+            },
+            options: { 
+                responsive: true, 
+                maintainAspectRatio: true, 
+                scales: { y: { min: 0, max: 100, title: { display: true, text: 'Presença (%)' } } },
+                plugins: { legend: { position: 'top' }, tooltip: { callbacks: { label: (ctx) => `${ctx.raw}%` } } }
+            }
+        });
+    }
+    
+    function carregarMaisChamadas() {
+        chamadasExibidas += 10;
+        atualizarChamadas();
+    }
+    
+    function exportarChamadasCSV() {
+        const chamadasFiltradas = getChamadasFiltradas();
+        let csv = "Data,Presentes,Ausentes,Total,Percentual\n";
+        chamadasFiltradas.forEach(c => {
+            const total = (c.presentes || 0) + (c.ausentes || 0);
+            const percentual = total > 0 ? Math.round((c.presentes / total) * 100) : 0;
+            csv += `${c.data},${c.presentes || 0},${c.ausentes || 0},${total},${percentual}%\n`;
+        });
+        
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        link.href = url;
+        link.setAttribute('download', `chamadas_${new Date().toISOString().slice(0,10)}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        
+        mostrarAlerta('📥 CSV exportado com sucesso!');
+    }
+    
+    function verDetalhesChamada(data) {
+        const chamada = todasChamadas.find(c => c.data === data);
+        if (!chamada) return;
+        
+        const total = (chamada.presentes || 0) + (chamada.ausentes || 0);
+        const percentual = total > 0 ? Math.round((chamada.presentes / total) * 100) : 0;
+        
+        document.getElementById('modalTitulo').innerHTML = `📋 Chamada - ${formatarData(data)}`;
+        document.getElementById('modalDetalhes').innerHTML = `
+            <div class="modal-detalhe">✅ Presentes: <strong>${chamada.presentes || 0}</strong></div>
+            <div class="modal-detalhe">❌ Ausentes: <strong>${chamada.ausentes || 0}</strong></div>
+            <div class="modal-detalhe">👥 Total: <strong>${total}</strong></div>
+            <div class="modal-detalhe">📊 Percentual: <strong>${percentual}%</strong></div>
+        `;
+        document.getElementById('modalChamada').style.display = 'flex';
+    }
+    
+    function fecharModal() {
+        document.getElementById('modalChamada').style.display = 'none';
+    }
+
+    function getPresencasPorPeriodo() {
+        let inicio, fim;
+        const agora = new Date();
+        
+        if (periodoAtual === 'semana') {
+            inicio = new Date(agora);
+            inicio.setDate(agora.getDate() - 7);
+            fim = agora;
+        } else if (periodoAtual === 'mes') {
+            inicio = new Date(agora.getFullYear(), agora.getMonth(), 1);
+            fim = new Date(agora.getFullYear(), agora.getMonth() + 1, 0);
+        } else if (periodoAtual === 'ano') {
+            inicio = new Date(agora.getFullYear(), 0, 1);
+            fim = new Date(agora.getFullYear(), 11, 31);
+        } else {
+            inicio = new Date(document.getElementById('dataInicio').value);
+            fim = new Date(document.getElementById('dataFim').value);
+        }
+        
+        let totalPresentes = 0, totalFaltas = 0;
+        
+        presencas.forEach(p => {
+            const dataPresenca = new Date(p.data);
+            if (dataPresenca >= inicio && dataPresenca <= fim) {
+                totalPresentes += p.presentes || 0;
+                totalFaltas += p.ausentes || 0;
+            }
+        });
+        
+        return { presentes: totalPresentes, faltas: totalFaltas };
+    }
+
+    function atualizarPresencaFalta() {
+        const { presentes, faltas } = getPresencasPorPeriodo();
+        document.getElementById('totalPresencas').textContent = presentes;
+        document.getElementById('totalFaltas').textContent = faltas;
+        
+        const total = presentes + faltas;
+        const pctP = total > 0 ? Math.round((presentes / total) * 100) : 0;
+        const pctF = total > 0 ? Math.round((faltas / total) * 100) : 0;
+        
+        if (charts.presencaFalta) charts.presencaFalta.destroy();
+        charts.presencaFalta = new Chart(document.getElementById('graficoPresencaFalta'), {
+            type: 'pie',
+            data: { 
+                labels: [`✅ Presentes ${pctP}% (${presentes})`, `❌ Faltas ${pctF}% (${faltas})`], 
+                datasets: [{ data: [presentes, faltas], backgroundColor: ['#00cc66', '#ff4444'] }] 
+            }
         });
     }
 
@@ -433,6 +1078,7 @@
         filtroAtual = document.getElementById('filtroInstrumento').value;
         atualizarDashboard();
         renderizarGraficos();
+        atualizarRanking();
     }
 
     function getRitmistasFiltrados() {
@@ -440,105 +1086,111 @@
         return ritmistas.filter(r => r.instrumento && r.instrumento.toLowerCase() === filtroAtual.toLowerCase());
     }
 
+    function atualizarRanking() {
+        const ritmistasFiltrados = getRitmistasFiltrados();
+        const rankingInst = document.getElementById('rankingInstrumento').value;
+        const rankingTop = parseInt(document.getElementById('rankingTop').value);
+        
+        let filtrados = ritmistasFiltrados;
+        if (rankingInst !== 'todos') {
+            filtrados = filtrados.filter(r => r.instrumento && r.instrumento.toLowerCase() === rankingInst.toLowerCase());
+        }
+        
+        const ranking = filtrados.map(r => {
+            let totalPresentes = 0, totalRegistros = 0;
+            presencas.forEach(p => {
+                totalPresentes += p.presentes || 0;
+                totalRegistros += (p.presentes || 0) + (p.ausentes || 0);
+            });
+            const percentual = totalRegistros > 0 ? Math.round((totalPresentes / totalRegistros) * 100) : 0;
+            return { ...r, percentual };
+        });
+        
+        if (rankingTipo === 'mais') {
+            ranking.sort((a, b) => b.percentual - a.percentual);
+        } else if (rankingTipo === 'menos') {
+            ranking.sort((a, b) => a.percentual - b.percentual);
+        } else {
+            ranking.sort((a, b) => b.percentual - a.percentual);
+        }
+        
+        const top = ranking.slice(0, rankingTop);
+        
+        const container = document.getElementById('rankingLista');
+        container.innerHTML = '';
+        
+        top.forEach((r, index) => {
+            const posicao = index + 1;
+            let medalha = '';
+            let classeAnimacao = '';
+            if (posicao === 1) { medalha = '🥇'; classeAnimacao = 'primeiro'; }
+            else if (posicao === 2) { medalha = '🥈'; classeAnimacao = 'segundo'; }
+            else if (posicao === 3) { medalha = '🥉'; classeAnimacao = 'terceiro'; }
+            else medalha = `${posicao}º`;
+            
+            const item = document.createElement('div');
+            item.className = `ranking-item ${classeAnimacao}`;
+            item.innerHTML = `
+                <div class="ranking-posicao">${medalha}</div>
+                <div class="ranking-info">
+                    <div class="ranking-nome">${r.nome}</div>
+                    <div class="ranking-instrumento">${r.instrumento || 'Instrumento não informado'}</div>
+                </div>
+                <div class="ranking-presenca">${r.percentual}% de presença</div>
+            `;
+            container.appendChild(item);
+        });
+        
+        if (top.length === 0) {
+            container.innerHTML = '<div style="text-align: center; padding: 20px;">Nenhum ritmista encontrado</div>';
+        }
+    }
+
     function renderizarGraficos() {
         const ritmistasFiltrados = getRitmistasFiltrados();
 
-        // Gráfico de presença geral (pizza com porcentagem)
-        let totalPresentesGeral = 0, totalFaltasGeral = 0;
-        presencas.forEach(p => {
-            totalPresentesGeral += p.presentes || 0;
-            totalFaltasGeral += p.ausentes || 0;
-        });
-        const totalGeral = totalPresentesGeral + totalFaltasGeral;
-        const pctPresente = totalGeral > 0 ? Math.round((totalPresentesGeral / totalGeral) * 100) : 0;
-        const pctFalta = totalGeral > 0 ? Math.round((totalFaltasGeral / totalGeral) * 100) : 0;
-        
-        if (charts.presenca) charts.presenca.destroy();
-        charts.presenca = new Chart(document.getElementById('graficoPresenca'), {
-            type: 'pie',
-            data: { 
-                labels: [`✅ Presentes ${pctPresente}%`, `❌ Ausentes ${pctFalta}%`], 
-                datasets: [{ data: [totalPresentesGeral, totalFaltasGeral], backgroundColor: ['#00cc66', '#ff4444'] }] 
-            },
-            options: {
-                plugins: {
-                    tooltip: { callbacks: { label: (ctx) => `${ctx.label}: ${ctx.raw}` } }
-                }
-            }
-        });
-
-        // Gráfico de nível de experiência (pizza com porcentagem)
         const niveis = { 'Primeira vez': 0, 'Básico': 0, 'Intermediário': 0, 'Avançado': 0 };
         ritmistasFiltrados.forEach(r => { if (r.nivel) niveis[r.nivel]++; });
         const totalNiveis = Object.values(niveis).reduce((a, b) => a + b, 0);
         const niveisLabels = Object.keys(niveis).map(k => {
-            const pct = totalNiveis > 0 ? Math.round((niveis[k] / totalNiveis) * 100) : 0;
-            return `${k} (${pct}%)`;
+            const qtd = niveis[k];
+            const pct = totalNiveis > 0 ? Math.round((qtd / totalNiveis) * 100) : 0;
+            return `${k}: ${qtd} (${pct}%)`;
         });
         if (charts.nivel) charts.nivel.destroy();
         charts.nivel = new Chart(document.getElementById('graficoNivel'), {
             type: 'pie',
-            data: { 
-                labels: niveisLabels, 
-                datasets: [{ data: Object.values(niveis), backgroundColor: ['#00cc66', '#1e90ff', '#FFD700', '#ff4444'] }] 
-            }
+            data: { labels: niveisLabels, datasets: [{ data: Object.values(niveis), backgroundColor: ['#ff4444', '#1e90ff', '#FFD700', '#00cc66'] }] }
         });
 
-        // Gráfico de tamanho da camisa (barras com números)
         const camisas = { 'PP': 0, 'P': 0, 'M': 0, 'G': 0, 'GG': 0, 'GGG': 0, 'XGG': 0 };
         ritmistasFiltrados.forEach(r => { if (r.blusa) camisas[r.blusa.toUpperCase()]++; });
+        const totalCamisas = Object.values(camisas).reduce((a, b) => a + b, 0);
+        const camisasLabels = Object.keys(camisas).map(k => {
+            const qtd = camisas[k];
+            const pct = totalCamisas > 0 ? Math.round((qtd / totalCamisas) * 100) : 0;
+            return `${k} (${qtd} - ${pct}%)`;
+        });
         if (charts.camisa) charts.camisa.destroy();
         charts.camisa = new Chart(document.getElementById('graficoCamisa'), {
             type: 'bar',
-            data: { 
-                labels: Object.keys(camisas), 
-                datasets: [{ label: 'Quantidade', data: Object.values(camisas), backgroundColor: '#1e90ff' }] 
-            },
-            options: {
-                plugins: {
-                    tooltip: { callbacks: { label: (ctx) => `${ctx.raw} ritmistas` } }
-                }
-            }
+            data: { labels: camisasLabels, datasets: [{ label: 'Quantidade', data: Object.values(camisas), backgroundColor: '#1e90ff' }] }
         });
 
-        // Gráfico de bairro (barras com números)
         const bairros = {};
         ritmistasFiltrados.forEach(r => { if (r.bairro) bairros[r.bairro] = (bairros[r.bairro] || 0) + 1; });
         const bairrosSorted = Object.entries(bairros).sort((a, b) => b[1] - a[1]).slice(0, 10);
+        const totalBairros = bairrosSorted.reduce((sum, [, qtd]) => sum + qtd, 0);
+        const bairrosLabels = bairrosSorted.map(([nome, qtd]) => {
+            const pct = totalBairros > 0 ? Math.round((qtd / totalBairros) * 100) : 0;
+            return `${nome} (${qtd} - ${pct}%)`;
+        });
         if (charts.bairro) charts.bairro.destroy();
         charts.bairro = new Chart(document.getElementById('graficoBairro'), {
             type: 'bar',
-            data: { 
-                labels: bairrosSorted.map(b => b[0]), 
-                datasets: [{ label: 'Quantidade', data: bairrosSorted.map(b => b[1]), backgroundColor: '#FFD700' }] 
-            },
-            options: {
-                plugins: {
-                    tooltip: { callbacks: { label: (ctx) => `${ctx.raw} ritmistas` } }
-                }
-            }
+            data: { labels: bairrosLabels, datasets: [{ label: 'Quantidade', data: bairrosSorted.map(([, qtd]) => qtd), backgroundColor: '#FFD700' }] }
         });
 
-        // Gráfico de presenças e faltas (PIZZA com porcentagem)
-        let totalPresencas = 0, totalFaltas = 0;
-        presencas.forEach(p => {
-            totalPresencas += p.presentes || 0;
-            totalFaltas += p.ausentes || 0;
-        });
-        const totalPF = totalPresencas + totalFaltas;
-        const pctP = totalPF > 0 ? Math.round((totalPresencas / totalPF) * 100) : 0;
-        const pctF = totalPF > 0 ? Math.round((totalFaltas / totalPF) * 100) : 0;
-        
-        if (charts.presencaFalta) charts.presencaFalta.destroy();
-        charts.presencaFalta = new Chart(document.getElementById('graficoPresencaFalta'), {
-            type: 'pie',
-            data: { 
-                labels: [`✅ Presentes ${pctP}%`, `❌ Faltas ${pctF}%`], 
-                datasets: [{ data: [totalPresencas, totalFaltas], backgroundColor: ['#00cc66', '#ff4444'] }] 
-            }
-        });
-
-        // Gráfico mensal (evolução) com números nas barras
         const meses = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
         const presencaMensal = new Array(12).fill(0);
         const totalMensal = new Array(12).fill(0);
@@ -550,21 +1202,66 @@
             }
         });
         const pctMensal = meses.map((_, i) => totalMensal[i] > 0 ? Math.round((presencaMensal[i] / totalMensal[i]) * 100) : 0);
+        const mesesLabels = meses.map((m, i) => `${m} (${pctMensal[i]}%)`);
         if (charts.mensal) charts.mensal.destroy();
         charts.mensal = new Chart(document.getElementById('graficoMensal'), {
             type: 'bar',
-            data: { 
-                labels: meses, 
-                datasets: [{ label: 'Presença (%)', data: pctMensal, backgroundColor: '#1e90ff' }] 
-            },
-            options: {
-                plugins: {
-                    tooltip: { callbacks: { label: (ctx) => `${ctx.raw}%` } }
-                }
-            }
+            data: { labels: mesesLabels, datasets: [{ label: 'Presença (%)', data: pctMensal, backgroundColor: '#1e90ff' }] }
         });
     }
 
+    function mostrarAlerta(mensagem) {
+        const alerta = document.createElement('div');
+        alerta.style.position = 'fixed';
+        alerta.style.bottom = '20px';
+        alerta.style.right = '20px';
+        alerta.style.background = '#00cc66';
+        alerta.style.color = 'white';
+        alerta.style.padding = '12px 24px';
+        alerta.style.borderRadius = '50px';
+        alerta.style.zIndex = '1000';
+        alerta.style.animation = 'fadeOut 3s forwards';
+        alerta.textContent = mensagem;
+        document.body.appendChild(alerta);
+        setTimeout(() => alerta.remove(), 3000);
+    }
+
+    document.querySelectorAll('.periodo-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.periodo-btn').forEach(b => b.classList.remove('ativo'));
+            btn.classList.add('ativo');
+            periodoAtual = btn.dataset.periodo;
+            const dataRange = document.getElementById('dataRange');
+            if (periodoAtual === 'personalizado') dataRange.style.display = 'flex';
+            else dataRange.style.display = 'none';
+            atualizarPresencaFalta();
+        });
+    });
+    
+    document.getElementById('dataInicio').addEventListener('change', () => { if (periodoAtual === 'personalizado') atualizarPresencaFalta(); });
+    document.getElementById('dataFim').addEventListener('change', () => { if (periodoAtual === 'personalizado') atualizarPresencaFalta(); });
+    
+    document.querySelectorAll('.ranking-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('.ranking-tab').forEach(t => t.classList.remove('ativo'));
+            tab.classList.add('ativo');
+            rankingTipo = tab.dataset.tipo;
+            atualizarRanking();
+        });
+    });
+    
+    document.querySelectorAll('.chamada-filtro-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.chamada-filtro-btn').forEach(b => b.classList.remove('ativo'));
+            btn.classList.add('ativo');
+            chamadaPeriodo = btn.dataset.chamadaPeriodo;
+            chamadasExibidas = 10;
+            atualizarChamadas();
+        });
+    });
+
+    atualizarInfoAcesso();
+    verificarAcessoPlanilha();
     carregarDados();
     setInterval(carregarDados, 30000);
 </script>
