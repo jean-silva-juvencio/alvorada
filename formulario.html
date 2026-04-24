@@ -4,6 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Unidos do Alvorada | Inscreva-se na Bateria</title>
+    
+    <!-- OneSignal SDK -->
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script>
+        window.OneSignalDeferred = window.OneSignalDeferred || [];
+        OneSignalDeferred.push(function(OneSignal) {
+            OneSignal.init({
+                appId: "8f87c4a3-b592-4fbc-b604-be5d293a1673",
+                safari_web_id: "",
+                notifyButton: {
+                    enable: true,
+                },
+                allowLocalhostAsSecureOrigin: true,
+            });
+        });
+        
+        // Função para pedir permissão após o envio
+        async function solicitarPermissaoOneSignal() {
+            if (window.OneSignal) {
+                await window.OneSignal.showSlidedown();
+            }
+        }
+    </script>
+    
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -210,8 +234,48 @@
             cursor: not-allowed;
         }
 
-        /* MODAL DE NOTIFICAÇÃO (POPUP DE PERMISSÃO) */
-        .modal-notificacao {
+        /* MODAL DE CARREGAMENTO */
+        .modal-loading {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 5000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-loading-content {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            animation: fadeInScale 0.3s ease-out;
+        }
+        body.dark .modal-loading-content { background: #1e3a5f; }
+        .modal-loading-content .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #ccc;
+            border-top-color: #1e90ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .modal-loading-content h3 {
+            color: #1e90ff;
+            margin-bottom: 10px;
+        }
+        body.dark .modal-loading-content h3 { color: #FFD700; }
+
+        .modal-alerta {
             display: none;
             position: fixed;
             top: 0;
@@ -223,67 +287,6 @@
             justify-content: center;
             align-items: center;
         }
-
-        .modal-notificacao-content {
-            background: white;
-            border-radius: 24px;
-            padding: 32px;
-            max-width: 450px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.3);
-            animation: fadeInScale 0.3s ease-out;
-        }
-        body.dark .modal-notificacao-content { background: #1e3a5f; }
-
-        .modal-notificacao-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #1e90ff;
-        }
-        body.dark .modal-notificacao-content h3 { color: #FFD700; }
-
-        .modal-notificacao-content p {
-            margin-bottom: 20px;
-            font-size: 1rem;
-        }
-
-        .btn-notificacao-sim {
-            background: #00cc66;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: bold;
-            margin: 5px;
-        }
-        .btn-notificacao-nao {
-            background: #ff4444;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: bold;
-            margin: 5px;
-        }
-        .btn-notificacao-sim:hover { background: #00994d; }
-        .btn-notificacao-nao:hover { background: #cc0000; }
-
-        .modal-alerta {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: 3000;
-            justify-content: center;
-            align-items: center;
-        }
-
         .modal-alerta-content {
             background: white;
             border-radius: 24px;
@@ -295,18 +298,11 @@
             animation: fadeInScale 0.3s ease-out;
         }
         body.dark .modal-alerta-content { background: #1e3a5f; }
-
         @keyframes fadeInScale {
             from { transform: scale(0.9); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
-
-        .modal-alerta-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #ff9800;
-        }
-
+        .modal-alerta-content h3 { font-size: 1.5rem; margin-bottom: 15px; color: #ff9800; }
         .modal-alerta-content .dados-duplicado {
             background: #f0f0f0;
             padding: 15px;
@@ -315,8 +311,6 @@
             margin: 15px 0;
         }
         body.dark .modal-alerta-content .dados-duplicado { background: #0f1a30; }
-        .modal-alerta-content .dados-duplicado p { margin: 8px 0; font-size: 0.9rem; }
-
         .btn-modal-ok {
             background: #00cc66;
             color: white;
@@ -324,10 +318,7 @@
             padding: 10px 25px;
             border-radius: 50px;
             cursor: pointer;
-            font-weight: bold;
         }
-        .btn-modal-ok:hover { background: #00994d; }
-
         .notificacao {
             position: fixed;
             bottom: 20px;
@@ -345,7 +336,6 @@
             70% { opacity: 1; transform: translateY(0); }
             100% { opacity: 0; transform: translateY(20px); visibility: hidden; }
         }
-
         @media (max-width: 768px) {
             .card { padding: 25px; }
             .row-2 { grid-template-columns: 1fr; gap: 20px; }
@@ -506,15 +496,16 @@
     </div>
 </div>
 
-<div id="modalNotificacao" class="modal-notificacao">
-    <div class="modal-notificacao-content">
-        <h3>🔔 RECEBA NOTIFICAÇÕES</h3>
-        <p>Quer receber uma notificação quando sua solicitação for aprovada?</p>
-        <button class="btn-notificacao-sim" id="btnNotificacaoSim">✅ SIM, QUERO RECEBER</button>
-        <button class="btn-notificacao-nao" id="btnNotificacaoNao">❌ NÃO, OBRIGADO</button>
+<!-- MODAL DE CARREGAMENTO -->
+<div id="modalLoading" class="modal-loading">
+    <div class="modal-loading-content">
+        <div class="spinner"></div>
+        <h3>⏳ VERIFICANDO CADASTRO...</h3>
+        <p>Consultando banco de dados<br>Aguarde um momento</p>
     </div>
 </div>
 
+<!-- MODAL DUPLICADO -->
 <div id="modalDuplicado" class="modal-alerta">
     <div class="modal-alerta-content">
         <h3>⚠️ ATENÇÃO! VOCÊ JÁ É CADASTRADO</h3>
@@ -532,8 +523,6 @@
     const URL_BUSCAR = 'https://script.google.com/macros/s/AKfycbwc38o_fTMHbH1J9bBn8rYOjFEJjRfidDzkn1zU7gohpP0wRGwH3AAWvzHsqXYhfgWRtw/exec';
 
     let podeEnviar = true;
-    let emailUsuario = '';
-    let nomeUsuario = '';
 
     function toggleTheme() {
         document.body.classList.toggle('dark');
@@ -633,61 +622,13 @@
         }
     }
 
-    // SOLICITAR PERMISSÃO DE NOTIFICAÇÃO
-    async function solicitarPermissaoNotificacao(email, nome) {
-        if (!("Notification" in window)) {
-            console.log("Este navegador não suporta notificações");
-            return false;
-        }
-        
-        if (Notification.permission === "granted") {
-            console.log("Permissão já concedida");
-            return true;
-        }
-        
-        if (Notification.permission === "denied") {
-            console.log("Permissão negada");
-            return false;
-        }
-        
-        // Mostrar modal de permissão
-        return new Promise((resolve) => {
-            const modal = document.getElementById('modalNotificacao');
-            const btnSim = document.getElementById('btnNotificacaoSim');
-            const btnNao = document.getElementById('btnNotificacaoNao');
-            
-            // Salvar email e nome para usar depois
-            emailUsuario = email;
-            nomeUsuario = nome;
-            
+    function mostrarLoading(show) {
+        const modal = document.getElementById('modalLoading');
+        if (show) {
             modal.style.display = 'flex';
-            
-            btnSim.onclick = async () => {
-                modal.style.display = 'none';
-                const permission = await Notification.requestPermission();
-                if (permission === "granted") {
-                    // Salvar no localStorage que o usuário aceitou
-                    const notificacoes = JSON.parse(localStorage.getItem('notificacoesAtivas')) || {};
-                    notificacoes[email] = true;
-                    localStorage.setItem('notificacoesAtivas', JSON.stringify(notificacoes));
-                    
-                    // Enviar notificação de boas-vindas
-                    new Notification("🔔 Notificações ativadas!", {
-                        body: `Olá ${nome}, você receberá uma notificação quando sua solicitação for aprovada!`,
-                        icon: "https://via.placeholder.com/64",
-                        silent: false
-                    });
-                    resolve(true);
-                } else {
-                    resolve(false);
-                }
-            };
-            
-            btnNao.onclick = () => {
-                modal.style.display = 'none';
-                resolve(false);
-            };
-        });
+        } else {
+            modal.style.display = 'none';
+        }
     }
 
     async function enviarFormulario() {
@@ -695,6 +636,10 @@
         
         if (!podeEnviar) return;
         
+        // Mostrar modal de carregamento
+        mostrarLoading(true);
+        
+        // Desabilitar botão
         btn.disabled = true;
         btn.textContent = '⏳ VERIFICANDO...';
 
@@ -703,27 +648,20 @@
         const telefone = document.getElementById('telefone').value.trim();
         const email = document.getElementById('email').value.trim();
         
-        if (!nome) { mostrarAlerta('❌ Preencha o Nome!', true); habilitarBotao(btn); return; }
-        if (!dataNasc) { mostrarAlerta('❌ Preencha a Data de nascimento!', true); habilitarBotao(btn); return; }
-        if (!telefone) { mostrarAlerta('❌ Preencha o Telefone!', true); habilitarBotao(btn); return; }
-        if (!email) { mostrarAlerta('❌ Preencha o E-mail!', true); habilitarBotao(btn); return; }
+        if (!nome) { mostrarAlerta('❌ Preencha o Nome!', true); mostrarLoading(false); habilitarBotao(btn); return; }
+        if (!dataNasc) { mostrarAlerta('❌ Preencha a Data de nascimento!', true); mostrarLoading(false); habilitarBotao(btn); return; }
+        if (!telefone) { mostrarAlerta('❌ Preencha o Telefone!', true); mostrarLoading(false); habilitarBotao(btn); return; }
+        if (!email) { mostrarAlerta('❌ Preencha o E-mail!', true); mostrarLoading(false); habilitarBotao(btn); return; }
 
+        // VERIFICAR DUPLICADO
         const duplicado = await verificarDuplicado(nome, telefone, email, dataNasc);
         
         if (duplicado) {
+            mostrarLoading(false);
             podeEnviar = false;
             mostrarModalDuplicado(duplicado);
             habilitarBotao(btn);
             return;
-        }
-
-        // PEDIR PERMISSÃO DE NOTIFICAÇÃO (só se já não tiver sido perguntado)
-        const notificacoesAtivas = JSON.parse(localStorage.getItem('notificacoesAtivas')) || {};
-        const jaPerguntou = localStorage.getItem('jaPerguntouNotificacao');
-        
-        if (!jaPerguntou) {
-            const aceitou = await solicitarPermissaoNotificacao(email, nome);
-            localStorage.setItem('jaPerguntouNotificacao', 'true');
         }
 
         const dados = {
@@ -758,14 +696,24 @@
                 body: JSON.stringify(dados)
             });
             
+            mostrarLoading(false);
             mostrarAlerta('✅ Solicitação enviada com sucesso! Aguarde aprovação.', false);
             document.getElementById('formInscricao').reset();
+            
+            // Pedir permissão para notificações após o envio
+            setTimeout(() => {
+                if (window.OneSignal) {
+                    window.OneSignal.showSlidedown();
+                }
+            }, 1000);
+            
             setTimeout(() => {
                 window.location.href = 'index.html';
-            }, 2000);
+            }, 3000);
             
         } catch (error) {
             console.error('Erro:', error);
+            mostrarLoading(false);
             mostrarAlerta('⚠️ Erro ao enviar. Tente novamente.', true);
         }
         
