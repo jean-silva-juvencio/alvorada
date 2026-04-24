@@ -155,6 +155,21 @@
             min-width: 150px;
             font-size: 0.9rem;
         }
+        .btn-ordem {
+            background: #1e90ff;
+            border: none;
+            border-radius: 12px;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: white;
+            transition: all 0.3s;
+        }
+        .btn-ordem:hover { background: #FFD700; color: #0a1628; }
+        body.dark .btn-ordem { background: #FFD700; color: #0a1628; }
+        body.dark .btn-ordem:hover { background: #1e90ff; color: white; }
+        
         .btn-recarga {
             background: linear-gradient(135deg, #FFD700, #1e90ff);
             color: #0a1628;
@@ -165,20 +180,35 @@
             font-weight: bold;
             transition: all 0.3s;
         }
-        .btn-recarga:hover { transform: scale(1.02); background: #FFD700; color: #0a1628; }
+        .btn-recarga:hover { transform: scale(1.02); }
         body.dark .filtros input, body.dark .filtros select { background: #0f1a30; border-color: #1e3a5f; color: white; }
+
+        /* CORES APENAS NAS CÉLULAS (NOME, INSTRUMENTO, CATEGORIA) */
+        .categoria-primeira-vez td:nth-child(1),
+        .categoria-primeira-vez td:nth-child(2),
+        .categoria-primeira-vez td:nth-child(3) { background-color: #dc2626 !important; color: white !important; }
+        
+        .categoria-basico td:nth-child(1),
+        .categoria-basico td:nth-child(2),
+        .categoria-basico td:nth-child(3) { background-color: #2563eb !important; color: white !important; }
+        
+        .categoria-intermediario td:nth-child(1),
+        .categoria-intermediario td:nth-child(2),
+        .categoria-intermediario td:nth-child(3) { background-color: #eab308 !important; color: #1a1a1a !important; }
+        
+        .categoria-avancado td:nth-child(1),
+        .categoria-avancado td:nth-child(2),
+        .categoria-avancado td:nth-child(3) { background-color: #16a34a !important; color: white !important; }
+        
+        .categoria-mestre td:nth-child(1),
+        .categoria-mestre td:nth-child(2),
+        .categoria-mestre td:nth-child(3) { background-color: #111111 !important; color: #f0f0f0 !important; }
 
         .tabela-container { overflow-x: auto; margin-bottom: 25px; }
         table { width: 100%; border-collapse: collapse; }
         table th { text-align: left; padding: 12px; background: #e8f0fe; font-weight: 600; }
         body.dark table th { background: #0f1a30; color: #FFD700; }
         table td { padding: 12px; border-bottom: 1px solid #e0e0e0; }
-        body.dark table td { border-bottom-color: rgba(255, 215, 0, 0.2); }
-
-        .linha-presente { background-color: #d4edda !important; }
-        .linha-ausente { background-color: #f8d7da !important; }
-        body.dark .linha-presente { background-color: #155724 !important; }
-        body.dark .linha-ausente { background-color: #721c24 !important; }
 
         .btn-presenca {
             background: none;
@@ -235,20 +265,57 @@
         .footer p { color: white; margin: 5px 0; font-size: 0.9rem; }
         .footer .destaque { color: #FFD700; font-weight: bold; }
 
-        .alerta {
+        .modal-notificacao {
+            display: none;
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #00cc66;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 50px;
-            animation: fadeOut 3s forwards;
-            z-index: 1000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
         }
-        .alerta-erro { background: #ff4444; }
-        .alerta-aviso { background: #ff9800; }
-        @keyframes fadeOut { 0% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
+        .modal-notificacao-content {
+            background: white;
+            border-radius: 24px;
+            padding: 32px;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.3);
+            animation: fadeInScale 0.3s ease-out;
+        }
+        body.dark .modal-notificacao-content { background: #1e3a5f; }
+        @keyframes fadeInScale {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .modal-notificacao-content h3.sucesso { color: #00cc66; }
+        .modal-notificacao-content h3.erro { color: #ff4444; }
+        .modal-notificacao-content h3.aviso { color: #ff9800; }
+        .modal-notificacao-content p { margin: 15px 0; font-size: 1rem; }
+        .modal-notificacao-content .detalhes {
+            background: #f0f0f0;
+            padding: 12px;
+            border-radius: 12px;
+            margin: 15px 0;
+            font-size: 0.9rem;
+            text-align: left;
+        }
+        body.dark .modal-notificacao-content .detalhes { background: #0f1a30; }
+        .btn-modal {
+            background: #1e90ff;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .btn-modal:hover { background: #FFD700; color: #0a1628; }
 
         @media (max-width: 768px) {
             .btn-acao { padding: 10px 18px; font-size: 0.8rem; }
@@ -264,8 +331,10 @@
 <div class="header">
     <div class="header-container">
         <div class="nav-links">
-            <a href="chamada.html" class="active">✅ CHAMADA</a>
             <a href="index.html">🏠 INÍCIO</a>
+            <a href="chamada.html" class="active">✅ CHAMADA</a>
+            <a href="diretoria.html">👑 DIRETORIA</a>
+            <a href="./solicitaçoes.html">📋 SOLICITAÇÕES</a>
             <button class="theme-btn" onclick="toggleTheme()">🌓 TEMA</button>
         </div>
     </div>
@@ -278,21 +347,31 @@
 
         <div class="data-container">
             <label>📅 Data do ensaio:</label>
-            <input type="date" id="dataEnsaio" value="2026-04-20">
+            <input type="date" id="dataEnsaio">
         </div>
 
         <div class="filtros">
             <input type="text" id="buscaNome" placeholder="🔍 Buscar por nome..." onkeyup="filtrarTabela()">
             <select id="filtroInstrumento" onchange="filtrarTabela()">
                 <option value="todos">🥁 Todos os instrumentos</option>
-                <option value="Surdo">🥁 Surdo</option>
-                <option value="Caixa">🥁 Caixa</option>
-                <option value="Repique">🥁 Repique</option>
-                <option value="Tamborim">🥁 Tamborim</option>
-                <option value="Chocalho">🥁 Chocalho</option>
-                <option value="Cuíca">🥁 Cuíca</option>
+                <option value="Surdo">Surdo</option>
+                <option value="Caixa">Caixa</option>
+                <option value="Repique">Repique</option>
+                <option value="Tamborim">Tamborim</option>
+                <option value="Chocalho">Chocalho</option>
+                <option value="Cuíca">Cuíca</option>
             </select>
-            <button class="btn-recarga" onclick="carregarRitmistas()">🔄 CARREGAR PÁGINA</button>
+            <select id="filtroCategoria" onchange="filtrarTabela()">
+                <option value="todos">🏷️ Todas as categorias</option>
+                <option value="Primeira vez">🔴 Primeira vez</option>
+                <option value="Básico">🔵 Básico</option>
+                <option value="Intermediário">🟡 Intermediário</option>
+                <option value="Avançado">🟢 Avançado</option>
+                <option value="Mestre">⚫ Mestre</option>
+            </select>
+            <button class="btn-ordem" onclick="ordenarAZ()">📋 A-Z</button>
+            <button class="btn-ordem" onclick="ordenarZA()">📋 Z-A</button>
+            <button class="btn-recarga" onclick="carregarRitmistas()">🔄 CARREGAR</button>
         </div>
 
         <div id="statusCarregamento" class="status-carregamento">🔄 Carregando ritmistas da planilha...</div>
@@ -300,10 +379,10 @@
         <div class="tabela-container">
             <table id="tabelaChamada">
                 <thead>
-                    <tr><th>RITMISTA</th><th>INSTRUMENTO</th><th>✅ PRESENTE</th><th>❌ AUSENTE</th></tr>
+                    <tr><th>RITMISTA</th><th>INSTRUMENTO</th><th>CATEGORIA</th><th>✅ PRESENTE</th><th>❌ AUSENTE</th></tr>
                 </thead>
                 <tbody id="tabelaBody">
-                    <tr><td colspan="4" style="text-align: center;">Aguardando carregamento...</td></tr>
+                    <tr><td colspan="5" style="text-align: center;">Aguardando carregamento...</td></tr>
                 </tbody>
             </table>
         </div>
@@ -326,75 +405,134 @@
     <p>© 2026 Unidos do Alvorada. Todos os direitos reservados.</p>
 </div>
 
-<script>
-    // TEMA
-    function toggleTheme() {
-        const body = document.body;
-        if (body.classList.contains('dark')) {
-            body.classList.remove('dark');
-            localStorage.setItem('theme', 'light');
-        } else {
-            body.classList.add('dark');
-            localStorage.setItem('theme', 'dark');
-        }
-    }
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') document.body.classList.add('dark');
+<div id="modalNotificacao" class="modal-notificacao">
+    <div class="modal-notificacao-content">
+        <h3 id="modalTitulo" class="sucesso">✅ SUCESSO!</h3>
+        <p id="modalMensagem">Chamada salva com sucesso!</p>
+        <div id="modalDetalhes" class="detalhes" style="display: none;"></div>
+        <button class="btn-modal" onclick="fecharModal()">OK</button>
+    </div>
+</div>
 
-    // ⚠️ SEU URL DO GOOGLE APPS SCRIPT ⚠️
-    const URL_SCRIPT = 'https://script.google.com/macros/s/AKfycbwcXt8fFwvi9hbcCYlDkt7ik2j3h7wjP33Gg7RQPf4KHaxE-noFU5tAZE__KW5Bq9zoww/exec';
+<script>
+    const URL_BUSCAR = 'https://script.google.com/macros/s/AKfycbwc38o_fTMHbH1J9bBn8rYOjFEJjRfidDzkn1zU7gohpP0wRGwH3AAWvzHsqXYhfgWRtw/exec';
+    const URL_SALVAR = 'https://script.google.com/macros/s/AKfycbwcXt8fFwvi9hbcCYlDkt7ik2j3h7wjP33Gg7RQPf4KHaxE-noFU5tAZE__KW5Bq9zoww/exec';
 
     let ritmistas = [];
     let filtroNome = '';
     let filtroInstrumento = 'todos';
+    let filtroCategoria = 'todos';
+    let ordem = null;
     let intervaloAtualizacao = null;
     let chamadasSalvas = JSON.parse(localStorage.getItem('chamadas')) || {};
 
-    async function carregarRitmistas() {
-        const statusDiv = document.getElementById('statusCarregamento');
-        statusDiv.innerHTML = '🔄 Carregando ritmistas da planilha...';
-        statusDiv.style.color = '#1e90ff';
-        
-        try {
-            const response = await fetch(`${URL_SCRIPT}?acao=buscarRitmistas`);
-            const data = await response.json();
-            
-            if (data.success && data.ritmistas) {
-                ritmistas = data.ritmistas.map(r => ({ ...r, presente: null }));
-                renderizarTabela();
-                statusDiv.innerHTML = `✅ ${ritmistas.length} ritmistas carregados! Última atualização: ${new Date().toLocaleTimeString()}`;
-                statusDiv.style.color = '#00cc66';
-                setTimeout(() => { statusDiv.innerHTML = '✅ Pronto para chamada'; }, 3000);
-            } else {
-                statusDiv.innerHTML = '❌ Nenhum ritmista encontrado. Verifique se há ritmistas com status "Ativo" na planilha.';
-                statusDiv.style.color = '#ff4444';
+    function toggleTheme() {
+        document.body.classList.toggle('dark');
+        localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    }
+    if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
+
+    // Data atual no calendário
+    const hoje = new Date();
+    const ano = hoje.getFullYear();
+    const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+    const dia = String(hoje.getDate()).padStart(2, '0');
+    document.getElementById('dataEnsaio').value = `${ano}-${mes}-${dia}`;
+
+    function getCategoriaClass(categoria) {
+        const mapa = { 
+            'Primeira vez': 'categoria-primeira-vez', 
+            'PRIMEIRA VEZ': 'categoria-primeira-vez',
+            'Básico': 'categoria-basico',
+            'BÁSICO': 'categoria-basico',
+            'Intermediário': 'categoria-intermediario',
+            'INTERMEDIÁRIO': 'categoria-intermediario',
+            'Avançado': 'categoria-avancado',
+            'AVANÇADO': 'categoria-avancado',
+            'Mestre': 'categoria-mestre',
+            'MESTRE': 'categoria-mestre'
+        };
+        return mapa[categoria] || '';
+    }
+
+    function normalizarCategoria(cat) {
+        if (!cat) return '';
+        const catUpper = cat.toUpperCase().trim();
+        if (catUpper.includes('PRIMEIRA') || catUpper === 'PRIMEIRA VEZ') return 'Primeira vez';
+        if (catUpper === 'BÁSICO') return 'Básico';
+        if (catUpper === 'INTERMEDIÁRIO') return 'Intermediário';
+        if (catUpper === 'AVANÇADO') return 'Avançado';
+        if (catUpper === 'MESTRE') return 'Mestre';
+        return cat;
+    }
+
+    function ordenarAZ() { ordem = 'asc'; renderizarTabela(); }
+    function ordenarZA() { ordem = 'desc'; renderizarTabela(); }
+    function filtrarTabela() {
+        filtroNome = document.getElementById('buscaNome').value;
+        filtroInstrumento = document.getElementById('filtroInstrumento').value;
+        filtroCategoria = document.getElementById('filtroCategoria').value;
+        renderizarTabela();
+    }
+
+    function getStorageKey() {
+        const data = document.getElementById('dataEnsaio').value;
+        return `chamada_${data}`;
+    }
+
+    function salvarPresencasLocalStorage() {
+        const key = getStorageKey();
+        const presencas = {};
+        ritmistas.forEach(r => {
+            if (r.presente !== null) {
+                presencas[r.nome] = r.presente;
             }
-        } catch (error) {
-            statusDiv.innerHTML = '❌ Erro de conexão com a planilha!';
-            statusDiv.style.color = '#ff4444';
-            mostrarAlerta('Erro de conexão com a planilha!', 'erro');
+        });
+        localStorage.setItem(key, JSON.stringify(presencas));
+    }
+
+    function carregarPresencasLocalStorage() {
+        const key = getStorageKey();
+        const salvas = localStorage.getItem(key);
+        if (salvas) {
+            const presencas = JSON.parse(salvas);
+            ritmistas.forEach(r => {
+                if (presencas[r.nome] !== undefined) {
+                    r.presente = presencas[r.nome];
+                } else {
+                    r.presente = null;
+                }
+            });
+        } else {
+            ritmistas.forEach(r => r.presente = null);
         }
     }
 
     function renderizarTabela() {
+        let filtrados = [...ritmistas];
+        
+        if (filtroNome) {
+            filtrados = filtrados.filter(r => (r.nome || '').toLowerCase().includes(filtroNome.toLowerCase()));
+        }
+        if (filtroInstrumento !== 'todos') {
+            filtrados = filtrados.filter(r => (r.instrumento || '').toLowerCase() === filtroInstrumento.toLowerCase());
+        }
+        if (filtroCategoria !== 'todos') {
+            filtrados = filtrados.filter(r => r.nivel === filtroCategoria);
+        }
+        if (ordem === 'asc') {
+            filtrados.sort((a, b) => (a.nome || '').localeCompare(b.nome || ''));
+        } else if (ordem === 'desc') {
+            filtrados.sort((a, b) => (b.nome || '').localeCompare(a.nome || ''));
+        }
+        
         const tbody = document.getElementById('tabelaBody');
         tbody.innerHTML = '';
         
         let presentes = 0, ausentes = 0;
         
-        const filtrados = ritmistas.filter(r => {
-            const matchNome = r.nome.toLowerCase().includes(filtroNome.toLowerCase());
-            let matchInstrumento = true;
-            if (filtroInstrumento !== 'todos') {
-                const instRitmista = r.instrumento.toLowerCase().trim();
-                const instFiltro = filtroInstrumento.toLowerCase().trim();
-                matchInstrumento = instRitmista === instFiltro;
-            }
-            return matchNome && matchInstrumento;
-        });
-        
         if (filtrados.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="4" style="text-align: center;">Nenhum ritmista encontrado</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align: center;">Nenhum ritmista encontrado</td></tr>';
             document.getElementById('totalGeral').textContent = '0';
             document.getElementById('totalPresentes').textContent = '0';
             document.getElementById('totalAusentes').textContent = '0';
@@ -403,23 +541,17 @@
         
         filtrados.forEach(ritmista => {
             const row = tbody.insertRow();
+            const categoriaClass = getCategoriaClass(ritmista.nivel);
+            if (categoriaClass) row.className = categoriaClass;
             
-            if (ritmista.presente === true) {
-                row.classList.add('linha-presente');
-                presentes++;
-            } else if (ritmista.presente === false) {
-                row.classList.add('linha-ausente');
-                ausentes++;
-            }
+            if (ritmista.presente === true) presentes++;
+            if (ritmista.presente === false) ausentes++;
             
-            const cellNome = row.insertCell(0);
-            cellNome.textContent = ritmista.nome;
-            cellNome.style.fontWeight = 'bold';
+            row.insertCell(0).textContent = ritmista.nome || '';
+            row.insertCell(1).textContent = ritmista.instrumento || '-';
+            row.insertCell(2).textContent = ritmista.nivel || '-';
             
-            const cellInst = row.insertCell(1);
-            cellInst.textContent = ritmista.instrumento;
-            
-            const cellPresente = row.insertCell(2);
+            const cellPresente = row.insertCell(3);
             const btnPresente = document.createElement('button');
             btnPresente.textContent = '✅';
             btnPresente.className = 'btn-presenca btn-presente';
@@ -429,7 +561,7 @@
             })(ritmista);
             cellPresente.appendChild(btnPresente);
             
-            const cellAusente = row.insertCell(3);
+            const cellAusente = row.insertCell(4);
             const btnAusente = document.createElement('button');
             btnAusente.textContent = '❌';
             btnAusente.className = 'btn-presenca btn-ausente';
@@ -451,12 +583,7 @@
         } else {
             ritmista.presente = valor;
         }
-        renderizarTabela();
-    }
-    
-    function filtrarTabela() {
-        filtroNome = document.getElementById('buscaNome').value;
-        filtroInstrumento = document.getElementById('filtroInstrumento').value;
+        salvarPresencasLocalStorage();
         renderizarTabela();
     }
     
@@ -478,28 +605,66 @@
         localStorage.setItem('chamadas', JSON.stringify(chamadasSalvas));
     }
     
+    function limparPresencasData(data) {
+        const key = `chamada_${data}`;
+        localStorage.removeItem(key);
+    }
+
+    function mostrarModal(titulo, mensagem, detalhes = '', tipo = 'sucesso') {
+        const modal = document.getElementById('modalNotificacao');
+        const modalTitulo = document.getElementById('modalTitulo');
+        const modalMensagem = document.getElementById('modalMensagem');
+        const modalDetalhes = document.getElementById('modalDetalhes');
+        
+        modalTitulo.className = tipo;
+        modalTitulo.textContent = titulo;
+        modalMensagem.textContent = mensagem;
+        
+        if (detalhes) {
+            modalDetalhes.style.display = 'block';
+            modalDetalhes.innerHTML = detalhes;
+        } else {
+            modalDetalhes.style.display = 'none';
+        }
+        
+        modal.style.display = 'flex';
+        
+        setTimeout(() => {
+            fecharModal();
+        }, 4000);
+    }
+    
+    function fecharModal() {
+        document.getElementById('modalNotificacao').style.display = 'none';
+    }
+    
     async function salvarChamada() {
         const data = document.getElementById('dataEnsaio').value;
         const btnSalvar = document.getElementById('btnSalvar');
         
         if (!data) {
-            mostrarAlerta('❌ Selecione uma data!', 'erro');
+            mostrarModal('⚠️ ATENÇÃO', 'Selecione uma data!', '', 'aviso');
             return;
         }
         
         if (verificarChamadaJaSalva(data)) {
-            mostrarAlerta('⚠️ Chamada deste dia já foi salva! Para alterar, entre em contato com o administrador.', 'aviso');
+            mostrarModal('⚠️ ATENÇÃO', 'Chamada deste dia já foi salva!', 'Para alterar, entre em contato com o administrador.', 'aviso');
             return;
         }
         
         if (!verificarTodosMarcados()) {
-            mostrarAlerta('❌ Marque TODOS os ritmistas (Presente ou Ausente) antes de salvar!', 'erro');
+            const naoMarcados = ritmistas.filter(r => r.presente === null).length;
+            mostrarModal('⚠️ ATENÇÃO', `Faltam ${naoMarcados} ritmistas sem marcação!`, 'Marque TODOS os ritmistas (Presente ou Ausente) antes de salvar.', 'aviso');
             return;
         }
+        
+        const presentesCount = ritmistas.filter(r => r.presente === true).length;
+        const ausentesCount = ritmistas.filter(r => r.presente === false).length;
         
         const presencas = ritmistas.map(r => ({
             nome: r.nome,
             instrumento: r.instrumento,
+            nivel: r.nivel,
             presenca: r.presente === true ? 'Presente' : 'Ausente'
         }));
         
@@ -507,7 +672,7 @@
         btnSalvar.textContent = '⏳ SALVANDO...';
         
         try {
-            await fetch(URL_SCRIPT, {
+            await fetch(URL_SALVAR, {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: { 'Content-Type': 'application/json' },
@@ -520,32 +685,61 @@
             });
             
             marcarChamadaComoSalva(data);
-            mostrarAlerta('✅ Chamada salva com sucesso!');
-            btnSalvar.textContent = '✅ SALVO!';
+            limparPresencasData(data);
             
+            const detalhes = `📅 ${data} (${getDiaSemana(data)})\n✅ Presentes: ${presentesCount}\n❌ Ausentes: ${ausentesCount}`;
+            mostrarModal('✅ SUCESSO!', 'Chamada salva com sucesso!', detalhes.replace(/\n/g, '<br>'), 'sucesso');
+            
+            btnSalvar.textContent = '✅ SALVO!';
             setTimeout(() => {
                 btnSalvar.textContent = '💾 SALVAR CHAMADA';
                 btnSalvar.disabled = false;
             }, 2000);
             
         } catch (error) {
-            mostrarAlerta('⚠️ Erro ao salvar! Tente novamente.', 'erro');
+            mostrarModal('❌ ERRO!', 'Erro ao salvar chamada!', 'Tente novamente mais tarde.', 'erro');
             btnSalvar.textContent = '💾 SALVAR CHAMADA';
             btnSalvar.disabled = false;
         }
     }
     
-    function mostrarAlerta(mensagem, tipo = 'sucesso') {
-        const alerta = document.createElement('div');
-        alerta.className = `alerta ${tipo === 'erro' ? 'alerta-erro' : (tipo === 'aviso' ? 'alerta-aviso' : '')}`;
-        alerta.textContent = mensagem;
-        document.body.appendChild(alerta);
-        setTimeout(() => alerta.remove(), 3000);
+    async function carregarRitmistas() {
+        const statusDiv = document.getElementById('statusCarregamento');
+        statusDiv.innerHTML = '🔄 Carregando ritmistas da planilha...';
+        
+        try {
+            const response = await fetch(`${URL_BUSCAR}?acao=buscarTodosRitmistas&t=${Date.now()}`);
+            const data = await response.json();
+            
+            if (data.success && data.ritmistas) {
+                const ativos = data.ritmistas.filter(r => {
+                    const status = (r.status || '').toUpperCase();
+                    return status === 'ATIVO';
+                });
+                
+                ritmistas = ativos.map(r => ({ 
+                    nome: r.nome || '', 
+                    instrumento: r.instrumento || '',
+                    nivel: normalizarCategoria(r.nivel),
+                    presente: null 
+                }));
+                
+                carregarPresencasLocalStorage();
+                renderizarTabela();
+                statusDiv.innerHTML = `✅ ${ritmistas.length} ritmistas ativos carregados!`;
+                setTimeout(() => { statusDiv.innerHTML = '✅ Pronto'; }, 2000);
+            } else {
+                statusDiv.innerHTML = '❌ Nenhum ritmista encontrado.';
+            }
+        } catch (error) {
+            statusDiv.innerHTML = '❌ Erro de conexão!';
+            mostrarModal('❌ ERRO!', 'Erro de conexão com a planilha!', '', 'erro');
+        }
     }
     
     function iniciarAtualizacaoAutomatica() {
         if (intervaloAtualizacao) clearInterval(intervaloAtualizacao);
-        intervaloAtualizacao = setInterval(carregarRitmistas, 20000);
+        intervaloAtualizacao = setInterval(carregarRitmistas, 30000);
     }
     
     carregarRitmistas();
