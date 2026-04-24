@@ -6,6 +6,7 @@
     <title>Unidos do Alvorada | Solicitações</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
@@ -13,25 +14,31 @@
             color: #0a1628;
             transition: background 0.3s ease, color 0.3s ease;
         }
+
         body.dark {
             background: linear-gradient(135deg, #0a1628 0%, #0f1a30 100%);
             color: #ffffff;
         }
+
         body.dark .card {
             background: linear-gradient(135deg, #1e3a5f, #142142);
             border-color: rgba(255, 215, 0, 0.3);
         }
+
         body.dark table th {
             background: #0f1a30;
             color: #FFD700;
         }
+
         body.dark table td {
             border-bottom-color: rgba(255, 215, 0, 0.2);
         }
+
         body.dark .modal-content {
             background: #1e3a5f;
             color: white;
         }
+
         .header {
             position: fixed;
             top: 0;
@@ -45,10 +52,12 @@
             border-bottom: 2px solid #1e90ff;
             transition: background 0.3s ease;
         }
+
         body.dark .header {
             background: rgba(10, 22, 40, 0.95);
             border-bottom-color: #FFD700;
         }
+
         .header-container {
             max-width: 1400px;
             margin: 0 auto;
@@ -58,12 +67,14 @@
             flex-wrap: wrap;
             gap: 15px;
         }
+
         .nav-links {
             display: flex;
             gap: 25px;
             flex-wrap: wrap;
             align-items: center;
         }
+
         .nav-links a {
             color: #0a1628;
             text-decoration: none;
@@ -72,6 +83,7 @@
             padding: 8px 0;
             position: relative;
         }
+
         body.dark .nav-links a { color: #ffffff; }
         .nav-links a::after {
             content: '';
@@ -88,6 +100,7 @@
         .nav-links a:hover { color: #1e90ff; }
         body.dark .nav-links a:hover { color: #FFD700; }
         .nav-links a.active { color: #1e90ff; }
+
         .theme-btn {
             background: #1e90ff;
             border: none;
@@ -102,6 +115,7 @@
         .theme-btn:hover { transform: scale(1.05); background: #FFD700; color: #0a1628; }
         body.dark .theme-btn { background: #FFD700; color: #0a1628; }
         body.dark .theme-btn:hover { background: #1e90ff; color: white; }
+
         .main-content { max-width: 1400px; margin: 0 auto; padding: 100px 20px 40px; }
         .card {
             background: white;
@@ -113,6 +127,7 @@
         }
         .card h1 { color: #1e90ff; margin-bottom: 5px; }
         body.dark .card h1 { color: #FFD700; }
+
         .dashboard {
             display: flex;
             gap: 20px;
@@ -130,6 +145,7 @@
         .card-dash .numero { font-size: 2.5rem; font-weight: bold; color: #1e90ff; }
         body.dark .card-dash .numero { color: #FFD700; }
         .card-dash .label { font-size: 0.9rem; }
+
         .filtros {
             display: flex;
             gap: 15px;
@@ -156,47 +172,21 @@
         }
         .btn-recarga:hover { transform: scale(1.02); }
         body.dark .filtros input, body.dark .filtros select { background: #0f1a30; border-color: #1e3a5f; color: white; }
-        .filtro-categorias {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            align-items: center;
-            margin: 15px 0;
-            padding: 10px 0;
-            border-top: 1px solid #ddd;
-            border-bottom: 1px solid #ddd;
-        }
-        .filtro-categorias label {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 0.85rem;
-            cursor: pointer;
-        }
-        .btn-ordem {
-            background: #1e90ff;
-            border: none;
-            border-radius: 12px;
-            padding: 8px 16px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            font-weight: bold;
-            color: white;
-            margin-right: 10px;
-        }
-        .btn-ordem:hover { background: #FFD700; color: #0a1628; }
-        body.dark .btn-ordem { background: #FFD700; color: #0a1628; }
-        body.dark .btn-ordem:hover { background: #1e90ff; color: white; }
-        .categoria-primeira-vez td { background-color: #dc2626 !important; color: white !important; }
-        .categoria-basico td { background-color: #2563eb !important; color: white !important; }
-        .categoria-intermediario td { background-color: #eab308 !important; color: #1a1a1a !important; }
-        .categoria-avancado td { background-color: #16a34a !important; color: white !important; }
-        .categoria-mestre td { background-color: #111111 !important; color: #f0f0f0 !important; }
+
+        /* CORES DAS LINHAS POR CATEGORIA */
+        .categoria-primeira-vez td { background-color: #dc2626; color: white; }
+        .categoria-basico td { background-color: #2563eb; color: white; }
+        .categoria-intermediario td { background-color: #eab308; color: #1a1a1a; }
+        .categoria-avancado td { background-color: #16a34a; color: white; }
+        .categoria-mestre td { background-color: #111111; color: #f0f0f0; }
+
         .tabela-container { overflow-x: auto; margin-bottom: 25px; }
         table { width: 100%; border-collapse: collapse; }
         table th { text-align: left; padding: 12px; background: #e8f0fe; font-weight: 600; }
         body.dark table th { background: #0f1a30; color: #FFD700; }
         table td { padding: 12px; border-bottom: 1px solid #e0e0e0; }
+        body.dark table td { border-bottom-color: rgba(255, 215, 0, 0.2); }
+
         .btn-acao {
             background: none;
             border: none;
@@ -208,14 +198,15 @@
         }
         .btn-aprovar { color: #00cc66; }
         .btn-aprovar:hover { background: #00cc66; color: white; }
-        .btn-aprovar:disabled { opacity: 0.5; cursor: not-allowed; }
         .btn-recusar { color: #ff4444; }
         .btn-recusar:hover { background: #ff4444; color: white; }
         .btn-editar { color: #1e90ff; }
         .btn-editar:hover { background: #1e90ff; color: white; }
         .btn-visualizar { color: #FFD700; }
         .btn-visualizar:hover { background: #FFD700; color: #0a1628; }
+
         .status-carregamento { text-align: center; padding: 20px; color: #1e90ff; font-weight: bold; }
+
         .secao-titulo {
             font-size: 1.3rem;
             font-weight: bold;
@@ -223,6 +214,8 @@
             padding-bottom: 10px;
             border-bottom: 2px solid #1e90ff;
         }
+        body.dark .secao-titulo { border-bottom-color: #FFD700; }
+
         .modal {
             display: none;
             position: fixed;
@@ -245,6 +238,7 @@
             overflow-y: auto;
         }
         .modal-content h2 { margin-bottom: 20px; color: #1e90ff; }
+        body.dark .modal-content h2 { color: #FFD700; }
         .modal-content label { font-weight: 600; display: block; margin-top: 10px; margin-bottom: 5px; }
         .modal-content input, .modal-content select {
             width: 100%;
@@ -252,6 +246,11 @@
             margin-bottom: 10px;
             border-radius: 12px;
             border: 1px solid #ccc;
+        }
+        body.dark .modal-content input, body.dark .modal-content select {
+            background: #0f1a30;
+            border-color: #1e3a5f;
+            color: white;
         }
         .modal-botoes {
             display: flex;
@@ -267,6 +266,7 @@
             border-radius: 50px;
             cursor: pointer;
         }
+        .btn-salvar:disabled { opacity: 0.6; cursor: not-allowed; }
         .btn-cancelar {
             background: #ff4444;
             color: white;
@@ -276,84 +276,25 @@
             cursor: pointer;
         }
         .fechar { float: right; font-size: 1.5rem; cursor: pointer; }
-        .visualizar-content {
-            background: white;
-            border-radius: 30px;
-            padding: 30px;
-            max-width: 600px;
-            width: 90%;
-        }
-        .visualizar-content h2 { color: #1e90ff; margin-bottom: 20px; }
-        .visualizar-content .dado {
-            margin-bottom: 12px;
-            padding: 8px;
-            background: #f5f5f5;
-            border-radius: 10px;
-        }
-        body.dark .visualizar-content .dado { background: #0f1a30; }
-        .visualizar-content .dado strong { display: inline-block; width: 120px; font-weight: 600; }
-        .modal-alerta {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.6);
-            z-index: 3000;
-            justify-content: center;
-            align-items: center;
-        }
-        .alerta-content {
-            background: white;
-            border-radius: 24px;
-            padding: 28px;
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 20px 35px rgba(0,0,0,0.3);
-            animation: fadeInScale 0.2s ease-out;
-        }
-        @keyframes fadeInScale {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-        .alerta-content h3 { font-size: 1.5rem; margin-bottom: 15px; color: #ff9800; }
-        .alerta-content .dados-duplicado {
-            background: #f0f0f0;
-            padding: 15px;
-            border-radius: 16px;
-            text-align: left;
-            margin: 15px 0;
-        }
-        body.dark .alerta-content .dados-duplicado { background: #0f1a30; }
-        .alerta-botoes {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-        .btn-editar-duplicado { background: #1e90ff; color: white; border: none; padding: 10px 20px; border-radius: 50px; cursor: pointer; font-weight: bold; }
-        .btn-desativar-pendente { background: #ff9800; color: #1a1a1a; border: none; padding: 10px 20px; border-radius: 50px; cursor: pointer; font-weight: bold; }
-        .btn-cancelar-duplicado { background: #666; color: white; border: none; padding: 10px 20px; border-radius: 50px; cursor: pointer; font-weight: bold; }
+
         .footer { text-align: center; padding: 30px 20px; margin-top: 30px; border-radius: 30px 30px 0 0; background: linear-gradient(135deg, #0a1628, #1e3a5f); }
         .footer p { color: white; margin: 5px 0; font-size: 0.9rem; }
         .footer .destaque { color: #FFD700; font-weight: bold; }
-        .notificacao {
+
+        .alerta {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            min-width: 320px;
             background: #00cc66;
             color: white;
-            padding: 12px 20px;
-            border-radius: 12px;
+            padding: 12px 24px;
+            border-radius: 50px;
             animation: fadeOut 3s forwards;
             z-index: 1000;
         }
-        .notificacao-erro { background: #ff4444; }
+        .alerta-erro { background: #ff4444; }
         @keyframes fadeOut { 0% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
+
         @media (max-width: 768px) {
             table th, table td { padding: 8px; font-size: 0.7rem; }
             .filtros { flex-direction: column; }
@@ -379,11 +320,13 @@
     <div class="card">
         <h1>📋 GESTÃO DE RITMISTAS</h1>
         <p style="margin-bottom: 20px;">Gerencie solicitações, edite dados e controle o status dos ritmistas.</p>
+
         <div class="dashboard" id="dashboard">
             <div class="card-dash"><div class="numero" id="totalAtivos">0</div><div class="label">🟢 ATIVOS</div></div>
             <div class="card-dash"><div class="numero" id="totalPendentes">0</div><div class="label">🟡 PENDENTES</div></div>
             <div class="card-dash"><div class="numero" id="totalInativos">0</div><div class="label">🔴 INATIVOS</div></div>
         </div>
+
         <div class="filtros">
             <input type="text" id="buscaNome" placeholder="🔍 Buscar por nome..." onkeyup="aplicarFiltros()">
             <select id="filtroStatus" onchange="aplicarFiltros()">
@@ -396,32 +339,30 @@
                 <option value="todos">🥁 Todos os instrumentos</option>
                 <option value="Surdo">Surdo</option>
                 <option value="Caixa">Caixa</option>
+                <option value="Repique">Repique</option>
                 <option value="Tamborim">Tamborim</option>
                 <option value="Chocalho">Chocalho</option>
                 <option value="Cuíca">Cuíca</option>
             </select>
             <button class="btn-recarga" onclick="carregarRitmistas()">🔄 CARREGAR PÁGINA</button>
         </div>
-        <div class="filtro-categorias">
-            <span style="font-weight: bold;">🏷️ Filtrar por categoria:</span>
-            <label><input type="checkbox" class="cat-checkbox" value="Primeira vez" onchange="aplicarFiltros()"> 🔴 Primeira vez</label>
-            <label><input type="checkbox" class="cat-checkbox" value="Básico" onchange="aplicarFiltros()"> 🔵 Básico</label>
-            <label><input type="checkbox" class="cat-checkbox" value="Intermediário" onchange="aplicarFiltros()"> 🟡 Intermediário</label>
-            <label><input type="checkbox" class="cat-checkbox" value="Avançado" onchange="aplicarFiltros()"> 🟢 Avançado</label>
-            <label><input type="checkbox" class="cat-checkbox" value="Mestre" onchange="aplicarFiltros()"> ⚫ Mestre</label>
-        </div>
-        <div style="margin-bottom: 15px;">
-            <button class="btn-ordem" onclick="ordenarAZ()">📋 A-Z (Nome)</button>
-            <button class="btn-ordem" onclick="ordenarZA()">📋 Z-A (Nome)</button>
-        </div>
+
         <div id="statusCarregamento" class="status-carregamento">🔄 Carregando ritmistas da planilha...</div>
-        <div class="secao-titulo">🟢 RITMISTAS ATIVOS</div>
+
+        <div class="secao-titulo">🟢 RITMISTAS CADASTRADOS (ATIVOS)</div>
         <div class="tabela-container">
-            <table id="tabelaAtivos"><thead><tr><th>NOME</th><th>INSTRUMENTO</th><th>TELEFONE</th><th>CATEGORIA</th><th>AÇÕES</th></tr></thead><tbody id="tbodyAtivos"></tbody></table>
+            <table id="tabelaAtivos">
+                <thead><tr><th>NOME</th><th>INSTRUMENTO</th><th>TELEFONE</th><th>CATEGORIA</th><th>AÇÕES</th></tr></thead>
+                <tbody id="tbodyAtivos"></tbody>
+            </table>
         </div>
+
         <div class="secao-titulo">🟡 SOLICITAÇÕES PENDENTES</div>
         <div class="tabela-container">
-            <table id="tabelaPendentes"><thead><tr><th>NOME</th><th>INSTRUMENTO</th><th>TELEFONE</th><th>CATEGORIA</th><th>AÇÕES</th></tr></thead><tbody id="tbodyPendentes"></tbody></table>
+            <table id="tabelaPendentes">
+                <thead><tr><th>NOME</th><th>INSTRUMENTO</th><th>TELEFONE</th><th>CATEGORIA</th><th>AÇÕES</th></tr></thead>
+                <tbody id="tbodyPendentes"></tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -429,18 +370,90 @@
 <div class="footer">
     <p>Desenvolvido por <span class="destaque">Jean Silva</span></p>
     <p>✨ Tecnologia a favor do samba ✨</p>
-    <p>© 2026 Unidos do Alvorada</p>
+    <p>© 2026 Unidos do Alvorada. Todos os direitos reservados.</p>
+</div>
+
+<!-- MODAL EDITAR -->
+<div id="modalEditar" class="modal">
+    <div class="modal-content">
+        <span class="fechar" onclick="fecharModal()">&times;</span>
+        <h2 id="modalTitulo">✏️ EDITAR RITMISTA</h2>
+        <input type="hidden" id="editNomeOriginal">
+        
+        <label>Nome completo:</label>
+        <input type="text" id="editNome">
+        
+        <label>Data de nascimento:</label>
+        <input type="date" id="editDataNasc">
+        
+        <label>Telefone:</label>
+        <input type="text" id="editTelefone">
+        
+        <label>E-mail:</label>
+        <input type="email" id="editEmail">
+        
+        <label>CEP:</label>
+        <input type="text" id="editCep">
+        
+        <label>Endereço:</label>
+        <input type="text" id="editEndereco">
+        
+        <label>Número:</label>
+        <input type="text" id="editNumero">
+        
+        <label>Bairro:</label>
+        <input type="text" id="editBairro">
+        
+        <label>Cidade:</label>
+        <input type="text" id="editCidade">
+        
+        <label>Estado:</label>
+        <select id="editEstado"><option value="AM">AM</option></select>
+        
+        <label>Instrumento:</label>
+        <select id="editInstrumento">
+            <option value="Surdo">Surdo</option><option value="Caixa">Caixa</option>
+            <option value="Repique">Repique</option><option value="Tamborim">Tamborim</option>
+            <option value="Chocalho">Chocalho</option><option value="Cuíca">Cuíca</option>
+        </select>
+        
+        <label>Nível experiência:</label>
+        <select id="editNivel">
+            <option value="Primeira vez">Primeira vez</option>
+            <option value="Básico">Básico</option>
+            <option value="Intermediário">Intermediário</option>
+            <option value="Avançado">Avançado</option>
+            <option value="Mestre">Mestre</option>
+        </select>
+        
+        <label>Tamanho blusa:</label>
+        <select id="editBlusa">
+            <option value="PP">PP</option><option value="P">P</option><option value="M">M</option>
+            <option value="G">G</option><option value="GG">GG</option><option value="GGG">GGG</option>
+            <option value="XGG">XGG</option>
+        </select>
+        
+        <label>Status:</label>
+        <select id="editStatus">
+            <option value="Ativo">🟢 Ativo</option>
+            <option value="Pendente">🟡 Pendente</option>
+            <option value="Desativado">🔴 Desativado</option>
+        </select>
+        
+        <div class="modal-botoes">
+            <button class="btn-cancelar" onclick="fecharModal()">CANCELAR</button>
+            <button class="btn-salvar" onclick="salvarEdicao()">SALVAR</button>
+        </div>
+    </div>
 </div>
 
 <script>
     const URL_SCRIPT = 'https://script.google.com/macros/s/AKfycbwc38o_fTMHbH1J9bBn8rYOjFEJjRfidDzkn1zU7gohpP0wRGwH3AAWvzHsqXYhfgWRtw/exec';
+
     let ritmistas = [];
-    let filtroNome = '', filtroStatus = 'todos', filtroInstrumento = 'todos';
-    let categoriasSelecionadas = [];
-    let ordem = null;
-    let processando = false;
-    let pendenteAtual = null;
-    let duplicadoAtual = null;
+    let filtroNome = '';
+    let filtroStatus = 'todos';
+    let filtroInstrumento = 'todos';
 
     function toggleTheme() {
         document.body.classList.toggle('dark');
@@ -448,262 +461,274 @@
     }
     if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
 
-    function getCategoriaClass(cat) {
-        const mapa = {'Primeira vez':'categoria-primeira-vez','Básico':'categoria-basico','Intermediário':'categoria-intermediario','Avançado':'categoria-avancado','Mestre':'categoria-mestre'};
-        return mapa[cat] || '';
+    function normalizarStatus(status) {
+        if (!status) return 'desconhecido';
+        const statusLower = status.toLowerCase();
+        if (statusLower === 'ativo') return 'ativo';
+        if (statusLower === 'pendente') return 'pendente';
+        if (statusLower === 'desativado') return 'desativado';
+        return statusLower;
     }
 
-    function getCategoriasSelecionadas() {
-        let selecionadas = [];
-        document.querySelectorAll('.cat-checkbox').forEach(cb => { if(cb.checked) selecionadas.push(cb.value); });
-        return selecionadas;
+    function getCategoriaClass(categoria) {
+        const mapa = { 
+            'Primeira vez': 'categoria-primeira-vez', 
+            'PRIMEIRA VEZ': 'categoria-primeira-vez',
+            'Básico': 'categoria-basico',
+            'BÁSICO': 'categoria-basico',
+            'Intermediário': 'categoria-intermediario',
+            'INTERMEDIÁRIO': 'categoria-intermediario',
+            'Avançado': 'categoria-avancado',
+            'AVANÇADO': 'categoria-avancado',
+            'Mestre': 'categoria-mestre',
+            'MESTRE': 'categoria-mestre'
+        };
+        return mapa[categoria] || '';
     }
 
-    function ordenarAZ() { ordem = 'asc'; renderizar(); }
-    function ordenarZA() { ordem = 'desc'; renderizar(); }
     function aplicarFiltros() {
         filtroNome = document.getElementById('buscaNome').value;
         filtroStatus = document.getElementById('filtroStatus').value;
         filtroInstrumento = document.getElementById('filtroInstrumento').value;
-        categoriasSelecionadas = getCategoriasSelecionadas();
-        renderizar();
+        renderizarTabelas();
     }
 
-    function mostrarNotificacao(msg, isErro = false) {
-        let div = document.createElement('div');
-        div.className = `notificacao ${isErro ? 'notificacao-erro' : ''}`;
-        div.textContent = msg;
-        document.body.appendChild(div);
-        setTimeout(() => div.remove(), 3000);
-    }
-
-    function formatarData(dataStr) {
-        if(!dataStr) return 'N/I';
-        try { let d = new Date(dataStr); if(!isNaN(d.getTime())) return d.toLocaleDateString('pt-BR'); } catch(e) {}
-        return dataStr;
-    }
-
-    function verificarDuplicado(pendente) {
-        const ativos = ritmistas.filter(r => r.status && r.status.toUpperCase() === 'ATIVO');
-        const telefoneLimpo = (pendente.telefone || '').replace(/\D/g, '');
-        return ativos.find(ativo => 
-            (ativo.nome || '').toLowerCase().trim() === (pendente.nome || '').toLowerCase().trim() &&
-            (ativo.telefone || '').replace(/\D/g, '') === telefoneLimpo
-        ) || null;
-    }
-
-    async function recusarPendente(pendente) {
-        if(!pendente) return;
-        if(!confirm(`❌ Tem certeza que deseja RECUSAR ${pendente.nome}?`)) return;
-        
-        processando = true;
-        try {
-            await fetch(URL_SCRIPT, {
-                method: 'POST',
-                mode: 'no-cors',
-                body: JSON.stringify({ 
-                    acao: 'atualizarStatus', 
-                    nome: pendente.nome,
-                    status: 'Desativado'
-                })
-            });
-            mostrarNotificacao(`❌ ${pendente.nome} foi recusado (Desativado)!`);
-            await carregarRitmistas();
-        } catch(e) {
-            mostrarNotificacao('Erro ao recusar!', true);
-        } finally {
-            processando = false;
-        }
-    }
-
-    async function aprovarPendente(pendente) {
-        if(!confirm(`✅ Tem certeza que deseja APROVAR ${pendente.nome}?`)) return;
-        
-        processando = true;
-        try {
-            await fetch(URL_SCRIPT, {
-                method: 'POST',
-                mode: 'no-cors',
-                body: JSON.stringify({ 
-                    acao: 'atualizarStatus', 
-                    nome: pendente.nome,
-                    status: 'Ativo'
-                })
-            });
-            mostrarNotificacao(`✅ ${pendente.nome} foi aprovado!`);
-            await carregarRitmistas();
-        } catch(e) {
-            mostrarNotificacao('Erro ao aprovar!', true);
-        } finally {
-            processando = false;
-        }
-    }
-
-    function abrirVisualizar(r) {
-        let dados = document.getElementById('visualizarDados');
-        if(!dados) {
-            let div = document.createElement('div');
-            div.innerHTML = `
-                <div id="modalVisualizar" class="modal">
-                    <div class="visualizar-content">
-                        <span class="fechar" onclick="fecharModalVisualizar()">&times;</span>
-                        <h2>👁️ VISUALIZAR RITMISTA</h2>
-                        <div id="visualizarDadosInner"></div>
-                        <div class="modal-botoes"><button class="btn-cancelar" onclick="fecharModalVisualizar()">FECHAR</button></div>
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(div);
-            window.fecharModalVisualizar = function() { document.getElementById('modalVisualizar').style.display = 'none'; };
-            dados = document.getElementById('visualizarDadosInner');
-        }
-        document.getElementById('visualizarDadosInner') || (dados = document.getElementById('visualizarDadosInner'));
-        if(document.getElementById('visualizarDadosInner')) {
-            document.getElementById('visualizarDadosInner').innerHTML = `
-                <div class="dado"><strong>📌 Nome:</strong> ${r.nome || 'N/I'}</div>
-                <div class="dado"><strong>📅 Data Nasc.:</strong> ${formatarData(r.dataNasc)}</div>
-                <div class="dado"><strong>📞 Telefone:</strong> ${r.telefone || 'N/I'}</div>
-                <div class="dado"><strong>📧 E-mail:</strong> ${r.email || 'N/I'}</div>
-                <div class="dado"><strong>📍 Endereço:</strong> ${r.endereco || 'N/I'}, ${r.numero || 'N/I'}</div>
-                <div class="dado"><strong>🏘️ Bairro:</strong> ${r.bairro || 'N/I'}</div>
-                <div class="dado"><strong>🥁 Instrumento:</strong> ${r.instrumento || 'N/I'}</div>
-                <div class="dado"><strong>🏷️ Categoria:</strong> ${r.nivel || 'N/I'}</div>
-                <div class="dado"><strong>👕 Blusa:</strong> ${r.blusa || 'N/I'}</div>
-                <div class="dado"><strong>📊 Status:</strong> ${r.status || 'N/I'}</div>
-            `;
-            document.getElementById('modalVisualizar').style.display = 'flex';
-        } else {
-            alert(JSON.stringify(r, null, 2));
-        }
-    }
-
-    function abrirEditar(r) {
-        alert('Função editar em desenvolvimento. Por favor, edite diretamente na planilha.');
-    }
-
-    function abrirModalDuplicado(pendente, duplicado) {
-        pendenteAtual = pendente;
-        duplicadoAtual = duplicado;
-        let modal = document.getElementById('modalDuplicado');
-        if(!modal) {
-            let div = document.createElement('div');
-            div.innerHTML = `
-                <div id="modalDuplicado" class="modal-alerta">
-                    <div class="alerta-content">
-                        <h3>⚠️ ATENÇÃO! JÁ EXISTE CADASTRO</h3>
-                        <p>Este ritmista já está cadastrado como <strong>ATIVO</strong>:</p>
-                        <div class="dados-duplicado" id="dadosDuplicado"></div>
-                        <p>O que deseja fazer?</p>
-                        <div class="alerta-botoes">
-                            <button class="btn-editar-duplicado" id="btnEditarDuplicado">✏️ EDITAR CADASTRO</button>
-                            <button class="btn-desativar-pendente" id="btnDesativarPendente">🚫 RECUSAR SOLICITAÇÃO</button>
-                            <button class="btn-cancelar-duplicado" id="btnCancelarDuplicado">❌ CANCELAR</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(div);
-            document.getElementById('btnEditarDuplicado').addEventListener('click', () => { if(duplicadoAtual) abrirEditar(duplicadoAtual); fecharModalDuplicado(); });
-            document.getElementById('btnDesativarPendente').addEventListener('click', () => { if(pendenteAtual) recusarPendente(pendenteAtual); fecharModalDuplicado(); });
-            document.getElementById('btnCancelarDuplicado').addEventListener('click', fecharModalDuplicado);
-            window.fecharModalDuplicado = function() { document.getElementById('modalDuplicado').style.display = 'none'; pendenteAtual = null; duplicadoAtual = null; };
-        }
-        document.getElementById('dadosDuplicado').innerHTML = `
-            <p><strong>📌 Nome:</strong> ${duplicado.nome || 'N/I'}</p>
-            <p><strong>📞 Telefone:</strong> ${duplicado.telefone || 'N/I'}</p>
-            <p><strong>🥁 Instrumento:</strong> ${duplicado.instrumento || 'N/I'}</p>
-            <p><strong>🏷️ Categoria:</strong> ${duplicado.nivel || 'N/I'}</p>
-        `;
-        document.getElementById('modalDuplicado').style.display = 'flex';
-    }
-    window.fecharModalDuplicado = function() { let m = document.getElementById('modalDuplicado'); if(m) m.style.display = 'none'; pendenteAtual = null; duplicadoAtual = null; };
-    window.fecharModalVisualizar = function() { let m = document.getElementById('modalVisualizar'); if(m) m.style.display = 'none'; };
-
-    async function acaoAprovar(pendente) {
-        if(processando) { mostrarNotificacao('Aguarde...', true); return; }
-        const duplicado = verificarDuplicado(pendente);
-        if(duplicado) {
-            abrirModalDuplicado(pendente, duplicado);
-            return;
-        }
-        await aprovarPendente(pendente);
-    }
-
-    function acaoRecusar(pendente) {
-        if(processando) { mostrarNotificacao('Aguarde...', true); return; }
-        recusarPendente(pendente);
-    }
-
-    function renderizar() {
+    function renderizarTabelas() {
         let filtrados = [...ritmistas];
-        if(filtroNome) filtrados = filtrados.filter(r => (r.nome||'').toLowerCase().includes(filtroNome.toLowerCase()));
-        if(filtroInstrumento !== 'todos') filtrados = filtrados.filter(r => (r.instrumento||'').toLowerCase() === filtroInstrumento.toLowerCase());
-        if(filtroStatus !== 'todos') filtrados = filtrados.filter(r => (r.status||'').toUpperCase() === filtroStatus.toUpperCase());
-        if(categoriasSelecionadas.length) filtrados = filtrados.filter(r => categoriasSelecionadas.includes(r.nivel));
-        if(ordem === 'asc') filtrados.sort((a,b) => (a.nome||'').localeCompare(b.nome||''));
-        if(ordem === 'desc') filtrados.sort((a,b) => (b.nome||'').localeCompare(a.nome||''));
         
-        let ativos = filtrados.filter(r => (r.status||'').toUpperCase() === 'ATIVO');
-        let pendentes = filtrados.filter(r => (r.status||'').toUpperCase() === 'PENDENTE');
+        if (filtroNome) {
+            filtrados = filtrados.filter(r => (r.nome || '').toLowerCase().includes(filtroNome.toLowerCase()));
+        }
         
-        document.getElementById('totalAtivos').innerText = ativos.length;
-        document.getElementById('totalPendentes').innerText = pendentes.length;
-        document.getElementById('totalInativos').innerText = filtrados.filter(r => (r.status||'').toUpperCase() === 'DESATIVADO').length;
+        if (filtroInstrumento !== 'todos') {
+            filtrados = filtrados.filter(r => (r.instrumento || '').toLowerCase() === filtroInstrumento.toLowerCase());
+        }
+        
+        if (filtroStatus !== 'todos') {
+            const statusNormalizado = filtroStatus.toLowerCase();
+            filtrados = filtrados.filter(r => normalizarStatus(r.status) === statusNormalizado);
+        }
+        
+        const ativos = filtrados.filter(r => normalizarStatus(r.status) === 'ativo');
+        const pendentes = filtrados.filter(r => normalizarStatus(r.status) === 'pendente');
+        
+        document.getElementById('totalAtivos').textContent = ativos.length;
+        document.getElementById('totalPendentes').textContent = pendentes.length;
+        document.getElementById('totalInativos').textContent = filtrados.filter(r => normalizarStatus(r.status) === 'desativado').length;
 
-        let tbodyAtivos = document.getElementById('tbodyAtivos');
+        const tbodyAtivos = document.getElementById('tbodyAtivos');
         tbodyAtivos.innerHTML = '';
         ativos.forEach(r => {
-            let row = tbodyAtivos.insertRow();
-            row.className = getCategoriaClass(r.nivel);
-            row.insertCell(0).innerText = r.nome || '';
-            row.insertCell(1).innerText = r.instrumento || '-';
-            row.insertCell(2).innerText = r.telefone || '-';
-            row.insertCell(3).innerText = r.nivel || '-';
-            let cell = row.insertCell(4);
-            let btnV = document.createElement('button'); btnV.innerText = '👁️'; btnV.className = 'btn-acao btn-visualizar'; btnV.onclick = () => abrirVisualizar(r);
-            let btnE = document.createElement('button'); btnE.innerText = '✏️'; btnE.className = 'btn-acao btn-editar'; btnE.onclick = () => abrirEditar(r);
-            cell.appendChild(btnV); cell.appendChild(btnE);
+            const row = tbodyAtivos.insertRow();
+            const categoriaClass = getCategoriaClass(r.nivel);
+            if (categoriaClass) row.className = categoriaClass;
+            row.insertCell(0).textContent = r.nome || '';
+            row.insertCell(1).textContent = r.instrumento || '-';
+            row.insertCell(2).textContent = r.telefone || '-';
+            row.insertCell(3).textContent = r.nivel || '-';
+            const cellAcoes = row.insertCell(4);
+            
+            const btnVer = document.createElement('button');
+            btnVer.textContent = '👁️';
+            btnVer.className = 'btn-acao btn-visualizar';
+            btnVer.title = 'Visualizar';
+            btnVer.onclick = () => abrirModalVisualizar(r);
+            cellAcoes.appendChild(btnVer);
+            
+            const btnEditar = document.createElement('button');
+            btnEditar.textContent = '✏️';
+            btnEditar.className = 'btn-acao btn-editar';
+            btnEditar.title = 'Editar';
+            btnEditar.onclick = () => abrirModalEditar(r);
+            cellAcoes.appendChild(btnEditar);
         });
 
-        let tbodyPendentes = document.getElementById('tbodyPendentes');
+        const tbodyPendentes = document.getElementById('tbodyPendentes');
         tbodyPendentes.innerHTML = '';
         pendentes.forEach(r => {
-            let row = tbodyPendentes.insertRow();
-            row.className = getCategoriaClass(r.nivel);
-            row.insertCell(0).innerText = r.nome || '';
-            row.insertCell(1).innerText = r.instrumento || '-';
-            row.insertCell(2).innerText = r.telefone || '-';
-            row.insertCell(3).innerText = r.nivel || '-';
-            let cell = row.insertCell(4);
-            let btnApr = document.createElement('button'); btnApr.innerText = '✅'; btnApr.className = 'btn-acao btn-aprovar'; btnApr.onclick = () => acaoAprovar(r);
-            let btnRec = document.createElement('button'); btnRec.innerText = '❌'; btnRec.className = 'btn-acao btn-recusar'; btnRec.onclick = () => acaoRecusar(r);
-            let btnV = document.createElement('button'); btnV.innerText = '👁️'; btnV.className = 'btn-acao btn-visualizar'; btnV.onclick = () => abrirVisualizar(r);
-            cell.appendChild(btnApr); cell.appendChild(btnRec); cell.appendChild(btnV);
+            const row = tbodyPendentes.insertRow();
+            const categoriaClass = getCategoriaClass(r.nivel);
+            if (categoriaClass) row.className = categoriaClass;
+            row.insertCell(0).textContent = r.nome || '';
+            row.insertCell(1).textContent = r.instrumento || '-';
+            row.insertCell(2).textContent = r.telefone || '-';
+            row.insertCell(3).textContent = r.nivel || '-';
+            const cellAcoes = row.insertCell(4);
+            
+            const btnAprovar = document.createElement('button');
+            btnAprovar.textContent = '✅';
+            btnAprovar.className = 'btn-acao btn-aprovar';
+            btnAprovar.title = 'Aprovar';
+            btnAprovar.onclick = () => confirmarAprovacao(r, 'Ativo');
+            cellAcoes.appendChild(btnAprovar);
+            
+            const btnRecusar = document.createElement('button');
+            btnRecusar.textContent = '❌';
+            btnRecusar.className = 'btn-acao btn-recusar';
+            btnRecusar.title = 'Recusar';
+            btnRecusar.onclick = () => confirmarAprovacao(r, 'Desativado');
+            cellAcoes.appendChild(btnRecusar);
+            
+            const btnVer = document.createElement('button');
+            btnVer.textContent = '👁️';
+            btnVer.className = 'btn-acao btn-visualizar';
+            btnVer.title = 'Visualizar';
+            btnVer.onclick = () => abrirModalVisualizar(r);
+            cellAcoes.appendChild(btnVer);
         });
+    }
+
+    function abrirModalVisualizar(ritmista) {
+        document.getElementById('modalTitulo').textContent = '👁️ VISUALIZAR RITMISTA';
+        preencherModal(ritmista);
+        document.querySelectorAll('#modalEditar input, #modalEditar select').forEach(campo => campo.disabled = true);
+        document.getElementById('modalEditar').style.display = 'flex';
+    }
+
+    function abrirModalEditar(ritmista) {
+        document.getElementById('modalTitulo').textContent = '✏️ EDITAR RITMISTA';
+        preencherModal(ritmista);
+        document.querySelectorAll('#modalEditar input, #modalEditar select').forEach(campo => campo.disabled = false);
+        document.getElementById('modalEditar').style.display = 'flex';
+    }
+
+    function preencherModal(ritmista) {
+        document.getElementById('editNomeOriginal').value = ritmista.nome || '';
+        document.getElementById('editNome').value = ritmista.nome || '';
+        
+        let dataNasc = ritmista.dataNasc || '';
+        let dataFormatada = '';
+        
+        if (dataNasc) {
+            let dataObj = new Date(dataNasc);
+            if (!isNaN(dataObj.getTime())) {
+                let ano = dataObj.getFullYear();
+                let mes = String(dataObj.getMonth() + 1).padStart(2, '0');
+                let dia = String(dataObj.getDate()).padStart(2, '0');
+                dataFormatada = `${ano}-${mes}-${dia}`;
+            }
+        }
+        
+        document.getElementById('editDataNasc').value = dataFormatada;
+        document.getElementById('editTelefone').value = ritmista.telefone || '';
+        document.getElementById('editEmail').value = ritmista.email || '';
+        document.getElementById('editCep').value = ritmista.cep || '';
+        document.getElementById('editEndereco').value = ritmista.endereco || '';
+        document.getElementById('editNumero').value = ritmista.numero || '';
+        document.getElementById('editBairro').value = ritmista.bairro || '';
+        document.getElementById('editCidade').value = ritmista.cidade || '';
+        
+        if (ritmista.estado) document.getElementById('editEstado').value = ritmista.estado.toUpperCase();
+        if (ritmista.instrumento) document.getElementById('editInstrumento').value = ritmista.instrumento;
+        if (ritmista.nivel) document.getElementById('editNivel').value = ritmista.nivel;
+        if (ritmista.blusa) document.getElementById('editBlusa').value = ritmista.blusa.toUpperCase();
+        if (ritmista.status) {
+            let statusNormalizado = ritmista.status.charAt(0).toUpperCase() + ritmista.status.slice(1).toLowerCase();
+            document.getElementById('editStatus').value = statusNormalizado;
+        }
+    }
+
+    async function salvarEdicao() {
+        const btnSalvar = document.getElementById('btnSalvarEdicao');
+        btnSalvar.disabled = true;
+        btnSalvar.textContent = '⏳ SALVANDO...';
+        
+        const dadosAtualizados = {
+            nomeOriginal: document.getElementById('editNomeOriginal').value,
+            nome: document.getElementById('editNome').value,
+            dataNasc: document.getElementById('editDataNasc').value,
+            telefone: document.getElementById('editTelefone').value,
+            email: document.getElementById('editEmail').value,
+            cep: document.getElementById('editCep').value,
+            endereco: document.getElementById('editEndereco').value,
+            numero: document.getElementById('editNumero').value,
+            bairro: document.getElementById('editBairro').value,
+            cidade: document.getElementById('editCidade').value,
+            estado: document.getElementById('editEstado').value,
+            instrumento: document.getElementById('editInstrumento').value,
+            nivel: document.getElementById('editNivel').value,
+            blusa: document.getElementById('editBlusa').value,
+            status: document.getElementById('editStatus').value
+        };
+        
+        try {
+            await fetch(URL_SCRIPT, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ acao: 'editarRitmistaCompleto', dados: dadosAtualizados })
+            });
+            mostrarAlerta('✅ Dados atualizados com sucesso!');
+            fecharModal();
+            carregarRitmistas();
+        } catch (error) {
+            mostrarAlerta('⚠️ Erro ao salvar!', true);
+        } finally {
+            btnSalvar.disabled = false;
+            btnSalvar.textContent = 'SALVAR';
+        }
+    }
+
+    function confirmarAprovacao(ritmista, novoStatus) {
+        const acao = novoStatus === 'Ativo' ? 'APROVAR' : 'RECUSAR';
+        if (confirm(`Tem certeza que deseja ${acao} ${ritmista.nome}?`)) {
+            atualizarStatus(ritmista, novoStatus);
+        }
+    }
+
+    async function atualizarStatus(ritmista, novoStatus) {
+        try {
+            await fetch(URL_SCRIPT, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    acao: 'atualizarStatus', 
+                    nome: ritmista.nome, 
+                    status: novoStatus 
+                })
+            });
+            mostrarAlerta(`✅ ${ritmista.nome} ${novoStatus === 'Ativo' ? 'aprovado' : 'recusado'}!`);
+            await carregarRitmistas();
+        } catch (error) {
+            mostrarAlerta('⚠️ Erro ao atualizar status!', true);
+        }
+    }
+
+    function fecharModal() {
+        document.getElementById('modalEditar').style.display = 'none';
     }
 
     async function carregarRitmistas() {
-        let statusDiv = document.getElementById('statusCarregamento');
-        statusDiv.innerHTML = '🔄 Carregando...';
+        const statusDiv = document.getElementById('statusCarregamento');
+        statusDiv.innerHTML = '🔄 Carregando ritmistas da planilha...';
         try {
-            let response = await fetch(`${URL_SCRIPT}?acao=buscarTodosRitmistas&t=${Date.now()}`);
-            let data = await response.json();
-            if(data.success && data.ritmistas) {
+            const response = await fetch(`${URL_SCRIPT}?acao=buscarTodosRitmistas&t=${Date.now()}`);
+            const data = await response.json();
+            if (data.success && data.ritmistas) {
                 ritmistas = data.ritmistas;
-                renderizar();
-                statusDiv.innerHTML = `✅ ${ritmistas.length} ritmistas! ${new Date().toLocaleTimeString()}`;
-                setTimeout(() => statusDiv.innerHTML = '✅ Pronto', 2000);
+                renderizarTabelas();
+                statusDiv.innerHTML = `✅ ${ritmistas.length} ritmistas carregados! Última atualização: ${new Date().toLocaleTimeString()}`;
+                setTimeout(() => { if (statusDiv.innerHTML.includes('carregados')) statusDiv.innerHTML = '✅ Pronto'; }, 2000);
             } else {
-                statusDiv.innerHTML = '❌ Nenhum dado';
+                statusDiv.innerHTML = '❌ Nenhum ritmista encontrado.';
             }
-        } catch(e) {
-            statusDiv.innerHTML = '❌ Erro de conexão';
-            mostrarNotificacao('Erro de conexão!', true);
+        } catch (error) {
+            statusDiv.innerHTML = '❌ Erro de conexão!';
+            mostrarAlerta('Erro de conexão!', true);
         }
     }
 
+    function mostrarAlerta(mensagem, isErro = false) {
+        const alerta = document.createElement('div');
+        alerta.className = `alerta ${isErro ? 'alerta-erro' : ''}`;
+        alerta.textContent = mensagem;
+        document.body.appendChild(alerta);
+        setTimeout(() => alerta.remove(), 3000);
+    }
+
     carregarRitmistas();
-    setInterval(carregarRitmistas, 15000);
+    setInterval(carregarRitmistas, 30000);
 </script>
 
 </body>
