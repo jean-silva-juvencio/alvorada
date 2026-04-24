@@ -5,11 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Unidos do Alvorada | Inscreva-se na Bateria</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -80,10 +76,7 @@
             position: relative;
         }
 
-        body.dark .nav-links a {
-            color: #ffffff;
-        }
-
+        body.dark .nav-links a { color: #ffffff; }
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -94,30 +87,11 @@
             background: #1e90ff;
             transition: width 0.3s;
         }
-
-        body.dark .nav-links a::after {
-            background: #FFD700;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .nav-links a:hover {
-            color: #1e90ff;
-        }
-
-        body.dark .nav-links a:hover {
-            color: #FFD700;
-        }
-
-        .nav-links a.active {
-            color: #1e90ff;
-        }
-
-        body.dark .nav-links a.active {
-            color: #FFD700;
-        }
+        body.dark .nav-links a::after { background: #FFD700; }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-links a:hover { color: #1e90ff; }
+        body.dark .nav-links a:hover { color: #FFD700; }
+        .nav-links a.active { color: #1e90ff; }
 
         .theme-btn {
             background: #1e90ff;
@@ -130,22 +104,9 @@
             color: white;
             transition: all 0.3s;
         }
-
-        .theme-btn:hover {
-            transform: scale(1.05);
-            background: #FFD700;
-            color: #0a1628;
-        }
-
-        body.dark .theme-btn {
-            background: #FFD700;
-            color: #0a1628;
-        }
-
-        body.dark .theme-btn:hover {
-            background: #1e90ff;
-            color: white;
-        }
+        .theme-btn:hover { transform: scale(1.05); background: #FFD700; color: #0a1628; }
+        body.dark .theme-btn { background: #FFD700; color: #0a1628; }
+        body.dark .theme-btn:hover { background: #1e90ff; color: white; }
 
         .main-content {
             max-width: 1400px;
@@ -169,34 +130,18 @@
             margin-bottom: 10px;
             text-align: center;
         }
-
-        body.dark .card h1 {
-            color: #FFD700;
-        }
+        body.dark .card h1 { color: #FFD700; }
 
         .card p {
             text-align: center;
             margin-bottom: 30px;
             color: #4a627a;
         }
+        body.dark .card p { color: #b0c4de; }
 
-        body.dark .card p {
-            color: #b0c4de;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        label .obrigatorio {
-            color: #ff4444;
-        }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; }
+        label .obrigatorio { color: #ff4444; }
 
         input, select {
             width: 100%;
@@ -218,10 +163,7 @@
             gap: 10px;
             align-items: center;
         }
-
-        .cep-row input {
-            flex: 2;
-        }
+        .cep-row input { flex: 2; }
 
         .btn-buscar {
             background: #1e90ff;
@@ -233,12 +175,7 @@
             font-weight: bold;
             transition: all 0.3s;
         }
-
-        .btn-buscar:hover {
-            background: #FFD700;
-            color: #0a1628;
-            transform: scale(1.02);
-        }
+        .btn-buscar:hover { background: #FFD700; color: #0a1628; transform: scale(1.02); }
 
         .row-2 {
             display: grid;
@@ -259,24 +196,139 @@
             width: 100%;
             margin-top: 20px;
         }
-
         body.dark .btn-enviar {
             background: linear-gradient(135deg, #FFD700, #1e3a5f);
             color: #0a1628;
         }
-
         .btn-enviar:hover {
             transform: scale(1.02);
             background: linear-gradient(135deg, #FFD700, #1e90ff);
             color: #0a1628;
         }
-
         .btn-enviar:disabled {
             opacity: 0.6;
             cursor: not-allowed;
         }
 
-        .alerta {
+        /* MODAL DE NOTIFICAÇÃO (POPUP DE PERMISSÃO) */
+        .modal-notificacao {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 4000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-notificacao-content {
+            background: white;
+            border-radius: 24px;
+            padding: 32px;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.3);
+            animation: fadeInScale 0.3s ease-out;
+        }
+        body.dark .modal-notificacao-content { background: #1e3a5f; }
+
+        .modal-notificacao-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #1e90ff;
+        }
+        body.dark .modal-notificacao-content h3 { color: #FFD700; }
+
+        .modal-notificacao-content p {
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        .btn-notificacao-sim {
+            background: #00cc66;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 5px;
+        }
+        .btn-notificacao-nao {
+            background: #ff4444;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 5px;
+        }
+        .btn-notificacao-sim:hover { background: #00994d; }
+        .btn-notificacao-nao:hover { background: #cc0000; }
+
+        .modal-alerta {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-alerta-content {
+            background: white;
+            border-radius: 24px;
+            padding: 32px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.3);
+            animation: fadeInScale 0.3s ease-out;
+        }
+        body.dark .modal-alerta-content { background: #1e3a5f; }
+
+        @keyframes fadeInScale {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-alerta-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #ff9800;
+        }
+
+        .modal-alerta-content .dados-duplicado {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 16px;
+            text-align: left;
+            margin: 15px 0;
+        }
+        body.dark .modal-alerta-content .dados-duplicado { background: #0f1a30; }
+        .modal-alerta-content .dados-duplicado p { margin: 8px 0; font-size: 0.9rem; }
+
+        .btn-modal-ok {
+            background: #00cc66;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn-modal-ok:hover { background: #00994d; }
+
+        .notificacao {
             position: fixed;
             bottom: 20px;
             right: 20px;
@@ -287,11 +339,7 @@
             animation: fadeOut 3s forwards;
             z-index: 1000;
         }
-
-        .alerta-erro {
-            background: #ff4444;
-        }
-
+        .notificacao-erro { background: #ff4444; }
         @keyframes fadeOut {
             0% { opacity: 1; transform: translateY(0); }
             70% { opacity: 1; transform: translateY(0); }
@@ -311,11 +359,11 @@
 <div class="header">
     <div class="header-container">
         <div class="nav-links">
-            <a href="index.html">INÍCIO</a>
-            <a href="formulario.html" class="active">INSCREVA-SE</a>
-            <a href="chamada.html">CHAMADA</a>
-            <a href="ranking.html">RANKING</a>
-            <button class="theme-btn" id="themeToggle" onclick="toggleTheme()">🌓 TEMA</button>
+            <a href="index.html">🏠 INÍCIO</a>
+            <a href="formulario.html" class="active">📝 INSCREVA-SE</a>
+            <a href="chamada.html">✅ CHAMADA</a>
+            <a href="diretoria.html">👑 DIRETORIA</a>
+            <button class="theme-btn" onclick="toggleTheme()">🌓 TEMA</button>
         </div>
     </div>
 </div>
@@ -343,8 +391,8 @@
             </div>
 
             <div class="form-group">
-                <label>E-mail <span style="color:#999;">(opcional)</span></label>
-                <input type="email" id="email" placeholder="carlinhos@email.com">
+                <label>E-mail <span class="obrigatorio">*</span></label>
+                <input type="email" id="email" placeholder="seuemail@email.com" required>
             </div>
 
             <div class="form-group">
@@ -416,24 +464,25 @@
                     <label>Instrumento <span class="obrigatorio">*</span></label>
                     <select id="instrumento" required>
                         <option value="">Selecione</option>
-                        <option value="Surdo">🥁 Surdo</option>
-                        <option value="Caixa">🥁 Caixa</option>
-                        <option value="Repique">🥁 Repique</option>
-                        <option value="Tamborim">🥁 Tamborim</option>
-                        <option value="Chocalho">🥁 Chocalho</option>
-                        <option value="Cuíca">🥁 Cuíca</option>
-                        <option value="Agogô">🥁 Agogô</option>
-                        <option value="Prato">🥁 Prato</option>
+                        <option value="SURDO">🥁 SURDO</option>
+                        <option value="CAIXA">🥁 CAIXA</option>
+                        <option value="REPIQUE">🥁 REPIQUE</option>
+                        <option value="TAMBORIM">🥁 TAMBORIM</option>
+                        <option value="CHOCALHO">🥁 CHOCALHO</option>
+                        <option value="CUÍCA">🥁 CUÍCA</option>
+                        <option value="AGOGÔ">🥁 AGOGÔ</option>
+                        <option value="PRATO">🥁 PRATO</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label>Nível de experiência <span class="obrigatorio">*</span></label>
                     <select id="nivel" required>
                         <option value="">Selecione</option>
-                        <option value="Primeira vez">🟢 Primeira vez - Nunca toquei</option>
-                        <option value="Básico">🔵 Básico - Já toquei algumas vezes</option>
-                        <option value="Intermediário">🟡 Intermediário - Toco bem, quero evoluir</option>
-                        <option value="Avançado">🔴 Avançado - Já toquei em bateria de escola</option>
+                        <option value="PRIMEIRA VEZ">🟢 PRIMEIRA VEZ - Nunca toquei</option>
+                        <option value="BÁSICO">🔵 BÁSICO - Já toquei algumas vezes</option>
+                        <option value="INTERMEDIÁRIO">🟡 INTERMEDIÁRIO - Toco bem, quero evoluir</option>
+                        <option value="AVANÇADO">🔴 AVANÇADO - Já toquei em bateria de escola</option>
+                        <option value="MESTRE">⚫ MESTRE - Experiente, pode ajudar os novatos</option>
                     </select>
                 </div>
             </div>
@@ -457,26 +506,41 @@
     </div>
 </div>
 
+<div id="modalNotificacao" class="modal-notificacao">
+    <div class="modal-notificacao-content">
+        <h3>🔔 RECEBA NOTIFICAÇÕES</h3>
+        <p>Quer receber uma notificação quando sua solicitação for aprovada?</p>
+        <button class="btn-notificacao-sim" id="btnNotificacaoSim">✅ SIM, QUERO RECEBER</button>
+        <button class="btn-notificacao-nao" id="btnNotificacaoNao">❌ NÃO, OBRIGADO</button>
+    </div>
+</div>
+
+<div id="modalDuplicado" class="modal-alerta">
+    <div class="modal-alerta-content">
+        <h3>⚠️ ATENÇÃO! VOCÊ JÁ É CADASTRADO</h3>
+        <p>Encontramos um registro <strong>ATIVO</strong> na planilha com os mesmos dados:</p>
+        <div class="dados-duplicado" id="dadosDuplicado"></div>
+        <p>Você não pode se inscrever novamente. Entre em contato com a diretoria se precisar atualizar seus dados.</p>
+        <div style="margin-top: 20px;">
+            <button class="btn-modal-ok" id="btnModalOk">✅ OK, ENTENDI</button>
+        </div>
+    </div>
+</div>
+
 <script>
+    const URL_SCRIPT = 'https://script.google.com/macros/s/AKfycbwlSHLu7i3QsSCRh6bywwRqOSINN3UzKpfe450NJ4AapAVPsJbTk0oHCFlrXvHHQWDw0A/exec';
+    const URL_BUSCAR = 'https://script.google.com/macros/s/AKfycbwc38o_fTMHbH1J9bBn8rYOjFEJjRfidDzkn1zU7gohpP0wRGwH3AAWvzHsqXYhfgWRtw/exec';
+
+    let podeEnviar = true;
+    let emailUsuario = '';
+    let nomeUsuario = '';
+
     function toggleTheme() {
-        const body = document.body;
-        if (body.classList.contains('dark')) {
-            body.classList.remove('dark');
-            localStorage.setItem('theme', 'light');
-        } else {
-            body.classList.add('dark');
-            localStorage.setItem('theme', 'dark');
-        }
+        document.body.classList.toggle('dark');
+        localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
     }
+    if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
 
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-        document.body.classList.add('dark');
-    } else {
-        document.body.classList.remove('dark');
-    }
-
-    // Máscaras
     document.getElementById('telefone').addEventListener('input', function(e) {
         let value = e.target.value.replace(/\D/g, '');
         if (value.length > 11) value = value.slice(0, 11);
@@ -509,67 +573,192 @@
             document.getElementById('endereco').value = data.logradouro || '';
             document.getElementById('bairro').value = data.bairro || '';
             document.getElementById('cidade').value = data.localidade || '';
-            document.getElementById('estado').value = data.uf || '';
+            if (data.uf) document.getElementById('estado').value = data.uf;
             mostrarAlerta('✅ Endereço preenchido!', false);
         } catch (error) {
             mostrarAlerta('Erro ao buscar CEP.', true);
         }
     }
 
-    const URL_SCRIPT = 'https://script.google.com/macros/s/AKfycbz5f4AQfn7QgejhRbYW0SNCXku-DJzYTgI2V_VzI-3L91hV5fzMS12ovIXPRH65j6dhQA/exec';
+    function mostrarAlerta(msg, isErro, tempo = 3000) {
+        const alerta = document.createElement('div');
+        alerta.className = `notificacao ${isErro ? 'notificacao-erro' : ''}`;
+        alerta.textContent = msg;
+        document.body.appendChild(alerta);
+        setTimeout(() => alerta.remove(), tempo);
+    }
+
+    function mostrarModalDuplicado(duplicado) {
+        const dadosDiv = document.getElementById('dadosDuplicado');
+        dadosDiv.innerHTML = `
+            <p><strong>📌 Nome:</strong> ${duplicado.nome || 'N/I'}</p>
+            <p><strong>📞 Telefone:</strong> ${duplicado.telefone || 'N/I'}</p>
+            <p><strong>📧 E-mail:</strong> ${duplicado.email || 'N/I'}</p>
+            <p><strong>📅 Data Nasc.:</strong> ${duplicado.dataNasc ? duplicado.dataNasc.split('T')[0] : 'N/I'}</p>
+            <p><strong>🥁 Instrumento:</strong> ${duplicado.instrumento || 'N/I'}</p>
+            <p><strong>📊 Status:</strong> ${duplicado.status || 'ATIVO'}</p>
+        `;
+        document.getElementById('modalDuplicado').style.display = 'flex';
+    }
+
+    function fecharModalDuplicado() {
+        document.getElementById('modalDuplicado').style.display = 'none';
+        podeEnviar = true;
+    }
+
+    async function verificarDuplicado(nome, telefone, email, dataNasc) {
+        try {
+            const response = await fetch(`${URL_BUSCAR}?acao=buscarTodosRitmistas&t=${Date.now()}`);
+            const data = await response.json();
+            
+            if (!data.success || !data.ritmistas) {
+                console.log('Erro ao buscar dados');
+                return null;
+            }
+            
+            const telefoneLimpo = telefone.replace(/\D/g, '');
+            const nomeUpper = nome.trim().toUpperCase();
+            
+            const duplicado = data.ritmistas.find(r => {
+                const statusAtivo = r.status && r.status.toUpperCase() === 'ATIVO';
+                const mesmoNome = (r.nome || '').toUpperCase().trim() === nomeUpper;
+                const mesmoTelefone = (r.telefone || '').replace(/\D/g, '') === telefoneLimpo;
+                return statusAtivo && mesmoNome && mesmoTelefone;
+            });
+            
+            return duplicado || null;
+        } catch (error) {
+            console.error('Erro:', error);
+            return null;
+        }
+    }
+
+    // SOLICITAR PERMISSÃO DE NOTIFICAÇÃO
+    async function solicitarPermissaoNotificacao(email, nome) {
+        if (!("Notification" in window)) {
+            console.log("Este navegador não suporta notificações");
+            return false;
+        }
+        
+        if (Notification.permission === "granted") {
+            console.log("Permissão já concedida");
+            return true;
+        }
+        
+        if (Notification.permission === "denied") {
+            console.log("Permissão negada");
+            return false;
+        }
+        
+        // Mostrar modal de permissão
+        return new Promise((resolve) => {
+            const modal = document.getElementById('modalNotificacao');
+            const btnSim = document.getElementById('btnNotificacaoSim');
+            const btnNao = document.getElementById('btnNotificacaoNao');
+            
+            // Salvar email e nome para usar depois
+            emailUsuario = email;
+            nomeUsuario = nome;
+            
+            modal.style.display = 'flex';
+            
+            btnSim.onclick = async () => {
+                modal.style.display = 'none';
+                const permission = await Notification.requestPermission();
+                if (permission === "granted") {
+                    // Salvar no localStorage que o usuário aceitou
+                    const notificacoes = JSON.parse(localStorage.getItem('notificacoesAtivas')) || {};
+                    notificacoes[email] = true;
+                    localStorage.setItem('notificacoesAtivas', JSON.stringify(notificacoes));
+                    
+                    // Enviar notificação de boas-vindas
+                    new Notification("🔔 Notificações ativadas!", {
+                        body: `Olá ${nome}, você receberá uma notificação quando sua solicitação for aprovada!`,
+                        icon: "https://via.placeholder.com/64",
+                        silent: false
+                    });
+                    resolve(true);
+                } else {
+                    resolve(false);
+                }
+            };
+            
+            btnNao.onclick = () => {
+                modal.style.display = 'none';
+                resolve(false);
+            };
+        });
+    }
 
     async function enviarFormulario() {
         const btn = document.getElementById('btnEnviar');
+        
+        if (!podeEnviar) return;
+        
         btn.disabled = true;
-        btn.textContent = '⏳ ENVIANDO...';
+        btn.textContent = '⏳ VERIFICANDO...';
+
+        const nome = document.getElementById('nome').value.trim();
+        const dataNasc = document.getElementById('dataNasc').value;
+        const telefone = document.getElementById('telefone').value.trim();
+        const email = document.getElementById('email').value.trim();
+        
+        if (!nome) { mostrarAlerta('❌ Preencha o Nome!', true); habilitarBotao(btn); return; }
+        if (!dataNasc) { mostrarAlerta('❌ Preencha a Data de nascimento!', true); habilitarBotao(btn); return; }
+        if (!telefone) { mostrarAlerta('❌ Preencha o Telefone!', true); habilitarBotao(btn); return; }
+        if (!email) { mostrarAlerta('❌ Preencha o E-mail!', true); habilitarBotao(btn); return; }
+
+        const duplicado = await verificarDuplicado(nome, telefone, email, dataNasc);
+        
+        if (duplicado) {
+            podeEnviar = false;
+            mostrarModalDuplicado(duplicado);
+            habilitarBotao(btn);
+            return;
+        }
+
+        // PEDIR PERMISSÃO DE NOTIFICAÇÃO (só se já não tiver sido perguntado)
+        const notificacoesAtivas = JSON.parse(localStorage.getItem('notificacoesAtivas')) || {};
+        const jaPerguntou = localStorage.getItem('jaPerguntouNotificacao');
+        
+        if (!jaPerguntou) {
+            const aceitou = await solicitarPermissaoNotificacao(email, nome);
+            localStorage.setItem('jaPerguntouNotificacao', 'true');
+        }
 
         const dados = {
-            nome: document.getElementById('nome').value.trim(),
-            dataNasc: document.getElementById('dataNasc').value,
-            telefone: document.getElementById('telefone').value.trim(),
-            email: document.getElementById('email').value.trim(),
+            nome: nome.toUpperCase(),
+            dataNasc: dataNasc,
+            telefone: telefone,
+            email: email.toUpperCase(),
             cep: document.getElementById('cep').value.trim(),
-            endereco: document.getElementById('endereco').value.trim(),
+            endereco: document.getElementById('endereco').value.trim().toUpperCase(),
             numero: document.getElementById('numero').value.trim(),
-            bairro: document.getElementById('bairro').value.trim(),
-            cidade: document.getElementById('cidade').value.trim(),
+            bairro: document.getElementById('bairro').value.trim().toUpperCase(),
+            cidade: document.getElementById('cidade').value.trim().toUpperCase(),
             estado: document.getElementById('estado').value,
             instrumento: document.getElementById('instrumento').value,
             nivel: document.getElementById('nivel').value,
             blusa: document.getElementById('blusa').value,
             dataCadastro: new Date().toLocaleString('pt-BR'),
-            status: 'Pendente'
+            status: 'PENDENTE'
         };
 
-        // Validação
-        if (!dados.nome) { mostrarAlerta('❌ Preencha o Nome!', true); habilitarBotao(btn); return; }
-        if (!dados.dataNasc) { mostrarAlerta('❌ Preencha a Data de nascimento!', true); habilitarBotao(btn); return; }
-        if (!dados.telefone) { mostrarAlerta('❌ Preencha o Telefone!', true); habilitarBotao(btn); return; }
-        if (!dados.cep) { mostrarAlerta('❌ Preencha o CEP!', true); habilitarBotao(btn); return; }
-        if (!dados.endereco) { mostrarAlerta('❌ Preencha o Endereço!', true); habilitarBotao(btn); return; }
-        if (!dados.numero) { mostrarAlerta('❌ Preencha o Número!', true); habilitarBotao(btn); return; }
-        if (!dados.bairro) { mostrarAlerta('❌ Preencha o Bairro!', true); habilitarBotao(btn); return; }
-        if (!dados.cidade) { mostrarAlerta('❌ Preencha a Cidade!', true); habilitarBotao(btn); return; }
-        if (!dados.estado) { mostrarAlerta('❌ Selecione o Estado!', true); habilitarBotao(btn); return; }
-        if (!dados.instrumento) { mostrarAlerta('❌ Selecione o Instrumento!', true); habilitarBotao(btn); return; }
-        if (!dados.nivel) { mostrarAlerta('❌ Selecione o Nível de experiência!', true); habilitarBotao(btn); return; }
-        if (!dados.blusa) { mostrarAlerta('❌ Selecione o Tamanho da blusa!', true); habilitarBotao(btn); return; }
+        btn.textContent = '⏳ ENVIANDO...';
 
-        // Backup local
         let inscricoes = JSON.parse(localStorage.getItem('inscricoes')) || [];
         inscricoes.push(dados);
         localStorage.setItem('inscricoes', JSON.stringify(inscricoes));
 
-        // Envio para planilha
         try {
-            const response = await fetch(URL_SCRIPT, {
+            await fetch(URL_SCRIPT, {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(dados)
             });
             
-            mostrarAlerta('✅ Solicitação enviada com sucesso! Os dados foram salvos.', false);
+            mostrarAlerta('✅ Solicitação enviada com sucesso! Aguarde aprovação.', false);
             document.getElementById('formInscricao').reset();
             setTimeout(() => {
                 window.location.href = 'index.html';
@@ -577,10 +766,7 @@
             
         } catch (error) {
             console.error('Erro:', error);
-            mostrarAlerta('⚠️ Dados salvos localmente. Não foi possível conectar com a planilha agora.', true);
-            setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 3000);
+            mostrarAlerta('⚠️ Erro ao enviar. Tente novamente.', true);
         }
         
         habilitarBotao(btn);
@@ -591,13 +777,7 @@
         btn.textContent = '💾 ENVIAR SOLICITAÇÃO';
     }
 
-    function mostrarAlerta(msg, isErro, tempo = 3000) {
-        const alerta = document.createElement('div');
-        alerta.className = `alerta ${isErro ? 'alerta-erro' : ''}`;
-        alerta.textContent = msg;
-        document.body.appendChild(alerta);
-        setTimeout(() => alerta.remove(), tempo);
-    }
+    document.getElementById('btnModalOk').addEventListener('click', fecharModalDuplicado);
 </script>
 
 </body>
