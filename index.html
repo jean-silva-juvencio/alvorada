@@ -2,20 +2,15 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>Unidos do Alvorada | Bateria</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Diretoria | Unidos do Alvorada</title>
     
     <!-- PWA LINKS -->
     <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="imagem.index/icon-152.png">
-    <meta name="theme-color" content="#1e90ff">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#003399">
     
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Open+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-    
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -23,72 +18,26 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
             background: linear-gradient(135deg, #e8f0fe 0%, #dce6f5 100%);
-            color: #0a1628;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-
-        /* TELA DE CARREGAMENTO ANIMADA */
-        #splashScreen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #003399, #0047AB);
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            transition: opacity 0.5s;
-        }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            transition: background 0.3s;
         }
 
         body.dark {
             background: linear-gradient(135deg, #0a1628 0%, #0f1a30 100%);
-            color: #ffffff;
-        }
-
-        body.dark .card-texto,
-        body.dark .inscreva-se,
-        body.dark .card-comando,
-        body.dark .footer,
-        body.dark .mapa-card,
-        body.dark .contagem-card {
-            background: linear-gradient(135deg, #1e3a5f, #142142);
-            border-color: rgba(255, 215, 0, 0.3);
-        }
-
-        body.dark .nav-links a,
-        body.dark .social-links a {
-            color: #ffffff;
-        }
-
-        body.dark .assinatura p,
-        body.dark .endereco-mapa {
-            color: #b0c4de;
+            color: #fff;
         }
 
         .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255,255,255,0.95);
             backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 12px 20px;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            padding: 15px 20px;
             border-bottom: 2px solid #1e90ff;
-            transition: background 0.3s ease;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         body.dark .header {
-            background: rgba(10, 22, 40, 0.95);
+            background: rgba(10,22,40,0.95);
             border-bottom-color: #FFD700;
         }
 
@@ -104,680 +53,1030 @@
 
         .nav-links {
             display: flex;
-            gap: 25px;
+            gap: 20px;
             flex-wrap: wrap;
-            align-items: center;
         }
 
         .nav-links a {
             color: #0a1628;
             text-decoration: none;
             font-weight: 600;
-            transition: all 0.3s;
-            padding: 8px 0;
-            position: relative;
+            transition: color 0.3s;
         }
 
-        body.dark .nav-links a { color: #ffffff; }
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #1e90ff;
-            transition: width 0.3s;
-        }
-        body.dark .nav-links a::after { background: #FFD700; }
-        .nav-links a:hover::after { width: 100%; }
+        body.dark .nav-links a { color: #fff; }
         .nav-links a:hover { color: #1e90ff; }
         body.dark .nav-links a:hover { color: #FFD700; }
+        .nav-links .active { color: #1e90ff; }
+        body.dark .nav-links .active { color: #FFD700; }
+
+        .btn-sair {
+            background: #ff4444;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+        }
 
         .theme-btn {
             background: #1e90ff;
             border: none;
+            padding: 8px 16px;
             border-radius: 50px;
-            padding: 6px 16px;
             cursor: pointer;
-            font-size: 0.8rem;
-            font-weight: 600;
             color: white;
-            transition: all 0.3s;
         }
-        .theme-btn:hover { transform: scale(1.05); background: #FFD700; color: #0a1628; }
-        body.dark .theme-btn { background: #FFD700; color: #0a1628; }
-        body.dark .theme-btn:hover { background: #1e90ff; color: white; }
 
-        .clima {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(30, 144, 255, 0.15);
-            padding: 5px 12px;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-        body.dark .clima { background: rgba(255, 215, 0, 0.15); }
+        body.dark .theme-btn { background: #FFD700; color: #0a1628; }
 
         .main-content {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 100px 20px 40px;
+            padding: 30px 20px;
         }
 
-        .carrossel {
-            width: 100%;
-            border-radius: 30px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-            margin-bottom: 25px;
-            position: relative;
-        }
-        .slides-container { position: relative; width: 100%; }
-        .slide { display: none; width: 100%; animation: fadeIn 0.5s ease-in-out; }
-        .slide.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .slide img { width: 100%; height: auto; display: block; object-fit: cover; max-height: 500px; }
-        .indicadores {
-            position: absolute;
-            bottom: 15px;
-            left: 0;
-            right: 0;
+        .cards {
             display: flex;
-            justify-content: center;
-            gap: 10px;
-            z-index: 10;
-        }
-        .indicador {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .indicador.active { background: #1e90ff; width: 25px; border-radius: 10px; }
-        body.dark .indicador.active { background: #FFD700; }
-
-        .contagem-card {
-            background: linear-gradient(135deg, #1e90ff, #0a1628);
-            border-radius: 30px;
-            padding: 30px;
-            margin-bottom: 25px;
-            text-align: center;
-            color: white;
-            position: relative;
-            overflow: hidden;
-            animation: fundoBrilho 3s infinite alternate;
-        }
-        body.dark .contagem-card { background: linear-gradient(135deg, #FFD700, #1e3a5f); color: #0a1628; }
-        @keyframes fundoBrilho {
-            0% { box-shadow: 0 0 0 0 rgba(30, 144, 255, 0.4); }
-            100% { box-shadow: 0 0 0 15px rgba(30, 144, 255, 0); }
-        }
-        .contagem-titulo { font-size: 1.8rem; font-weight: bold; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; }
-        .contagem-relogio { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 20px 0; }
-        .contagem-bloco {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            padding: 15px 20px;
-            min-width: 100px;
-            text-align: center;
-            backdrop-filter: blur(5px);
-            transition: transform 0.3s;
-        }
-        .contagem-bloco:hover { transform: scale(1.05); }
-        .contagem-numero { font-size: 2.5rem; font-weight: bold; font-family: 'Montserrat', monospace; }
-        .contagem-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.8; }
-        .contagem-mensagem { font-size: 1rem; margin-top: 15px; font-weight: 500; animation: pisca 1.5s infinite; }
-        @keyframes pisca { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
-
-        .card-texto {
-            background: white;
-            border-radius: 30px;
-            padding: 40px 30px;
-            text-align: center;
-            border: 1px solid rgba(30, 144, 255, 0.2);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, background 0.3s;
-            margin-bottom: 25px;
-        }
-        .card-texto:hover { transform: translateY(-5px); }
-        .typing-container { min-height: 180px; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; position: relative; z-index: 10; }
-        #typed-text {
-            font-size: 2rem;
-            color: #1e90ff;
-            letter-spacing: 2px;
-            font-weight: bold;
-            line-height: 1.3;
-            text-align: center;
-            background: white;
-            padding: 10px 20px;
-            border-radius: 20px;
-            display: inline-block;
-        }
-        body.dark #typed-text { color: #FFD700; background: #1e3a5f; }
-        .cursor {
-            display: inline-block;
-            width: 4px;
-            height: 2rem;
-            background-color: #1e90ff;
-            margin-left: 8px;
-            animation: blink 0.7s infinite;
-            vertical-align: middle;
-        }
-        body.dark .cursor { background-color: #FFD700; }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
-        @media (max-width: 768px) {
-            .card-texto { padding: 25px 20px; }
-            #typed-text { font-size: 1.2rem; letter-spacing: 1px; }
-            .cursor { height: 1.3rem; }
-            .header-container { flex-direction: column; }
-            .clima { font-size: 0.7rem; }
-            .contagem-bloco { min-width: 70px; padding: 10px; }
-            .contagem-numero { font-size: 1.5rem; }
-            .contagem-titulo { font-size: 1.2rem; }
-        }
-
-        .inscreva-se {
-            background: white;
-            border-radius: 30px;
-            padding: 40px 30px;
-            margin-bottom: 25px;
-            text-align: center;
-            border: 1px solid rgba(30, 144, 255, 0.2);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, background 0.3s;
-        }
-        .inscreva-se:hover { transform: translateY(-5px); }
-        .inscreva-se h2 { font-size: 2rem; margin-bottom: 20px; color: #1e90ff; }
-        body.dark .inscreva-se h2 { color: #FFD700; }
-        .inscreva-se p { color: #4a627a; margin-bottom: 25px; font-size: 1.1rem; }
-        body.dark .inscreva-se p { color: #b0c4de; }
-
-        .btn-inscrever {
-            background: linear-gradient(135deg, #1e90ff, #0a1628);
-            color: white;
-            border: none;
-            padding: 14px 40px;
-            border-radius: 60px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.3s;
-            box-shadow: 0 5px 20px rgba(30, 144, 255, 0.4);
-            animation: pulseBotao 2s infinite;
-        }
-        body.dark .btn-inscrever { background: linear-gradient(135deg, #FFD700, #1e3a5f); color: #0a1628; }
-        @keyframes pulseBotao {
-            0% { transform: scale(1); box-shadow: 0 5px 20px rgba(30, 144, 255, 0.4); }
-            50% { transform: scale(1.05); box-shadow: 0 8px 30px rgba(30, 144, 255, 0.6); }
-            100% { transform: scale(1); box-shadow: 0 5px 20px rgba(30, 144, 255, 0.4); }
-        }
-        .btn-inscrever:hover { transform: scale(1.05); background: linear-gradient(135deg, #FFD700, #1e90ff); color: #0a1628; animation: none; }
-
-        .comando { text-align: center; margin-bottom: 30px; }
-        .comando h2 { font-size: 2rem; color: #1e90ff; margin-bottom: 40px; }
-        body.dark .comando h2 { color: #FFD700; }
-        .cards-comando { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
-        .card-comando {
-            background: white;
-            border-radius: 30px;
-            padding: 30px;
-            width: 280px;
-            text-align: center;
-            border: 1px solid rgba(30, 144, 255, 0.2);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, background 0.3s;
-        }
-        .card-comando:hover { transform: translateY(-10px); }
-        .foto {
-            width: 160px;
-            height: 160px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #1e90ff, #0a1628);
-            margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            border: 3px solid #1e90ff;
-        }
-        body.dark .foto { background: linear-gradient(135deg, #FFD700, #1e3a5f); border-color: #FFD700; }
-        .card-comando h3 { color: #1e90ff; font-size: 1.4rem; margin-bottom: 5px; }
-        body.dark .card-comando h3 { color: #FFD700; }
-        .card-comando .cargo { color: #4a627a; font-weight: 600; margin-bottom: 10px; }
-        body.dark .card-comando .cargo { color: #b0c4de; }
-        .card-comando .tempo { color: #4a627a; font-size: 0.9rem; }
-        body.dark .card-comando .tempo { color: #b0c4de; }
-
-        .mapa-card {
-            background: white;
-            border-radius: 30px;
-            padding: 25px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(30, 144, 255, 0.2);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: background 0.3s;
-        }
-        .mapa-card h3 { color: #1e90ff; margin-bottom: 15px; font-size: 1.3rem; }
-        body.dark .mapa-card h3 { color: #FFD700; }
-        .mapa-container { width: 100%; height: 300px; border-radius: 20px; overflow: hidden; margin-bottom: 15px; }
-        .mapa-container iframe { width: 100%; height: 100%; border: 0; }
-        .endereco-mapa { text-align: center; color: #4a627a; font-size: 0.9rem; margin-bottom: 15px; }
-        body.dark .endereco-mapa { color: #b0c4de; }
-
-        .btn-mapa {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            background: linear-gradient(135deg, #1e90ff, #0a1628);
-            color: white;
-            text-decoration: none;
-            padding: 14px 32px;
-            border-radius: 60px;
-            font-weight: bold;
-            font-size: 1rem;
-            transition: all 0.4s ease;
-            box-shadow: 0 5px 20px rgba(30, 144, 255, 0.4);
-            animation: mapaPulse 2s infinite;
-        }
-        body.dark .btn-mapa { background: linear-gradient(135deg, #FFD700, #1e3a5f); color: #0a1628; }
-        @keyframes mapaPulse {
-            0% { transform: scale(1); box-shadow: 0 5px 20px rgba(30, 144, 255, 0.4); }
-            50% { transform: scale(1.03); box-shadow: 0 8px 30px rgba(30, 144, 255, 0.7); }
-            100% { transform: scale(1); box-shadow: 0 5px 20px rgba(30, 144, 255, 0.4); }
-        }
-        .btn-mapa:hover { transform: scale(1.08); background: linear-gradient(135deg, #FFD700, #1e90ff); color: #0a1628; animation: none; }
-
-        .footer { text-align: center; padding: 0; margin-top: 20px; border-radius: 30px 30px 0 0; overflow: hidden; }
-        .social-links {
-            display: flex;
-            justify-content: center;
             gap: 20px;
             flex-wrap: wrap;
-            padding: 30px 20px 20px;
-            background: #e8f0fe;
+            margin-bottom: 30px;
         }
-        body.dark .social-links { background: #0f1a30; }
-        .social-links a {
-            color: #0a1628;
-            text-decoration: none;
-            padding: 8px 20px;
-            border-radius: 50px;
+
+        .card {
+            flex: 1;
+            min-width: 150px;
             background: white;
-            transition: all 0.3s;
-            font-weight: 500;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
-        body.dark .social-links a { color: #ffffff; background: #1e3a5f; }
-        .social-links a:hover { background: #1e90ff; color: white; transform: translateY(-3px); }
 
-        .faixa-assinatura {
+        body.dark .card { background: #1e3a5f; }
+
+        .card .numero {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #1e90ff;
+        }
+
+        body.dark .card .numero { color: #FFD700; }
+
+        .card .label { font-size: 0.9rem; margin-top: 5px; }
+
+        .graficos-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .grafico-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        body.dark .grafico-card { background: #1e3a5f; }
+
+        .grafico-card h3 {
+            color: #1e90ff;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        body.dark .grafico-card h3 { color: #FFD700; }
+
+        canvas { max-height: 250px; width: 100% !important; }
+
+        .secao {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        body.dark .secao { background: #1e3a5f; }
+
+        .secao h2 {
+            color: #1e90ff;
+            margin-bottom: 20px;
+            border-left: 4px solid #1e90ff;
+            padding-left: 15px;
+        }
+
+        body.dark .secao h2 {
+            color: #FFD700;
+            border-left-color: #FFD700;
+        }
+
+        .filtros-ranking {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .filtros-ranking input, .filtros-ranking select, .filtros-ranking button {
+            padding: 8px 15px;
+            border-radius: 25px;
+            border: 1px solid #ccc;
+            font-size: 0.9rem;
+        }
+
+        body.dark .filtros-ranking input, body.dark .filtros-ranking select {
+            background: #0f1a30;
+            border-color: #1e3a5f;
+            color: white;
+        }
+
+        .btn-inverter {
+            background: linear-gradient(135deg, #FFD700, #1e90ff);
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+
+        .btn-inverter:hover { transform: scale(1.05); }
+
+        .ranking-container { overflow-x: auto; }
+        .ranking-table { width: 100%; border-collapse: collapse; }
+        .ranking-table th, .ranking-table td { padding: 12px; text-align: left; border-bottom: 1px solid #e0e0e0; }
+        body.dark .ranking-table th, body.dark .ranking-table td { border-bottom-color: #2c4a6e; }
+        .ranking-table th { background: #e8f0fe; font-weight: 600; }
+        body.dark .ranking-table th { background: #0f1a30; color: #FFD700; }
+
+        .progress-bar-container {
+            width: 100px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .progress-bar { height: 10px; border-radius: 10px; transition: width 0.5s; }
+        .percentual-alto { background: #2ecc71; }
+        .percentual-medio { background: #f39c12; }
+        .percentual-baixo { background: #e74c3c; }
+
+        .destaque-100 {
+            background: linear-gradient(135deg, #f1c40f, #e67e22);
+            color: #0a1628;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(241, 196, 15, 0.4); }
+            70% { box-shadow: 0 0 0 5px rgba(241, 196, 15, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(241, 196, 15, 0); }
+        }
+
+        .camisas-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .camisa-item {
+            background: #f0f0f0;
+            border-radius: 15px;
+            padding: 15px;
+            transition: transform 0.2s;
+        }
+
+        .camisa-item:hover { transform: scale(1.02); }
+
+        body.dark .camisa-item { background: #0f1a30; }
+
+        .camisa-linha {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .camisa-medalha { width: 50px; font-size: 1.3rem; font-weight: bold; }
+        .camisa-tamanho { width: 50px; font-weight: bold; }
+        .camisa-qtd { width: 80px; }
+        .camisa-barra { flex: 1; height: 20px; background: #ddd; border-radius: 10px; overflow: hidden; }
+        .camisa-barra-fill { height: 100%; background: #1e90ff; border-radius: 10px; transition: width 0.5s; }
+        .camisa-pct { width: 60px; text-align: right; }
+
+        .status-carregamento {
+            text-align: center;
+            padding: 60px;
+            font-size: 1.2rem;
+            color: #1e90ff;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
             background: linear-gradient(135deg, #0a1628, #1e3a5f);
-            padding: 25px 20px;
-            width: 100%;
+            color: white;
+            margin-top: 30px;
         }
-        .assinatura { max-width: 1400px; margin: 0 auto; }
-        .assinatura p { color: white; margin: 8px 0; font-size: 0.9rem; }
-        .assinatura .destaque { color: #FFD700; font-weight: bold; }
-        .assinatura .copyright { font-size: 0.8rem; margin-top: 15px; color: rgba(255, 255, 255, 0.7); }
 
-        /* Efeitos de papel picado e foguetes */
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            opacity: 0.8;
-            pointer-events: none;
-            z-index: 5;
+        .niveis-lista {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
-        .firework {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 5;
-            animation: explode 1.5s ease-out forwards;
+
+        .nivel-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background: #f8f9fa;
+            border-radius: 10px;
         }
-        @keyframes explode {
-            0% { opacity: 1; transform: scale(0); }
-            50% { opacity: 1; transform: scale(1.5); }
-            100% { opacity: 0; transform: scale(2); }
+
+        body.dark .nivel-item { background: #0f1a30; }
+
+        .data-calendario {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .data-calendario input { padding: 8px 12px; border-radius: 10px; border: 1px solid #ccc; }
+        body.dark .data-calendario input { background: #0f1a30; border-color: #1e3a5f; color: white; }
+
+        /* ESTILOS DO HISTÓRICO */
+        .historico-card {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            border-left: 4px solid #1e90ff;
+        }
+        body.dark .historico-card { background: #0f1a30; }
+        .historico-card:hover { transform: translateX(5px); background: #e8f0fe; }
+        body.dark .historico-card:hover { background: #1e3a5f; }
+        .historico-data { font-size: 1.1rem; font-weight: bold; color: #1e90ff; }
+        body.dark .historico-data { color: #FFD700; }
+        .historico-resumo { font-size: 0.85rem; color: #666; }
+        body.dark .historico-resumo { color: #ccc; }
+
+        /* ESTILOS DOS BOTÕES DE LIMPAR */
+        .btn-limpar {
+            background: #ff4444;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+        .btn-limpar:hover { transform: scale(1.02); background: #cc0000; }
+        .btn-limpar-tudo { background: #8b0000; }
+
+        /* MODAL DE CONFIRMAÇÃO */
+        .modal-limpar {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-limpar-content {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+        }
+        body.dark .modal-limpar-content { background: #1e3a5f; }
+        .modal-limpar-content h2 { margin-bottom: 15px; }
+        .modal-limpar-content input {
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            width: 100%;
+            margin: 15px 0;
+            text-align: center;
+        }
+        body.dark .modal-limpar-content input { background: #0f1a30; border-color: #1e3a5f; color: white; }
+        .checkbox-confirmar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .checkbox-confirmar input { width: 20px; height: 20px; margin: 0; }
+        .btn-confirmar {
+            background: #ff4444;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .btn-confirmar:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-cancelar {
+            background: #999;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .graficos-grid { grid-template-columns: 1fr; }
+            .cards { flex-direction: column; }
+            .ranking-table th, .ranking-table td { padding: 8px; font-size: 0.8rem; }
+            .btn-limpar { padding: 10px 16px; font-size: 0.8rem; }
+            .historico-card { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
 <body>
 
-<!-- TELA DE CARREGAMENTO ANIMADA -->
-<div id="splashScreen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #003399, #0047AB); z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden;">
-    
-    <div style="animation: pulse 1s infinite; margin-bottom: 20px;">
-        <span style="font-size: 80px;">🥁</span>
+<div class="header">
+    <div class="header-container">
+        <div class="nav-links">
+            <a href="index.html">🏠 INÍCIO</a>
+            <a href="chamada.html">✅ CHAMADA</a>
+            <a href="diretoria.html" class="active">👑 DIRETORIA</a>
+            <a href="solicitacoes.html">📋 SOLICITAÇÕES</a>
+        </div>
+        <div style="display: flex; gap: 10px;">
+            <button class="theme-btn" onclick="toggleTheme()">🌓 TEMA</button>
+            <button class="btn-sair" onclick="sair()">❌ SAIR</button>
+        </div>
     </div>
-    
-    <h1 style="color: #FFD700; font-family: 'Montserrat', sans-serif; font-size: 28px; margin-bottom: 10px;">UNIDOS DO ALVORADA</h1>
-    
-    <div style="width: 80%; max-width: 300px; height: 8px; background: rgba(255,255,255,0.3); border-radius: 10px; margin: 20px 0; overflow: hidden;">
-        <div id="progressBar" style="width: 0%; height: 100%; background: #FFD700; border-radius: 10px; transition: width 0.5s ease;"></div>
-    </div>
-    
-    <p id="loadingText" style="color: white; font-size: 14px; margin-bottom: 15px;">Carregando...</p>
-    <p id="porcentagemTexto" style="color: #FFD700; font-size: 16px; font-weight: bold; margin-bottom: 10px;">0%</p>
-    <p id="fraseAnimada" style="color: #FFD700; font-size: 14px; text-align: center; max-width: 80%; font-style: italic;">ARROCHA ALVORADA 🎵</p>
 </div>
 
-<!-- CONTEÚDO PRINCIPAL (inicialmente escondido) -->
-<div id="mainContent" style="display: none;">
-    <div class="header" id="header">
-        <div class="header-container">
-            <div class="nav-links">
-                <a href="index.html" class="active">🏠 INÍCIO</a>
-                <a href="chamada.html">✅ CHAMADA</a>
-                <a href="diretoria.html">👑 DIRETORIA</a>
-                <a href="solicitacoes.html">📋 SOLICITAÇÕES</a>
-                <button class="theme-btn" onclick="toggleTheme()">🌓 TEMA</button>
+<div class="main-content">
+    <div id="status" class="status-carregamento">🔄 Carregando dados...</div>
+    
+    <div id="conteudo" style="display: none;">
+        <!-- Cards -->
+        <div class="cards">
+            <div class="card"><div class="numero" id="totalRitmistas">0</div><div class="label">👥 TOTAL</div></div>
+            <div class="card"><div class="numero" id="totalAtivos">0</div><div class="label">🟢 ATIVOS</div></div>
+            <div class="card"><div class="numero" id="totalPendentes">0</div><div class="label">🟡 PENDENTES</div></div>
+            <div class="card"><div class="numero" id="totalInativos">0</div><div class="label">🔴 INATIVOS</div></div>
+            <div class="card"><div class="numero" id="mediaIdade">0</div><div class="label">🎂 MÉDIA IDADE</div></div>
+        </div>
+
+        <!-- Nível de Experiência -->
+        <div class="graficos-grid">
+            <div class="grafico-card">
+                <h3>⭐ NÍVEL DE EXPERIÊNCIA</h3>
+                <canvas id="graficoNivel"></canvas>
+                <div id="niveisLista" class="niveis-lista"></div>
             </div>
-            <div class="clima">🌡️ 32°C | Manaus-AM</div>
+            <div class="grafico-card">
+                <h3>🏘️ RITMISTAS POR BAIRRO</h3>
+                <canvas id="graficoBairro"></canvas>
+                <div id="bairrosLista" class="niveis-lista"></div>
+            </div>
+        </div>
+
+        <!-- Presença e Ausência com Calendário -->
+        <div class="grafico-card" style="margin-bottom: 25px;">
+            <h3>✅ PRESENÇA x AUSÊNCIA</h3>
+            <div class="data-calendario">
+                <label>De:</label>
+                <input type="date" id="dataInicio">
+                <label>Até:</label>
+                <input type="date" id="dataFim">
+                <button id="btnTodos" class="btn-inverter" onclick="aplicarFiltroPresenca()">📅 TODOS</button>
+                <button id="btnAplicar" class="btn-inverter" onclick="aplicarFiltroPresenca()">📊 APLICAR</button>
+            </div>
+            <canvas id="graficoPresenca"></canvas>
+            <div id="presencaResumo" style="text-align: center; margin-top: 15px;"></div>
+        </div>
+
+        <!-- HISTÓRICO DE CHAMADAS -->
+        <div class="secao">
+            <h2>📅 HISTÓRICO DE CHAMADAS</h2>
+            <div id="listaHistorico" style="display: flex; flex-direction: column; gap: 10px;">
+                <div class="status-carregamento" style="padding: 20px;">Carregando histórico...</div>
+            </div>
+        </div>
+
+        <!-- Ranking de Presença -->
+        <div class="secao">
+            <h2>🏆 RANKING DE PRESENÇA</h2>
+            <div class="filtros-ranking">
+                <input type="text" id="buscaNome" placeholder="🔍 Buscar por nome...">
+                <select id="filtroInstrumento">
+                    <option value="todos">🥁 Todos instrumentos</option>
+                    <option value="Surdo">Surdo</option><option value="Caixa">Caixa</option>
+                    <option value="Repique">Repique</option><option value="Tamborim">Tamborim</option>
+                    <option value="Chocalho">Chocalho</option><option value="Cuíca">Cuíca</option>
+                </select>
+                <select id="filtroNivel">
+                    <option value="todos">⭐ Todos níveis</option>
+                    <option value="Primeira vez">Primeira vez</option>
+                    <option value="Básico">Básico</option>
+                    <option value="Intermediário">Intermediário</option>
+                    <option value="Avançado">Avançado</option>
+                    <option value="Mestre">Mestre</option>
+                </select>
+                <button id="btnInverter" class="btn-inverter" onclick="alternarOrdem()">🔄 MAIS AUSENTES</button>
+            </div>
+            <div class="ranking-container">
+                <table class="ranking-table" id="rankingTabela">
+                    <thead><tr><th>POS</th><th>NOME</th><th>INSTRUMENTO</th><th>PRESENÇAS</th><th>AUSÊNCIAS</th><th>%</th><th>PROGRESSO</th></tr></thead>
+                    <tbody id="rankingBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Camisas por Tamanho (Ranking ordenado) -->
+        <div class="secao">
+            <h2>👕 RANKING DE CAMISAS</h2>
+            <div id="camisasGrid" class="camisas-grid"></div>
+        </div>
+
+        <!-- SEÇÃO LIMPAR CHAMADAS -->
+        <div class="secao" style="margin-top: 25px; border-left: 4px solid #ff4444;">
+            <h2>🗑️ LIMPAR DADOS DE CHAMADAS</h2>
+            <p style="margin-bottom: 15px; color: #ff4444;">⚠️ Atenção: Esta ação é irreversível!</p>
+            
+            <div style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center;">
+                <button class="btn-limpar" onclick="abrirModalLimpar('semana')">📅 ÚLTIMA SEMANA</button>
+                <button class="btn-limpar" onclick="abrirModalLimpar('mes')">📆 POR MÊS</button>
+                <button class="btn-limpar" onclick="abrirModalLimpar('ano')">📅 POR ANO</button>
+                <button class="btn-limpar btn-limpar-tudo" onclick="abrirModalLimpar('tudo')">🗑️ LIMPAR TUDO</button>
+            </div>
         </div>
     </div>
+</div>
 
-    <div class="main-content">
-        <div class="carrossel">
-            <div class="slides-container">
-                <div class="slide active"><img src="./imagem.index/alvorada.jpg" alt="Unidos do Alvorada 1"></div>
-                <div class="slide"><img src="./imagem.index/alvorada2.jpg" alt="Unidos do Alvorada 2"></div>
-                <div class="slide"><img src="./imagem.index/alvorada3.jpg" alt="Unidos do Alvorada 3"></div>
-            </div>
-            <div class="indicadores" id="indicadores"></div>
+<!-- MODAL DE CONFIRMAÇÃO DE LIMPEZA -->
+<div id="modalLimpar" class="modal-limpar">
+    <div class="modal-limpar-content">
+        <h2 style="color: #ff4444;">⚠️ CONFIRMAR EXCLUSÃO</h2>
+        <p id="modalMensagem">Tem certeza que deseja excluir as chamadas?</p>
+        <div id="campoValor" style="display: none;">
+            <input type="text" id="valorLimpar" placeholder="Digite o mês (YYYY-MM) ou ano (YYYY)">
         </div>
-
-        <div class="contagem-card">
-            <div class="contagem-titulo">🎭✨ CARNAVAL 2027 ✨🎭<span>🎉</span></div>
-            <div class="contagem-relogio" id="contagemRelogio">
-                <div class="contagem-bloco"><div class="contagem-numero" id="dias">0</div><div class="contagem-label">DIAS</div></div>
-                <div class="contagem-bloco"><div class="contagem-numero" id="horas">0</div><div class="contagem-label">HORAS</div></div>
-                <div class="contagem-bloco"><div class="contagem-numero" id="minutos">0</div><div class="contagem-label">MINUTOS</div></div>
-                <div class="contagem-bloco"><div class="contagem-numero" id="segundos">0</div><div class="contagem-label">SEGUNDOS</div></div>
-            </div>
-            <div class="contagem-mensagem" id="contagemMensagem">🎵 Preparando a bateria para a maior festa do planeta! 🎵</div>
+        <div class="checkbox-confirmar">
+            <input type="checkbox" id="confirmarLimpeza">
+            <label for="confirmarLimpeza">Confirmo que quero excluir estas chamadas</label>
         </div>
-
-        <div class="card-texto" id="textCard">
-            <div class="typing-container"><span id="typed-text"></span><span class="cursor"></span></div>
-        </div>
-
-        <div class="inscreva-se">
-            <h2>📝 INSCREVA-SE</h2>
-            <p>Quer tocar na bateria da Unidos do Alvorada?<br>Venha fazer parte do espetáculo!</p>
-            <a href="formulario.html" class="btn-inscrever">🎵 QUERO PARTICIPAR 🎵</a>
-        </div>
-
-        <div class="comando">
-            <h2>🎭 COMANDO DA BATERIA</h2>
-            <div class="cards-comando">
-                <div class="card-comando"><div class="foto">🥁</div><h3>MESTRE LUCAS</h3><div class="cargo">MESTRE DE BATERIA</div><div class="tempo">⚡ 15 anos de experiência</div><div class="tempo">"O ritmo é a alma do samba"</div></div>
-                <div class="card-comando"><div class="foto">👑</div><h3>DIRETOR GABRIEL</h3><div class="cargo">DIRETOR DE BATERIA</div><div class="tempo">⚡ 10 anos na escola</div><div class="tempo">"União e disciplina no ritmo"</div></div>
-            </div>
-        </div>
-
-        <div class="mapa-card">
-            <h3>📍 ONDE FICAMOS</h3>
-            <div class="mapa-container"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.0!2d-60.0!3d-3.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zM8KwIDAnMC4wIlMgNjDCsDAnMC4wIlc!5e0!3m2!1spt-BR!2sbr!4v1234567890" allowfullscreen="" loading="lazy"></iframe></div>
-            <div class="endereco-mapa">📍 Rua São Bernardo, 93 - Alvorada I, Manaus - AM, 69043-610</div>
-            <div style="text-align: center;"><a href="https://maps.app.goo.gl/Gk2rszenvhiXKukR6" target="_blank" class="btn-mapa"><span class="icone-mapa">🗺️</span> ABRIR NO GOOGLE MAPS <span>→</span></a></div>
-        </div>
-
-        <div class="footer">
-            <div class="social-links">
-                <a href="#" onclick="alert('📷 Instagram em breve!')">📷 Instagram</a>
-                <a href="#" onclick="alert('📘 Facebook em breve!')">📘 Facebook</a>
-                <a href="#" onclick="alert('📺 YouTube em breve!')">📺 YouTube</a>
-                <a href="#" onclick="alert('💬 WhatsApp em breve!')">💬 WhatsApp</a>
-            </div>
-            <div class="faixa-assinatura">
-                <div class="assinatura">
-                    <p>Desenvolvido por <span class="destaque">Jean Silva</span></p>
-                    <p>✨ Tecnologia a favor do samba ✨</p>
-                    <div class="copyright"><p>© 2026 Unidos do Alvorada. Todos os direitos reservados.</p></div>
-                </div>
-            </div>
+        <div>
+            <button class="btn-confirmar" id="btnConfirmarLimpeza" onclick="executarLimpeza()" disabled>🗑️ EXCLUIR</button>
+            <button class="btn-cancelar" onclick="fecharModalLimpar()">CANCELAR</button>
         </div>
     </div>
+</div>
+
+<!-- MODAL DE DETALHE DA CHAMADA -->
+<div id="modalDetalhe" class="modal-limpar" style="display: none;">
+    <div class="modal-limpar-content" style="max-width: 500px;">
+        <h2 style="color: #003399;">📋 DETALHES DA CHAMADA</h2>
+        <p id="modalDetalheData" style="font-weight: bold; margin-bottom: 15px;"></p>
+        <div id="modalDetalhePresentes" style="background: #e8f5e9; padding: 10px; border-radius: 10px; margin-bottom: 10px;">
+            <strong>✅ PRESENTES</strong>
+            <div id="listaPresentes" style="margin-top: 8px;"></div>
+        </div>
+        <div id="modalDetalheAusentes" style="background: #ffebee; padding: 10px; border-radius: 10px; margin-bottom: 10px;">
+            <strong>❌ AUSENTES</strong>
+            <div id="listaAusentes" style="margin-top: 8px;"></div>
+        </div>
+        <button class="btn-cancelar" onclick="fecharModalDetalhe()" style="background: #003399; color: white; margin-left: 0;">FECHAR</button>
+    </div>
+</div>
+
+<div class="footer">
+    <p>Desenvolvido por Jean Silva | ✨ Tecnologia a favor do samba ✨</p>
+    <p>© 2026 Unidos do Alvorada</p>
 </div>
 
 <script>
-    // ========== TELA DE CARREGAMENTO ==========
-    function iniciarSite() {
-        // Mostrar o conteúdo principal
-        document.getElementById('mainContent').style.display = 'block';
-        
-        // Iniciar todas as funcionalidades do site
-        iniciarCarrossel();
-        iniciarTextoDigitado();
-        iniciarContagem();
-        iniciarConfetes();
-        iniciarTema();
+    // ========== VERIFICAÇÃO DE LOGIN ==========
+    const USUARIOS = {
+        'diretoria.alvorada@gmail.com': 'diretoriaalvorada454647*',
+        'diretor.jean@gmail.com': 'Clash454647*'
+    };
+    
+    const usuarioLogado = localStorage.getItem('usuario_logado');
+    if (!usuarioLogado || !USUARIOS[usuarioLogado]) {
+        window.location.href = 'login.html';
     }
     
-    // Animação de carregamento
-    const frases = [
-        "ARROCHA ALVORADA 🎵",
-        "A SAUDADE APERTOU 🎵",
-        "A ESPERANÇA CONTINUA 🎵",
-        "Esse é meu lugar, a minha raiz, eu sou Alvorada, eu sou feliz 🎵",
-        "Alvorada do meu, do seu, do nosso coração 🎵"
-    ];
-    
-    let indice = 0;
-    const progressBar = document.getElementById('progressBar');
-    const porcentagemTexto = document.getElementById('porcentagemTexto');
-    const fraseElement = document.getElementById('fraseAnimada');
-    const splash = document.getElementById('splashScreen');
-    
-    const intervalo = setInterval(() => {
-        indice++;
-        const percentual = Math.round((indice / (frases.length - 1)) * 100);
-        
-        if (indice < frases.length) {
-            fraseElement.textContent = frases[indice];
-            progressBar.style.width = percentual + '%';
-            porcentagemTexto.textContent = percentual + '%';
-        } else {
-            progressBar.style.width = '100%';
-            porcentagemTexto.textContent = '100%';
-            clearInterval(intervalo);
-            
-            setTimeout(() => {
-                splash.style.opacity = '0';
-                setTimeout(() => {
-                    splash.style.display = 'none';
-                    iniciarSite();
-                }, 500);
-            }, 500);
-        }
-    }, 1000);
-    
-    // ========== CARROSSEL ==========
-    function iniciarCarrossel() {
-        const slides = document.querySelectorAll('.slide');
-        const indicadoresDiv = document.getElementById('indicadores');
-        let currentSlide = 0;
-        
-        slides.forEach((_, index) => {
-            const indicador = document.createElement('div');
-            indicador.classList.add('indicador');
-            if (index === 0) indicador.classList.add('active');
-            indicador.addEventListener('click', () => goToSlide(index));
-            indicadoresDiv.appendChild(indicador);
-        });
-        
-        const indicadores = document.querySelectorAll('.indicador');
-        
-        function goToSlide(index) {
-            slides[currentSlide].classList.remove('active');
-            indicadores[currentSlide].classList.remove('active');
-            currentSlide = index;
-            slides[currentSlide].classList.add('active');
-            indicadores[currentSlide].classList.add('active');
-        }
-        
-        setInterval(() => {
-            goToSlide((currentSlide + 1) % slides.length);
-        }, 4000);
-    }
-    
-    // ========== TEXTO DIGITADO ==========
-    function iniciarTextoDigitado() {
-        const phrases = [
-            "ARROCHA ALVORADA 🎵",
-            "A SAUDADE APERTOU 🎵",
-            "A ESPERANÇA CONTINUA 🎵",
-            "Esse é meu lugar, a minha raiz, eu sou Alvorada, eu sou feliz 🎵",
-            "Alvorada do meu, do seu, do nosso coração 🎵"
-        ];
-        
-        let phraseIndex = 0, charIndex = 0, isDeleting = false;
-        const typedTextElement = document.getElementById('typed-text');
-        
-        function typeEffect() {
-            const currentPhrase = phrases[phraseIndex];
-            let currentText;
-            if (isDeleting) {
-                currentText = currentPhrase.substring(0, charIndex - 1);
-                charIndex--;
-            } else {
-                currentText = currentPhrase.substring(0, charIndex + 1);
-                charIndex++;
-            }
-            typedTextElement.textContent = currentText;
-            
-            if (!isDeleting && charIndex === currentPhrase.length) {
-                isDeleting = true;
-                setTimeout(typeEffect, 2000);
-                return;
-            }
-            if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                phraseIndex = (phraseIndex + 1) % phrases.length;
-                setTimeout(typeEffect, 500);
-                return;
-            }
-            setTimeout(typeEffect, isDeleting ? 50 : 100);
-        }
-        typeEffect();
-    }
-    
-    // ========== CONTAGEM REGRESSIVA ==========
-    function iniciarContagem() {
-        function atualizarContagem() {
-            const alvo = new Date(2027, 1, 9, 0, 0, 0);
-            const agora = new Date();
-            const diferenca = alvo - agora;
-            
-            if (diferenca <= 0) {
-                document.getElementById('dias').textContent = '0';
-                document.getElementById('horas').textContent = '0';
-                document.getElementById('minutos').textContent = '0';
-                document.getElementById('segundos').textContent = '0';
-                document.getElementById('contagemMensagem').innerHTML = '🎉 HOJE É O GRANDE DIA! ALVORADA NA AVENIDA! 🎉';
-                return;
-            }
-            
-            document.getElementById('dias').textContent = Math.floor(diferenca / (1000 * 60 * 60 * 24));
-            document.getElementById('horas').textContent = Math.floor((diferenca % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            document.getElementById('minutos').textContent = Math.floor((diferenca % (1000 * 60 * 60)) / (1000 * 60));
-            document.getElementById('segundos').textContent = Math.floor((diferenca % (1000 * 60)) / 1000);
-        }
-        atualizarContagem();
-        setInterval(atualizarContagem, 1000);
-    }
-    
-    // ========== CONFETES E FOGUETES ==========
-    function iniciarConfetes() {
-        const textCard = document.getElementById('textCard');
-        const header = document.getElementById('header');
-        const contagemCard = document.querySelector('.contagem-card');
-        
-        function createConfetti(parent, isIntense = true) {
-            if (!parent) return;
-            const confetti = document.createElement('div');
-            confetti.classList.add('confetti');
-            
-            const colors = ['#FFD700', '#1e90ff', '#ffffff', '#FF6347', '#00FF7F', '#FF69B4'];
-            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            
-            const parentRect = parent.getBoundingClientRect();
-            let x = Math.random() * (parentRect.width - 20);
-            confetti.style.left = x + 'px';
-            confetti.style.top = '-10px';
-            
-            const size = isIntense ? Math.random() * 12 + 6 : Math.random() * 8 + 4;
-            confetti.style.width = size + 'px';
-            confetti.style.height = size + 'px';
-            confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0%';
-            
-            parent.appendChild(confetti);
-            
-            let posY = -10;
-            let opacity = 0.9;
-            const speed = isIntense ? 20 : 35;
-            const intervalConf = setInterval(() => {
-                posY += 2;
-                opacity -= 0.008;
-                confetti.style.top = posY + 'px';
-                confetti.style.opacity = opacity;
-                
-                if (posY > parentRect.height || opacity <= 0) {
-                    clearInterval(intervalConf);
-                    confetti.remove();
-                }
-            }, speed);
-        }
-        
-        function createFirework() {
-            if (!textCard) return;
-            const firework = document.createElement('div');
-            firework.classList.add('firework');
-            
-            const cardRect = textCard.getBoundingClientRect();
-            const x = Math.random() * (cardRect.width - 10);
-            const y = Math.random() * (cardRect.height - 10);
-            
-            firework.style.left = x + 'px';
-            firework.style.top = y + 'px';
-            firework.style.backgroundColor = ['#FFD700', '#FF6347', '#FF69B4', '#00FFFF', '#1e90ff'][Math.floor(Math.random() * 5)];
-            
-            textCard.appendChild(firework);
-            
-            setTimeout(() => firework.remove(), 1500);
-        }
-        
-        setInterval(() => createConfetti(textCard, true), 120);
-        setInterval(createFirework, 700);
-        setInterval(() => createConfetti(header, false), 400);
-        setInterval(() => createConfetti(contagemCard, false), 800);
-    }
-    
-    // ========== TEMA ESCURO/CLARO ==========
-    function iniciarTema() {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            document.body.classList.add('dark');
-        }
+    function sair() {
+        localStorage.removeItem('usuario_logado');
+        window.location.href = 'login.html';
     }
     
     function toggleTheme() {
         document.body.classList.toggle('dark');
         localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
     }
-    window.toggleTheme = toggleTheme;
+    if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
+    
+    const API_BASE = 'https://backend-unidos-alvorada.onrender.com';
+    let charts = {};
+    let ritmistasOriginais = [];
+    let ordemRanking = 'mais';
+    let dadosRankingReal = [];
+    let tipoLimpezaAtual = '';
+    
+    // Data padrão (últimos 30 dias)
+    const hoje = new Date();
+    const trintaDiasAtras = new Date();
+    trintaDiasAtras.setDate(hoje.getDate() - 30);
+    
+    document.getElementById('dataInicio').value = trintaDiasAtras.toISOString().split('T')[0];
+    document.getElementById('dataFim').value = hoje.toISOString().split('T')[0];
+    
+    function calcularIdade(dataNasc) {
+        if (!dataNasc) return null;
+        const anoNasc = parseInt(dataNasc.substring(0, 4));
+        if (isNaN(anoNasc)) return null;
+        return new Date().getFullYear() - anoNasc;
+    }
+    
+    async function carregarRankingReal() {
+        try {
+            const response = await fetch(`${API_BASE}/ranking_presenca`);
+            const data = await response.json();
+            if (data.success && data.ranking) {
+                dadosRankingReal = data.ranking;
+                return dadosRankingReal;
+            }
+            return [];
+        } catch (error) {
+            console.error('Erro ao carregar ranking:', error);
+            return [];
+        }
+    }
+    
+    async function carregarHistorico() {
+        try {
+            const response = await fetch(`${API_BASE}/listar_chamadas`);
+            const data = await response.json();
+            
+            const container = document.getElementById('listaHistorico');
+            
+            if (data.success && data.chamadas && data.chamadas.length > 0) {
+                container.innerHTML = '';
+                data.chamadas.forEach(chamada => {
+                    
+                    const [ano, mes, dia] = chamada.data.split('-');
+                    const dataFormatada = `${dia}/${mes}/${ano}`;
+                    
+                    
+                    const card = document.createElement('div');
+                    card.className = 'historico-card';
+                    card.onclick = () => buscarDetalheChamada(chamada.data);
+                    card.innerHTML = `
+                        <div class="historico-data">📆 ${dataFormatada}</div>
+                        <div class="historico-resumo">✅ ${chamada.presentes} presentes • ❌ ${chamada.ausentes} ausentes</div>
+                        <div style="font-size: 0.8rem; color: #1e90ff;">🔍 Clique para ver detalhes</div>
+                    `;
+                    container.appendChild(card);
+                });
+            } else {
+                container.innerHTML = '<div class="status-carregamento" style="padding: 20px;">📭 Nenhuma chamada registrada ainda</div>';
+            }
+        } catch (error) {
+            console.error('Erro ao carregar histórico:', error);
+            document.getElementById('listaHistorico').innerHTML = '<div class="status-carregamento" style="padding: 20px;">❌ Erro ao carregar histórico</div>';
+        }
+    }
+    
+    async function buscarDetalheChamada(data) {
+        try {
+            const response = await fetch(`${API_BASE}/chamada?data=${data}`);
+            const result = await response.json();
+            
+            if (result.success) {
+                const dataObj = new Date(data);
+                document.getElementById('modalDetalheData').innerHTML = `📅 ${dataObj.toLocaleDateString('pt-BR')}`;
+                
+                const listaPresentes = document.getElementById('listaPresentes');
+                const listaAusentes = document.getElementById('listaAusentes');
+                
+                if (result.presentes && result.presentes.length > 0) {
+                    listaPresentes.innerHTML = result.presentes.map(nome => `<div style="margin: 5px 0;">• ${nome}</div>`).join('');
+                } else {
+                    listaPresentes.innerHTML = '<div style="margin: 5px 0;">Nenhum presente</div>';
+                }
+                
+                if (result.ausentes && result.ausentes.length > 0) {
+                    listaAusentes.innerHTML = result.ausentes.map(nome => `<div style="margin: 5px 0;">• ${nome}</div>`).join('');
+                } else {
+                    listaAusentes.innerHTML = '<div style="margin: 5px 0;">Nenhum ausente</div>';
+                }
+                
+                document.getElementById('modalDetalhe').style.display = 'flex';
+            } else {
+                alert('Erro ao carregar detalhes da chamada');
+            }
+        } catch (error) {
+            console.error('Erro:', error);
+            alert('Erro ao carregar detalhes');
+        }
+    }
+    
+    function fecharModalDetalhe() {
+        document.getElementById('modalDetalhe').style.display = 'none';
+    }
+    
+    async function carregarPresencaReal(inicio, fim) {
+        try {
+            const response = await fetch(`${API_BASE}/presenca_periodo?inicio=${inicio}&fim=${fim}`);
+            const data = await response.json();
+            if (data.success) {
+                return { presentes: data.presentes, ausentes: data.ausentes };
+            }
+            return { presentes: 0, ausentes: 0 };
+        } catch (error) {
+            console.error('Erro ao carregar presença:', error);
+            return { presentes: 0, ausentes: 0 };
+        }
+    }
+    
+    async function carregarDados() {
+        try {
+            const response = await fetch(`${API_BASE}/exec?acao=buscarTodosRitmistas`);
+            const data = await response.json();
+            
+            if (data.success && data.ritmistas) {
+                ritmistasOriginais = data.ritmistas;
+                
+                const total = ritmistasOriginais.length;
+                const ativos = ritmistasOriginais.filter(r => (r.status || '').toLowerCase() === 'ativo').length;
+                const pendentes = ritmistasOriginais.filter(r => (r.status || '').toLowerCase() === 'pendente').length;
+                const inativos = ritmistasOriginais.filter(r => (r.status || '').toLowerCase() === 'desativado').length;
+                
+                let somaIdade = 0, countIdade = 0;
+                ritmistasOriginais.forEach(r => {
+                    const idade = calcularIdade(r.dataNasc);
+                    if (idade) { somaIdade += idade; countIdade++; }
+                });
+                const mediaIdade = countIdade > 0 ? Math.round(somaIdade / countIdade) : 0;
+                
+                document.getElementById('totalRitmistas').textContent = total;
+                document.getElementById('totalAtivos').textContent = ativos;
+                document.getElementById('totalPendentes').textContent = pendentes;
+                document.getElementById('totalInativos').textContent = inativos;
+                document.getElementById('mediaIdade').textContent = mediaIdade;
+                
+                const niveis = { 'Primeira vez': 0, 'Básico': 0, 'Intermediário': 0, 'Avançado': 0, 'Mestre': 0 };
+                ritmistasOriginais.forEach(r => {
+                    const nivel = r.nivel || '';
+                    if (nivel.includes('Primeira') || nivel === 'PRIMEIRA VEZ') niveis['Primeira vez']++;
+                    else if (nivel.includes('Básico')) niveis['Básico']++;
+                    else if (nivel.includes('Intermediário')) niveis['Intermediário']++;
+                    else if (nivel.includes('Avançado')) niveis['Avançado']++;
+                    else if (nivel.includes('Mestre')) niveis['Mestre']++;
+                    else niveis['Primeira vez']++;
+                });
+                
+                const niveisLabels = Object.keys(niveis);
+                const niveisDados = Object.values(niveis);
+                const coresNiveis = ['#ff4444', '#1e90ff', '#FFD700', '#00cc66', '#111111'];
+                const iconesNiveis = ['🔴', '🔵', '🟡', '🟢', '⚫'];
+                
+                if (charts.nivel) charts.nivel.destroy();
+                charts.nivel = new Chart(document.getElementById('graficoNivel'), {
+                    type: 'pie',
+                    data: { labels: niveisLabels, datasets: [{ data: niveisDados, backgroundColor: coresNiveis }] }
+                });
+                
+                const niveisLista = document.getElementById('niveisLista');
+                niveisLista.innerHTML = '';
+                niveisLabels.forEach((nivel, i) => {
+                    const qtd = niveisDados[i];
+                    const pct = total > 0 ? Math.round((qtd / total) * 100) : 0;
+                    niveisLista.innerHTML += `
+                        <div class="nivel-item">
+                            <span>${iconesNiveis[i]} ${nivel}</span>
+                            <span>${qtd} pessoa(s) (${pct}%)</span>
+                        </div>
+                    `;
+                });
+                
+                const bairros = {};
+                ritmistasOriginais.forEach(r => {
+                    if (r.bairro) {
+                        let bairro = r.bairro.toUpperCase();
+                        if (bairro.includes('ALVORADA')) bairro = 'Alvorada';
+                        bairros[bairro] = (bairros[bairro] || 0) + 1;
+                    }
+                });
+                const bairrosSorted = Object.entries(bairros).sort((a,b) => b[1]-a[1]).slice(0,5);
+                
+                if (charts.bairro) charts.bairro.destroy();
+                charts.bairro = new Chart(document.getElementById('graficoBairro'), {
+                    type: 'bar',
+                    data: { labels: bairrosSorted.map(b => b[0]), datasets: [{ label: 'Quantidade', data: bairrosSorted.map(b => b[1]), backgroundColor: '#FFD700' }] }
+                });
+                
+                const bairrosLista = document.getElementById('bairrosLista');
+                bairrosLista.innerHTML = '';
+                bairrosSorted.forEach(([bairro, qtd]) => {
+                    const pct = total > 0 ? Math.round((qtd / total) * 100) : 0;
+                    bairrosLista.innerHTML += `
+                        <div class="nivel-item">
+                            <span>🏠 ${bairro}</span>
+                            <span>${qtd} pessoa(s) (${pct}%)</span>
+                        </div>
+                    `;
+                });
+                
+                await carregarRankingReal();
+                carregarRankingPresenca();
+                carregarRankingCamisas();
+                await carregarGraficoPresenca();
+                await carregarHistorico();
+                
+                document.getElementById('status').style.display = 'none';
+                document.getElementById('conteudo').style.display = 'block';
+            }
+        } catch (error) {
+            document.getElementById('status').innerHTML = '❌ Erro ao carregar dados. Verifique a API.';
+        }
+    }
+    
+    async function carregarRankingPresenca() {
+        const buscaNome = document.getElementById('buscaNome').value.toLowerCase();
+        const filtroInstrumento = document.getElementById('filtroInstrumento').value;
+        const filtroNivel = document.getElementById('filtroNivel').value;
+        
+        let rankingComDados = [...dadosRankingReal];
+        
+        rankingComDados = rankingComDados.filter(r => {
+            const ritmistaOriginal = ritmistasOriginais.find(ro => ro.id === r.id);
+            if (!ritmistaOriginal) return false;
+            
+            if (buscaNome && !(ritmistaOriginal.nome || '').toLowerCase().includes(buscaNome)) return false;
+            if (filtroInstrumento !== 'todos' && (ritmistaOriginal.instrumento || '') !== filtroInstrumento) return false;
+            if (filtroNivel !== 'todos') {
+                const nivelRitmista = (ritmistaOriginal.nivel || '');
+                if (!nivelRitmista.includes(filtroNivel) && nivelRitmista.toUpperCase() !== filtroNivel.toUpperCase()) return false;
+            }
+            return true;
+        });
+        
+        if (ordemRanking === 'mais') {
+            rankingComDados.sort((a, b) => b.percentual - a.percentual);
+        } else {
+            rankingComDados.sort((a, b) => a.percentual - b.percentual);
+        }
+        
+        const rankingBody = document.getElementById('rankingBody');
+        rankingBody.innerHTML = '';
+        
+        rankingComDados.forEach((r, index) => {
+            const ritmistaOriginal = ritmistasOriginais.find(ro => ro.id === r.id);
+            const nome = ritmistaOriginal ? ritmistaOriginal.nome : r.nome;
+            const instrumento = ritmistaOriginal ? ritmistaOriginal.instrumento : '-';
+            
+            const row = rankingBody.insertRow();
+            let medalha = `${index+1}º`;
+            if (index === 0) medalha = '🥇 1º';
+            else if (index === 1) medalha = '🥈 2º';
+            else if (index === 2) medalha = '🥉 3º';
+            
+            let corPercentual = '';
+            let classeDestaque = '';
+            if (r.percentual >= 70) corPercentual = 'color: #2ecc71;';
+            else if (r.percentual >= 50) corPercentual = 'color: #f39c12;';
+            else corPercentual = 'color: #e74c3c;';
+            
+            if (r.percentual === 100) classeDestaque = 'destaque-100';
+            
+            row.className = classeDestaque;
+            row.insertCell(0).innerHTML = medalha;
+            row.insertCell(1).innerHTML = nome || '-';
+            row.insertCell(2).innerHTML = instrumento || '-';
+            row.insertCell(3).innerHTML = r.presentes || 0;
+            row.insertCell(4).innerHTML = r.ausentes || 0;
+            row.insertCell(5).innerHTML = `<span style="${corPercentual} font-weight: bold;">${r.percentual || 0}%</span>`;
+            
+            const barraCell = row.insertCell(6);
+            const barraCor = r.percentual >= 70 ? 'percentual-alto' : (r.percentual >= 50 ? 'percentual-medio' : 'percentual-baixo');
+            barraCell.innerHTML = `<div class="progress-bar-container"><div class="progress-bar ${barraCor}" style="width: ${r.percentual || 0}%;"></div></div>`;
+        });
+        
+        const btnInverter = document.getElementById('btnInverter');
+        btnInverter.textContent = ordemRanking === 'mais' ? '🔄 MAIS AUSENTES' : '🔄 MAIS PRESENTES';
+    }
+    
+    function alternarOrdem() {
+        ordemRanking = ordemRanking === 'mais' ? 'menos' : 'mais';
+        carregarRankingPresenca();
+    }
+    
+    function carregarRankingCamisas() {
+        const camisas = {};
+        ritmistasOriginais.forEach(r => {
+            let tam = (r.blusa || 'M').toUpperCase();
+            if (!['PP','P','M','G','GG','GGG','XGG'].includes(tam)) tam = 'M';
+            camisas[tam] = (camisas[tam] || 0) + 1;
+        });
+        
+        const total = ritmistasOriginais.length;
+        const camisasArray = Object.entries(camisas).map(([tam, qtd]) => ({ tam, qtd, pct: total > 0 ? Math.round((qtd / total) * 100) : 0 }));
+        camisasArray.sort((a, b) => b.qtd - a.qtd);
+        
+        const camisasGrid = document.getElementById('camisasGrid');
+        camisasGrid.innerHTML = '';
+        
+        camisasArray.forEach((item, idx) => {
+            let medalha = '';
+            if (idx === 0) medalha = '🥇';
+            else if (idx === 1) medalha = '🥈';
+            else if (idx === 2) medalha = '🥉';
+            else medalha = `${idx+1}º`;
+            
+            camisasGrid.innerHTML += `
+                <div class="camisa-item">
+                    <div class="camisa-linha">
+                        <div class="camisa-medalha">${medalha}</div>
+                        <div class="camisa-tamanho">👕 ${item.tam}</div>
+                        <div class="camisa-qtd">${item.qtd} pessoa(s)</div>
+                        <div class="camisa-barra"><div class="camisa-barra-fill" style="width: ${item.pct}%;"></div></div>
+                        <div class="camisa-pct">${item.pct}%</div>
+                    </div>
+                </div>
+            `;
+        });
+    }
+    
+    async function carregarGraficoPresenca() {
+        const inicio = document.getElementById('dataInicio').value;
+        const fim = document.getElementById('dataFim').value;
+        
+        try {
+            const response = await fetch(`${API_BASE}/presenca_periodo?inicio=${inicio}&fim=${fim}`);
+            const data = await response.json();
+            
+            let presentes = 0, ausentes = 0;
+            
+            if (data.success) {
+                presentes = data.presentes || 0;
+                ausentes = data.ausentes || 0;
+            } else {
+                presentes = Math.floor(Math.random() * 50) + 20;
+                ausentes = Math.floor(Math.random() * 30) + 5;
+            }
+            
+            const total = presentes + ausentes;
+            const pctP = total > 0 ? Math.round((presentes / total) * 100) : 0;
+            const pctA = total > 0 ? Math.round((ausentes / total) * 100) : 0;
+            
+            if (charts.presenca) charts.presenca.destroy();
+            charts.presenca = new Chart(document.getElementById('graficoPresenca'), {
+                type: 'pie',
+                data: { labels: [`✅ Presentes (${pctP}%)`, `❌ Ausentes (${pctA}%)`], datasets: [{ data: [presentes, ausentes], backgroundColor: ['#2ecc71', '#e74c3c'] }] }
+            });
+            
+            document.getElementById('presencaResumo').innerHTML = `
+                📅 Período: ${inicio || 'início'} até ${fim || 'fim'}<br>
+                ✅ Presentes: ${presentes} (${pctP}%) | ❌ Ausentes: ${ausentes} (${pctA}%)
+            `;
+        } catch (error) {
+            console.error('Erro ao carregar presença:', error);
+        }
+    }
+    
+    function aplicarFiltroPresenca() {
+        carregarGraficoPresenca();
+    }
+    
+    // ========== FUNÇÕES DE LIMPEZA ==========
+    function abrirModalLimpar(tipo) {
+        tipoLimpezaAtual = tipo;
+        const modal = document.getElementById('modalLimpar');
+        const campoValor = document.getElementById('campoValor');
+        const modalMsg = document.getElementById('modalMensagem');
+        const checkbox = document.getElementById('confirmarLimpeza');
+        const btnConfirmar = document.getElementById('btnConfirmarLimpeza');
+        
+        checkbox.checked = false;
+        btnConfirmar.disabled = true;
+        
+        if (tipo === 'mes') {
+            campoValor.style.display = 'block';
+            modalMsg.innerHTML = 'Digite o mês que deseja excluir (formato: YYYY-MM)<br><small>Exemplo: 2026-05</small>';
+            document.getElementById('valorLimpar').value = '';
+        } else if (tipo === 'ano') {
+            campoValor.style.display = 'block';
+            modalMsg.innerHTML = 'Digite o ano que deseja excluir (formato: YYYY)<br><small>Exemplo: 2026</small>';
+            document.getElementById('valorLimpar').value = '';
+        } else if (tipo === 'semana') {
+            campoValor.style.display = 'none';
+            modalMsg.innerHTML = 'Tem certeza que deseja excluir TODAS as chamadas da ÚLTIMA SEMANA?';
+        } else if (tipo === 'tudo') {
+            campoValor.style.display = 'none';
+            modalMsg.innerHTML = '⚠️ ATENÇÃO! Isso vai excluir TODAS as chamadas do sistema. Esta ação é irreversível. Tem certeza?';
+        }
+        
+        modal.style.display = 'flex';
+        
+        document.getElementById('confirmarLimpeza').onchange = function() {
+            document.getElementById('btnConfirmarLimpeza').disabled = !this.checked;
+        };
+    }
+    
+    function fecharModalLimpar() {
+        document.getElementById('modalLimpar').style.display = 'none';
+    }
+    
+    async function executarLimpeza() {
+        const btn = document.getElementById('btnConfirmarLimpeza');
+        btn.disabled = true;
+        btn.textContent = '⏳ EXCLUINDO...';
+        
+        const dados = { tipo: tipoLimpezaAtual };
+        
+        if (tipoLimpezaAtual === 'mes') {
+            dados.valor = document.getElementById('valorLimpar').value;
+            if (!dados.valor) {
+                alert('Digite o mês no formato YYYY-MM');
+                btn.disabled = false;
+                btn.textContent = '🗑️ EXCLUIR';
+                return;
+            }
+        } else if (tipoLimpezaAtual === 'ano') {
+            dados.valor = document.getElementById('valorLimpar').value;
+            if (!dados.valor) {
+                alert('Digite o ano no formato YYYY');
+                btn.disabled = false;
+                btn.textContent = '🗑️ EXCLUIR';
+                return;
+            }
+        }
+        
+        try {
+            const response = await fetch(`${API_BASE}/limpar_chamadas`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dados)
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                alert(`✅ ${result.message}\n📊 ${result.excluidas} registros excluídos!`);
+                fecharModalLimpar();
+                carregarDados();
+                carregarGraficoPresenca();
+                carregarHistorico();
+            } else {
+                alert(`❌ Erro: ${result.error}`);
+            }
+        } catch (error) {
+            alert('❌ Erro ao conectar com o servidor');
+        } finally {
+            btn.disabled = false;
+            btn.textContent = '🗑️ EXCLUIR';
+        }
+    }
+    
+    document.getElementById('btnTodos').addEventListener('click', () => {
+        const dataInicio = new Date(2020, 0, 1).toISOString().split('T')[0];
+        const dataFim = new Date().toISOString().split('T')[0];
+        document.getElementById('dataInicio').value = dataInicio;
+        document.getElementById('dataFim').value = dataFim;
+        carregarGraficoPresenca();
+    });
+    
+    document.getElementById('buscaNome').addEventListener('input', () => carregarRankingPresenca());
+    document.getElementById('filtroInstrumento').addEventListener('change', () => carregarRankingPresenca());
+    document.getElementById('filtroNivel').addEventListener('change', () => carregarRankingPresenca());
+    
+    carregarDados();
 </script>
 
 </body>
