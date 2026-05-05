@@ -648,8 +648,10 @@
             if (data.success && data.chamadas && data.chamadas.length > 0) {
                 container.innerHTML = '';
                 data.chamadas.forEach(chamada => {
-                    const dataObj = new Date(chamada.data);
-                    const dataFormatada = dataObj.toLocaleDateString('pt-BR');
+                    
+                    const [ano, mes, dia] = chamada.data.split('-');
+                    const dataFormatada = `${dia}/${mes}/${ano}`;
+                    
                     
                     const card = document.createElement('div');
                     card.className = 'historico-card';
