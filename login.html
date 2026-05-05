@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Login | Unidos do Alvorada</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1e90ff, #0a1628);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 4s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
+            50% { transform: translateY(-20px) translateX(10px); opacity: 0.8; }
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 35px 30px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        body.dark .login-card {
+            background: rgba(30, 58, 95, 0.95);
+            color: white;
+        }
+
+        .mascote {
+            margin-bottom: 20px;
+        }
+
+        .mascote-face {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            border-radius: 50%;
+            margin: 0 auto;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+
+        .olho-esquerdo, .olho-direito {
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background: white;
+            border-radius: 50%;
+            top: 32px;
+            transition: all 0.2s ease;
+            overflow: hidden;
+        }
+
+        .olho-esquerdo { left: 22px; }
+        .olho-direito { right: 22px; }
+
+        .olho-esquerdo::before, .olho-direito::before {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #2c3e50;
+            border-radius: 50%;
+            top: 4px;
+            left: 4px;
+            transition: all 0.2s;
+        }
+
+        .mascote.olhos-fechados .olho-esquerdo::before,
+        .mascote.olhos-fechados .olho-direito::before {
+            height: 2px;
+            width: 14px;
+            top: 8px;
+            left: 2px;
+            border-radius: 2px;
+        }
+
+        .sorriso {
+            position: absolute;
+            width: 35px;
+            height: 18px;
+            background: transparent;
+            border-bottom: 3px solid #2c3e50;
+            border-radius: 0 0 20px 20px;
+            bottom: 22px;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: all 0.3s;
+        }
+
+        .mascote.feliz .sorriso {
+            width: 45px;
+            height: 22px;
+            border-bottom: 4px solid #27ae60;
+        }
+
+        .bochecha {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            background: rgba(255, 100, 100, 0.3);
+            border-radius: 50%;
+            bottom: 18px;
+            transition: all 0.3s;
+        }
+
+        .bochecha-esquerda { left: 12px; }
+        .bochecha-direita { right: 12px; }
+
+        .mascote.feliz .bochecha {
+            background: rgba(255, 100, 100, 0.6);
+            transform: scale(1.2);
+        }
+
+        .titulo {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            color: #1e90ff;
+        }
+
+        body.dark .titulo { color: #FFD700; }
+
+        .input-group {
+            margin-bottom: 18px;
+            text-align: left;
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 45px 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #1e90ff;
+            box-shadow: 0 0 5px rgba(30, 144, 255, 0.3);
+        }
+
+        body.dark .input-group input {
+            background: #0f1a30;
+            border-color: #1e3a5f;
+            color: white;
+        }
+
+        .toggle-senha {
+            position: absolute;
+            right: 15px;
+            bottom: 12px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            background: none;
+            border: none;
+            transition: all 0.2s;
+            padding: 5px;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #1e90ff, #0a1628);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-login:hover {
+            transform: scale(1.02);
+            background: linear-gradient(135deg, #FFD700, #1e90ff);
+            color: #0a1628;
+        }
+
+        .btn-login:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .erro {
+            background: #ff4444;
+            color: white;
+            padding: 10px;
+            border-radius: 12px;
+            margin-bottom: 18px;
+            display: none;
+            animation: shake 0.5s ease-in-out;
+            font-size: 0.85rem;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .theme-btn {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            border-radius: 50px;
+            padding: 6px 14px;
+            cursor: pointer;
+            color: white;
+            backdrop-filter: blur(5px);
+            z-index: 20;
+        }
+
+        @media (max-width: 480px) {
+            .login-card { padding: 25px 20px; }
+            .mascote-face { width: 75px; height: 75px; }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-btn" onclick="toggleTheme()">🌓 TEMA</button>
+
+    <div class="particles" id="particles"></div>
+
+    <div class="login-card">
+        <div class="mascote" id="mascote">
+            <div class="mascote-face">
+                <div class="olho-esquerdo"></div>
+                <div class="olho-direito"></div>
+                <div class="sorriso"></div>
+                <div class="bochecha bochecha-esquerda"></div>
+                <div class="bochecha bochecha-direita"></div>
+            </div>
+        </div>
+        
+        <h1 class="titulo">🥁 UNIDOS DO ALVORADA</h1>
+        
+        <div id="erroMsg" class="erro"></div>
+        
+        <form id="formLogin">
+            <div class="input-group">
+                <label>📧 E-mail</label>
+                <input type="email" id="email" required placeholder="seuemail@exemplo.com">
+            </div>
+            
+            <div class="input-group">
+                <label>🔒 Senha</label>
+                <input type="password" id="senha" required placeholder="Digite sua senha">
+                <button type="button" class="toggle-senha" id="toggleSenha">👁️</button>
+            </div>
+            
+            <button type="submit" class="btn-login" id="btnLogin">ENTRAR</button>
+        </form>
+    </div>
+
+    <script>
+        // Usuários fixos
+        const USUARIOS = {
+            'diretoria.alvorada@gmail.com': 'diretoriaalvorada454647*',
+            'diretor.jean@gmail.com': 'Clash454647*'
+        };
+        
+        // Criar partículas
+        function criarParticulas() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.width = Math.random() * 6 + 2 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                particle.style.animationDuration = Math.random() * 3 + 2 + 's';
+                container.appendChild(particle);
+            }
+        }
+        criarParticulas();
+        
+        function toggleTheme() {
+            document.body.classList.toggle('dark');
+            localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+        }
+        
+        if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
+        
+        // Elementos
+        const emailInput = document.getElementById('email');
+        const senhaInput = document.getElementById('senha');
+        const mascote = document.getElementById('mascote');
+        const toggleSenha = document.getElementById('toggleSenha');
+        const olhoEsquerdo = document.querySelector('.olho-esquerdo');
+        const olhoDireito = document.querySelector('.olho-direito');
+        
+        // Mostrar/esconder senha
+        toggleSenha.addEventListener('click', () => {
+            if (senhaInput.type === 'password') {
+                senhaInput.type = 'text';
+                toggleSenha.textContent = '🙈';
+                mascote.classList.add('olhos-fechados');
+            } else {
+                senhaInput.type = 'password';
+                toggleSenha.textContent = '👁️';
+                mascote.classList.remove('olhos-fechados');
+            }
+        });
+        
+        senhaInput.addEventListener('input', () => {
+            if (senhaInput.value.length > 0) {
+                mascote.classList.add('feliz');
+            } else {
+                mascote.classList.remove('feliz');
+            }
+        });
+        
+        // Olhos seguem o mouse no campo de e-mail
+        function moverOlhos(event) {
+            const inputRect = emailInput.getBoundingClientRect();
+            let cursorX = event.clientX;
+            let cursorY = event.clientY;
+            let relX = (cursorX - inputRect.left) / inputRect.width;
+            let relY = (cursorY - inputRect.top) / inputRect.height;
+            relX = Math.min(Math.max(relX, 0), 1);
+            relY = Math.min(Math.max(relY, 0), 1);
+            let moveX = (relX - 0.5) * 12;
+            let moveY = (relY - 0.5) * 10;
+            moveX = Math.min(Math.max(moveX, -6), 6);
+            moveY = Math.min(Math.max(moveY, -5), 5);
+            olhoEsquerdo.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            olhoDireito.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        }
+        
+        emailInput.addEventListener('mousemove', moverOlhos);
+        emailInput.addEventListener('touchmove', (e) => {
+            const touch = e.touches[0];
+            moverOlhos({ clientX: touch.clientX, clientY: touch.clientY });
+        });
+        
+        emailInput.addEventListener('mouseleave', () => {
+            olhoEsquerdo.style.transform = 'translate(0px, 0px)';
+            olhoDireito.style.transform = 'translate(0px, 0px)';
+        });
+        
+        emailInput.addEventListener('input', () => {
+            olhoEsquerdo.style.transform = 'scale(0.8) translate(0px, 0px)';
+            olhoDireito.style.transform = 'scale(0.8) translate(0px, 0px)';
+            setTimeout(() => {
+                olhoEsquerdo.style.transform = 'translate(0px, 0px) scale(1)';
+                olhoDireito.style.transform = 'translate(0px, 0px) scale(1)';
+            }, 150);
+        });
+        
+        // Login
+        document.getElementById('formLogin').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const senha = document.getElementById('senha').value;
+            const btn = document.getElementById('btnLogin');
+            const erroDiv = document.getElementById('erroMsg');
+            
+            btn.disabled = true;
+            btn.textContent = '⏳ ENTRANDO...';
+            erroDiv.style.display = 'none';
+            
+            setTimeout(() => {
+                if (USUARIOS[email] && USUARIOS[email] === senha) {
+                    localStorage.setItem('usuario_logado', email);
+                    window.location.href = 'diretoria.html';
+                } else {
+                    erroDiv.textContent = 'E-mail ou senha inválidos!';
+                    erroDiv.style.display = 'block';
+                    mascote.classList.remove('feliz');
+                    document.querySelector('.mascote-face').style.animation = 'shake 0.5s';
+                    setTimeout(() => {
+                        document.querySelector('.mascote-face').style.animation = '';
+                    }, 500);
+                }
+                btn.disabled = false;
+                btn.textContent = 'ENTRAR';
+            }, 500);
+        });
+        
+        // Se já estiver logado
+        if (localStorage.getItem('usuario_logado')) {
+            window.location.href = 'diretoria.html';
+        }
+    </script>
+</body>
+</html>
