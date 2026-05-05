@@ -425,10 +425,10 @@
 <div class="header">
     <div class="header-container">
         <div class="nav-links">
-            <a href="index.html">🏠 INÍCIO</a>
-            <a href="chamada.html">✅ CHAMADA</a>
-            <a href="diretoria.html" class="active">👑 DIRETORIA</a>
-            <a href="solicitacoes.html">📋 SOLICITAÇÕES</a>
+            <a href="./index.html">🏠 INÍCIO</a>
+            <a href="./chamada.html">✅ CHAMADA</a>
+            <a href="./diretoria.html" class="active">👑 DIRETORIA</a>
+            <a href="./solicitacoes.html">📋 SOLICITAÇÕES</a>
         </div>
         <div style="display: flex; gap: 10px;">
             <button class="theme-btn" onclick="toggleTheme()">🌓 TEMA</button>
@@ -648,7 +648,7 @@
             if (data.success && data.chamadas && data.chamadas.length > 0) {
                 container.innerHTML = '';
                 data.chamadas.forEach(chamada => {
-                    
+
                     const [ano, mes, dia] = chamada.data.split('-');
                     const dataFormatada = `${dia}/${mes}/${ano}`;
                     
