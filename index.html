@@ -4,21 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Unidos do Alvorada | Bateria</title>
-    <!-- SCRIPT DO SERVICE WORKER - ADICIONE AQUI -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/alvorada/sw.js')
-                .then(reg => console.log('✅ SW registrado'))
-                .catch(err => console.log('❌ Erro:', err));
-        }
-    </script>
-</head>
     
-    <!-- LINKS DO PWA -->
+    <!-- PWA LINKS -->
     <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="imagem.index/icon-152.png">
-    <meta name="theme-color" content="#1e90ff">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#003399">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Open+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -1136,7 +1126,6 @@
         document.getElementById('minutos').textContent = minutos;
         document.getElementById('segundos').textContent = segundos;
         
-        // Mensagens motivacionais baseadas no tempo restante
         if (dias > 30) {
             document.getElementById('contagemMensagem').innerHTML = '🎵 Preparando a bateria para a maior festa do planeta! 🎵';
         } else if (dias > 7) {
@@ -1222,6 +1211,13 @@
     setInterval(createFirework, 700);
     setInterval(() => createConfetti(header, false), 400);
     setInterval(() => createConfetti(contagemCard, false), 800);
+    
+    // ========== SERVICE WORKER (corrigido - aqui no final) ==========
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/alvorada/sw.js')
+            .then(reg => console.log('✅ SW registrado'))
+            .catch(err => console.log('❌ Erro:', err));
+    }
 </script>
 
 </body>

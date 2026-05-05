@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Unidos do Alvorada | Solicitações</title>
+    
+    <!-- PWA LINKS -->
     <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#003399">
-    <title>Unidos do Alvorada | Bateria</title>
+    
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -630,7 +632,6 @@
         document.getElementById('totalPendentes').textContent = pendentes.length;
         document.getElementById('totalInativos').textContent = inativos.length;
 
-        // Renderizar ATIVOS
         const tbodyAtivos = document.getElementById('tbodyAtivos');
         tbodyAtivos.innerHTML = '';
         ativos.forEach(r => {
@@ -654,7 +655,6 @@
             cellBtn.appendChild(btnExcluir);
         });
 
-        // Renderizar PENDENTES
         const tbodyPendentes = document.getElementById('tbodyPendentes');
         tbodyPendentes.innerHTML = '';
         pendentes.forEach(r => {
@@ -678,7 +678,6 @@
             cellBtn.appendChild(btnExcluir);
         });
 
-        // Renderizar INATIVOS
         const tbodyInativos = document.getElementById('tbodyInativos');
         if (tbodyInativos) {
             tbodyInativos.innerHTML = '';

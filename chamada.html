@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Unidos do Alvorada | Chamada da Bateria</title>
+    
+    <!-- PWA LINKS -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#003399">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -299,7 +306,7 @@
         @media (max-width: 768px) {
             .btn-acao { padding: 10px 18px; font-size: 0.8rem; }
             .resumo-valor { font-size: 1.5rem; }
-            table th, table td { padding: 8px; font-size: 0.8rem; }
+            table th, table td { padding: 8px; font-size: 0.7rem; }
             .filtros { flex-direction: column; }
             .btn-recarga { width: 100%; }
         }
@@ -626,7 +633,6 @@
             if (result.success) {
                 const detalhes = `📅 ${data} (${getDiaSemana(data)})<br>✅ Presentes: ${presentesCount}<br>❌ Ausentes: ${ausentesCount}`;
                 mostrarModal('✅ SUCESSO!', 'Chamada salva com sucesso!', detalhes, 'sucesso');
-                // Limpar presenças locais após salvar
                 const key = getStorageKey();
                 localStorage.removeItem(key);
                 ritmistas.forEach(r => r.presente = null);
@@ -675,7 +681,7 @@
         } catch (error) {
             console.error('Erro:', error);
             statusDiv.innerHTML = '❌ Erro de conexão com a API!';
-            mostrarModal('❌ ERRO!', 'Erro de conexão com a API!', 'Verifique se o backend está rodando em http://localhost:5000', 'erro');
+            mostrarModal('❌ ERRO!', 'Erro de conexão com a API!', 'Verifique se o backend está rodando.', 'erro');
         }
     }
     

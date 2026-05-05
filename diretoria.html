@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Diretoria | Unidos do Alvorada</title>
+    
+    <!-- PWA LINKS -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#003399">
+    
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -440,7 +446,7 @@
     let charts = {};
     let ritmistasOriginais = [];
     let ordemRanking = 'mais';
-    let dadosRankingReal = []; // Armazena dados reais do ranking
+    let dadosRankingReal = [];
     
     // Data padrão (últimos 30 dias)
     const hoje = new Date();
@@ -457,12 +463,10 @@
         return new Date().getFullYear() - anoNasc;
     }
     
-    // ========== CARREGAR DADOS REAIS DO RANKING ==========
     async function carregarRankingReal() {
         try {
             const response = await fetch(`${API_BASE}/ranking_presenca`);
             const data = await response.json();
-            
             if (data.success && data.ranking) {
                 dadosRankingReal = data.ranking;
                 return dadosRankingReal;
@@ -474,12 +478,10 @@
         }
     }
     
-    // ========== CARREGAR PRESENÇA REAL POR PERÍODO ==========
     async function carregarPresencaReal(inicio, fim) {
         try {
             const response = await fetch(`${API_BASE}/presenca_periodo?inicio=${inicio}&fim=${fim}`);
             const data = await response.json();
-            
             if (data.success) {
                 return { presentes: data.presentes, ausentes: data.ausentes };
             }
@@ -492,14 +494,12 @@
     
     async function carregarDados() {
         try {
-            // Buscar ritmistas
             const response = await fetch(`${API_BASE}/exec?acao=buscarTodosRitmistas`);
             const data = await response.json();
             
             if (data.success && data.ritmistas) {
                 ritmistasOriginais = data.ritmistas;
                 
-                // Estatísticas básicas
                 const total = ritmistasOriginais.length;
                 const ativos = ritmistasOriginais.filter(r => (r.status || '').toLowerCase() === 'ativo').length;
                 const pendentes = ritmistasOriginais.filter(r => (r.status || '').toLowerCase() === 'pendente').length;
@@ -518,7 +518,6 @@
                 document.getElementById('totalInativos').textContent = inativos;
                 document.getElementById('mediaIdade').textContent = mediaIdade;
                 
-                // Nível de Experiência
                 const niveis = { 'Primeira vez': 0, 'Básico': 0, 'Intermediário': 0, 'Avançado': 0, 'Mestre': 0 };
                 ritmistasOriginais.forEach(r => {
                     const nivel = r.nivel || '';
@@ -554,7 +553,6 @@
                     `;
                 });
                 
-                // Bairros
                 const bairros = {};
                 ritmistasOriginais.forEach(r => {
                     if (r.bairro) {
@@ -583,14 +581,9 @@
                     `;
                 });
                 
-                // Carregar ranking real
                 await carregarRankingReal();
                 carregarRankingPresenca();
-                
-                // Carregar ranking de camisas
                 carregarRankingCamisas();
-                
-                // Carregar gráfico de presença/ausência real
                 await carregarGraficoPresenca();
                 
                 document.getElementById('status').style.display = 'none';
@@ -606,10 +599,8 @@
         const filtroInstrumento = document.getElementById('filtroInstrumento').value;
         const filtroNivel = document.getElementById('filtroNivel').value;
         
-        // Usar dados reais do ranking
         let rankingComDados = [...dadosRankingReal];
         
-        // Filtrar por instrumento e nível (precisa buscar do ritmistasOriginais)
         rankingComDados = rankingComDados.filter(r => {
             const ritmistaOriginal = ritmistasOriginais.find(ro => ro.id === r.id);
             if (!ritmistaOriginal) return false;
@@ -620,11 +611,9 @@
                 const nivelRitmista = (ritmistaOriginal.nivel || '');
                 if (!nivelRitmista.includes(filtroNivel) && nivelRitmista.toUpperCase() !== filtroNivel.toUpperCase()) return false;
             }
-            
             return true;
         });
         
-        // Ordenar
         if (ordemRanking === 'mais') {
             rankingComDados.sort((a, b) => b.percentual - a.percentual);
         } else {
@@ -725,7 +714,6 @@
                 presentes = data.presentes || 0;
                 ausentes = data.ausentes || 0;
             } else {
-                // Se o endpoint não existir, usa simulação apenas como fallback
                 presentes = Math.floor(Math.random() * 50) + 20;
                 ausentes = Math.floor(Math.random() * 30) + 5;
             }
