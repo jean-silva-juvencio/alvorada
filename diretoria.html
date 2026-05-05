@@ -311,10 +311,112 @@
         .data-calendario input { padding: 8px 12px; border-radius: 10px; border: 1px solid #ccc; }
         body.dark .data-calendario input { background: #0f1a30; border-color: #1e3a5f; color: white; }
 
+        /* ESTILOS DO HISTÓRICO */
+        .historico-card {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            border-left: 4px solid #1e90ff;
+        }
+        body.dark .historico-card { background: #0f1a30; }
+        .historico-card:hover { transform: translateX(5px); background: #e8f0fe; }
+        body.dark .historico-card:hover { background: #1e3a5f; }
+        .historico-data { font-size: 1.1rem; font-weight: bold; color: #1e90ff; }
+        body.dark .historico-data { color: #FFD700; }
+        .historico-resumo { font-size: 0.85rem; color: #666; }
+        body.dark .historico-resumo { color: #ccc; }
+
+        /* ESTILOS DOS BOTÕES DE LIMPAR */
+        .btn-limpar {
+            background: #ff4444;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+        .btn-limpar:hover { transform: scale(1.02); background: #cc0000; }
+        .btn-limpar-tudo { background: #8b0000; }
+
+        /* MODAL DE CONFIRMAÇÃO */
+        .modal-limpar {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-limpar-content {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+        }
+        body.dark .modal-limpar-content { background: #1e3a5f; }
+        .modal-limpar-content h2 { margin-bottom: 15px; }
+        .modal-limpar-content input {
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            width: 100%;
+            margin: 15px 0;
+            text-align: center;
+        }
+        body.dark .modal-limpar-content input { background: #0f1a30; border-color: #1e3a5f; color: white; }
+        .checkbox-confirmar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .checkbox-confirmar input { width: 20px; height: 20px; margin: 0; }
+        .btn-confirmar {
+            background: #ff4444;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .btn-confirmar:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-cancelar {
+            background: #999;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+
         @media (max-width: 768px) {
             .graficos-grid { grid-template-columns: 1fr; }
             .cards { flex-direction: column; }
             .ranking-table th, .ranking-table td { padding: 8px; font-size: 0.8rem; }
+            .btn-limpar { padding: 10px 16px; font-size: 0.8rem; }
+            .historico-card { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
@@ -377,6 +479,14 @@
             <div id="presencaResumo" style="text-align: center; margin-top: 15px;"></div>
         </div>
 
+        <!-- HISTÓRICO DE CHAMADAS -->
+        <div class="secao">
+            <h2>📅 HISTÓRICO DE CHAMADAS</h2>
+            <div id="listaHistorico" style="display: flex; flex-direction: column; gap: 10px;">
+                <div class="status-carregamento" style="padding: 20px;">Carregando histórico...</div>
+            </div>
+        </div>
+
         <!-- Ranking de Presença -->
         <div class="secao">
             <h2>🏆 RANKING DE PRESENÇA</h2>
@@ -411,6 +521,55 @@
             <h2>👕 RANKING DE CAMISAS</h2>
             <div id="camisasGrid" class="camisas-grid"></div>
         </div>
+
+        <!-- SEÇÃO LIMPAR CHAMADAS -->
+        <div class="secao" style="margin-top: 25px; border-left: 4px solid #ff4444;">
+            <h2>🗑️ LIMPAR DADOS DE CHAMADAS</h2>
+            <p style="margin-bottom: 15px; color: #ff4444;">⚠️ Atenção: Esta ação é irreversível!</p>
+            
+            <div style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center;">
+                <button class="btn-limpar" onclick="abrirModalLimpar('semana')">📅 ÚLTIMA SEMANA</button>
+                <button class="btn-limpar" onclick="abrirModalLimpar('mes')">📆 POR MÊS</button>
+                <button class="btn-limpar" onclick="abrirModalLimpar('ano')">📅 POR ANO</button>
+                <button class="btn-limpar btn-limpar-tudo" onclick="abrirModalLimpar('tudo')">🗑️ LIMPAR TUDO</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL DE CONFIRMAÇÃO DE LIMPEZA -->
+<div id="modalLimpar" class="modal-limpar">
+    <div class="modal-limpar-content">
+        <h2 style="color: #ff4444;">⚠️ CONFIRMAR EXCLUSÃO</h2>
+        <p id="modalMensagem">Tem certeza que deseja excluir as chamadas?</p>
+        <div id="campoValor" style="display: none;">
+            <input type="text" id="valorLimpar" placeholder="Digite o mês (YYYY-MM) ou ano (YYYY)">
+        </div>
+        <div class="checkbox-confirmar">
+            <input type="checkbox" id="confirmarLimpeza">
+            <label for="confirmarLimpeza">Confirmo que quero excluir estas chamadas</label>
+        </div>
+        <div>
+            <button class="btn-confirmar" id="btnConfirmarLimpeza" onclick="executarLimpeza()" disabled>🗑️ EXCLUIR</button>
+            <button class="btn-cancelar" onclick="fecharModalLimpar()">CANCELAR</button>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL DE DETALHE DA CHAMADA -->
+<div id="modalDetalhe" class="modal-limpar" style="display: none;">
+    <div class="modal-limpar-content" style="max-width: 500px;">
+        <h2 style="color: #003399;">📋 DETALHES DA CHAMADA</h2>
+        <p id="modalDetalheData" style="font-weight: bold; margin-bottom: 15px;"></p>
+        <div id="modalDetalhePresentes" style="background: #e8f5e9; padding: 10px; border-radius: 10px; margin-bottom: 10px;">
+            <strong>✅ PRESENTES</strong>
+            <div id="listaPresentes" style="margin-top: 8px;"></div>
+        </div>
+        <div id="modalDetalheAusentes" style="background: #ffebee; padding: 10px; border-radius: 10px; margin-bottom: 10px;">
+            <strong>❌ AUSENTES</strong>
+            <div id="listaAusentes" style="margin-top: 8px;"></div>
+        </div>
+        <button class="btn-cancelar" onclick="fecharModalDetalhe()" style="background: #003399; color: white; margin-left: 0;">FECHAR</button>
     </div>
 </div>
 
@@ -447,6 +606,7 @@
     let ritmistasOriginais = [];
     let ordemRanking = 'mais';
     let dadosRankingReal = [];
+    let tipoLimpezaAtual = '';
     
     // Data padrão (últimos 30 dias)
     const hoje = new Date();
@@ -476,6 +636,76 @@
             console.error('Erro ao carregar ranking:', error);
             return [];
         }
+    }
+    
+    async function carregarHistorico() {
+        try {
+            const response = await fetch(`${API_BASE}/listar_chamadas`);
+            const data = await response.json();
+            
+            const container = document.getElementById('listaHistorico');
+            
+            if (data.success && data.chamadas && data.chamadas.length > 0) {
+                container.innerHTML = '';
+                data.chamadas.forEach(chamada => {
+                    const dataObj = new Date(chamada.data);
+                    const dataFormatada = dataObj.toLocaleDateString('pt-BR');
+                    
+                    const card = document.createElement('div');
+                    card.className = 'historico-card';
+                    card.onclick = () => buscarDetalheChamada(chamada.data);
+                    card.innerHTML = `
+                        <div class="historico-data">📆 ${dataFormatada}</div>
+                        <div class="historico-resumo">✅ ${chamada.presentes} presentes • ❌ ${chamada.ausentes} ausentes</div>
+                        <div style="font-size: 0.8rem; color: #1e90ff;">🔍 Clique para ver detalhes</div>
+                    `;
+                    container.appendChild(card);
+                });
+            } else {
+                container.innerHTML = '<div class="status-carregamento" style="padding: 20px;">📭 Nenhuma chamada registrada ainda</div>';
+            }
+        } catch (error) {
+            console.error('Erro ao carregar histórico:', error);
+            document.getElementById('listaHistorico').innerHTML = '<div class="status-carregamento" style="padding: 20px;">❌ Erro ao carregar histórico</div>';
+        }
+    }
+    
+    async function buscarDetalheChamada(data) {
+        try {
+            const response = await fetch(`${API_BASE}/chamada?data=${data}`);
+            const result = await response.json();
+            
+            if (result.success) {
+                const dataObj = new Date(data);
+                document.getElementById('modalDetalheData').innerHTML = `📅 ${dataObj.toLocaleDateString('pt-BR')}`;
+                
+                const listaPresentes = document.getElementById('listaPresentes');
+                const listaAusentes = document.getElementById('listaAusentes');
+                
+                if (result.presentes && result.presentes.length > 0) {
+                    listaPresentes.innerHTML = result.presentes.map(nome => `<div style="margin: 5px 0;">• ${nome}</div>`).join('');
+                } else {
+                    listaPresentes.innerHTML = '<div style="margin: 5px 0;">Nenhum presente</div>';
+                }
+                
+                if (result.ausentes && result.ausentes.length > 0) {
+                    listaAusentes.innerHTML = result.ausentes.map(nome => `<div style="margin: 5px 0;">• ${nome}</div>`).join('');
+                } else {
+                    listaAusentes.innerHTML = '<div style="margin: 5px 0;">Nenhum ausente</div>';
+                }
+                
+                document.getElementById('modalDetalhe').style.display = 'flex';
+            } else {
+                alert('Erro ao carregar detalhes da chamada');
+            }
+        } catch (error) {
+            console.error('Erro:', error);
+            alert('Erro ao carregar detalhes');
+        }
+    }
+    
+    function fecharModalDetalhe() {
+        document.getElementById('modalDetalhe').style.display = 'none';
     }
     
     async function carregarPresencaReal(inicio, fim) {
@@ -585,6 +815,7 @@
                 carregarRankingPresenca();
                 carregarRankingCamisas();
                 await carregarGraficoPresenca();
+                await carregarHistorico();
                 
                 document.getElementById('status').style.display = 'none';
                 document.getElementById('conteudo').style.display = 'block';
@@ -739,6 +970,96 @@
     
     function aplicarFiltroPresenca() {
         carregarGraficoPresenca();
+    }
+    
+    // ========== FUNÇÕES DE LIMPEZA ==========
+    function abrirModalLimpar(tipo) {
+        tipoLimpezaAtual = tipo;
+        const modal = document.getElementById('modalLimpar');
+        const campoValor = document.getElementById('campoValor');
+        const modalMsg = document.getElementById('modalMensagem');
+        const checkbox = document.getElementById('confirmarLimpeza');
+        const btnConfirmar = document.getElementById('btnConfirmarLimpeza');
+        
+        checkbox.checked = false;
+        btnConfirmar.disabled = true;
+        
+        if (tipo === 'mes') {
+            campoValor.style.display = 'block';
+            modalMsg.innerHTML = 'Digite o mês que deseja excluir (formato: YYYY-MM)<br><small>Exemplo: 2026-05</small>';
+            document.getElementById('valorLimpar').value = '';
+        } else if (tipo === 'ano') {
+            campoValor.style.display = 'block';
+            modalMsg.innerHTML = 'Digite o ano que deseja excluir (formato: YYYY)<br><small>Exemplo: 2026</small>';
+            document.getElementById('valorLimpar').value = '';
+        } else if (tipo === 'semana') {
+            campoValor.style.display = 'none';
+            modalMsg.innerHTML = 'Tem certeza que deseja excluir TODAS as chamadas da ÚLTIMA SEMANA?';
+        } else if (tipo === 'tudo') {
+            campoValor.style.display = 'none';
+            modalMsg.innerHTML = '⚠️ ATENÇÃO! Isso vai excluir TODAS as chamadas do sistema. Esta ação é irreversível. Tem certeza?';
+        }
+        
+        modal.style.display = 'flex';
+        
+        document.getElementById('confirmarLimpeza').onchange = function() {
+            document.getElementById('btnConfirmarLimpeza').disabled = !this.checked;
+        };
+    }
+    
+    function fecharModalLimpar() {
+        document.getElementById('modalLimpar').style.display = 'none';
+    }
+    
+    async function executarLimpeza() {
+        const btn = document.getElementById('btnConfirmarLimpeza');
+        btn.disabled = true;
+        btn.textContent = '⏳ EXCLUINDO...';
+        
+        const dados = { tipo: tipoLimpezaAtual };
+        
+        if (tipoLimpezaAtual === 'mes') {
+            dados.valor = document.getElementById('valorLimpar').value;
+            if (!dados.valor) {
+                alert('Digite o mês no formato YYYY-MM');
+                btn.disabled = false;
+                btn.textContent = '🗑️ EXCLUIR';
+                return;
+            }
+        } else if (tipoLimpezaAtual === 'ano') {
+            dados.valor = document.getElementById('valorLimpar').value;
+            if (!dados.valor) {
+                alert('Digite o ano no formato YYYY');
+                btn.disabled = false;
+                btn.textContent = '🗑️ EXCLUIR';
+                return;
+            }
+        }
+        
+        try {
+            const response = await fetch(`${API_BASE}/limpar_chamadas`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dados)
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                alert(`✅ ${result.message}\n📊 ${result.excluidas} registros excluídos!`);
+                fecharModalLimpar();
+                carregarDados();
+                carregarGraficoPresenca();
+                carregarHistorico();
+            } else {
+                alert(`❌ Erro: ${result.error}`);
+            }
+        } catch (error) {
+            alert('❌ Erro ao conectar com o servidor');
+        } finally {
+            btn.disabled = false;
+            btn.textContent = '🗑️ EXCLUIR';
+        }
     }
     
     document.getElementById('btnTodos').addEventListener('click', () => {
