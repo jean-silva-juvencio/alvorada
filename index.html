@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Unidos do Alvorada | Bateria</title>
+    <!-- SCRIPT DO SERVICE WORKER - ADICIONE AQUI -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/alvorada/sw.js')
+                .then(reg => console.log('✅ SW registrado'))
+                .catch(err => console.log('❌ Erro:', err));
+        }
+    </script>
+</head>
     
     <!-- LINKS DO PWA -->
     <link rel="manifest" href="manifest.json">
