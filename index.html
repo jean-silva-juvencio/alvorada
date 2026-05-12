@@ -27,13 +27,11 @@
             transition: background 0.3s ease, color 0.3s ease;
         }
 
-        /* TELA DE CARREGAMENTO ANIMADA */
+        /* TELA DE CARREGAMENTO */
         #splashScreen {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: linear-gradient(135deg, #003399, #0047AB);
             z-index: 9999;
             display: flex;
@@ -58,13 +56,15 @@
         body.dark .card-comando,
         body.dark .footer,
         body.dark .mapa-card,
-        body.dark .contagem-card {
+        body.dark .contagem-card,
+        body.dark .noticias {
             background: linear-gradient(135deg, #1e3a5f, #142142);
             border-color: rgba(255, 215, 0, 0.3);
         }
 
         body.dark .nav-links a,
-        body.dark .social-links a {
+        body.dark .assinatura p,
+        body.dark .endereco-mapa {
             color: #ffffff;
         }
 
@@ -73,10 +73,10 @@
             color: #b0c4de;
         }
 
+        /* HEADER */
         .header {
             position: fixed;
-            top: 0;
-            left: 0;
+            top: 0; left: 0;
             width: 100%;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -102,13 +102,199 @@
             gap: 15px;
         }
 
+        /* BOTÃO HAMBÚRGUER */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #1e90ff;
+            border-radius: 3px;
+            transition: all 0.3s;
+            display: block;
+        }
+        body.dark .hamburger span { background: #FFD700; }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        /* OVERLAY */
+        .menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 9998;
+        }
+        .menu-overlay.active { display: block; }
+
+        /* MENU LATERAL */
+        .menu-lateral {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100%;
+            background: white;
+            z-index: 9999;
+            transition: left 0.3s ease;
+            padding: 0;
+            box-shadow: 2px 0 20px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+        body.dark .menu-lateral { background: #1e293b; }
+
+        .menu-lateral.aberto { left: 0; }
+
+        /* Cabeçalho do menu */
+        .menu-header {
+            background: linear-gradient(135deg, #003399, #0047AB);
+            padding: 50px 20px 25px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .menu-header .menu-logo { font-size: 3rem; margin-bottom: 8px; }
+        .menu-header h2 {
+            color: #FFD700;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 1px;
+        }
+
+        /* Links de navegação */
+        .menu-nav { padding: 15px 0; flex-shrink: 0; }
+        .menu-nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 20px;
+            text-decoration: none;
+            color: #1e293b;
+            font-weight: 600;
+            font-size: 1rem;
+            border-left: 3px solid transparent;
+            transition: all 0.2s;
+        }
+        body.dark .menu-nav a { color: #e2e8f0; }
+        .menu-nav a:hover {
+            background: rgba(30, 144, 255, 0.1);
+            border-left-color: #1e90ff;
+            color: #1e90ff;
+        }
+        body.dark .menu-nav a:hover {
+            background: rgba(255, 215, 0, 0.1);
+            border-left-color: #FFD700;
+            color: #FFD700;
+        }
+
+        /* Divisor */
+        .menu-divider {
+            height: 1px;
+            background: #e2e8f0;
+            margin: 5px 20px;
+        }
+        body.dark .menu-divider { background: #334155; }
+
+        /* Redes sociais no menu */
+        .menu-redes {
+            padding: 15px 20px;
+            flex-shrink: 0;
+        }
+        .menu-redes h4 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #94a3b8;
+            margin-bottom: 12px;
+        }
+        .menu-redes-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+        .menu-rede-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            padding: 10px 5px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: white;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+        .menu-rede-btn:hover { transform: scale(1.05); opacity: 0.9; }
+        .menu-rede-btn svg { width: 22px; height: 22px; }
+        .btn-whats  { background: #25D366; }
+        .btn-youtube { background: #FF0000; }
+        .btn-insta  { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .btn-face   { background: #1877F2; }
+        .btn-tiktok { background: #010101; }
+        .btn-spot   { background: #1DB954; }
+
+        /* Clima no menu */
+        .menu-clima {
+            padding: 12px 20px 20px;
+            flex-shrink: 0;
+        }
+        .menu-clima-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(30, 144, 255, 0.1);
+            padding: 10px 15px;
+            border-radius: 12px;
+        }
+        body.dark .menu-clima-box { background: rgba(255, 215, 0, 0.1); }
+        .menu-clima-box .clima-icon { font-size: 1.5rem; }
+        .menu-clima-info { flex: 1; }
+        .menu-clima-temp { font-size: 1.2rem; font-weight: bold; color: #1e90ff; }
+        body.dark .menu-clima-temp { color: #FFD700; }
+        .menu-clima-local { font-size: 0.75rem; color: #64748b; }
+
+        /* Botão tema no menu */
+        .menu-tema-btn {
+            margin: 0 20px 20px;
+            background: #1e90ff;
+            border: none;
+            border-radius: 12px;
+            padding: 12px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: white;
+            transition: all 0.3s;
+            width: calc(100% - 40px);
+        }
+        body.dark .menu-tema-btn { background: #FFD700; color: #0a1628; }
+        .menu-tema-btn:hover { opacity: 0.9; }
+
+        /* MENU DESKTOP */
         .nav-links {
             display: flex;
             gap: 25px;
             flex-wrap: wrap;
             align-items: center;
         }
-
         .nav-links a {
             color: #0a1628;
             text-decoration: none;
@@ -117,15 +303,12 @@
             padding: 8px 0;
             position: relative;
         }
-
         body.dark .nav-links a { color: #ffffff; }
         .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
+            bottom: 0; left: 0;
+            width: 0; height: 2px;
             background: #1e90ff;
             transition: width 0.3s;
         }
@@ -133,6 +316,45 @@
         .nav-links a:hover::after { width: 100%; }
         .nav-links a:hover { color: #1e90ff; }
         body.dark .nav-links a:hover { color: #FFD700; }
+
+        /* TOPO DIREITO */
+        .top-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        /* Ícones SVG redes sociais desktop */
+        .social-icons {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px; height: 32px;
+            border-radius: 8px;
+            transition: transform 0.2s, opacity 0.2s;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .social-icons a:hover { transform: scale(1.15); opacity: 0.85; }
+        .social-icons svg { width: 28px; height: 28px; }
+
+        .clima {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(30, 144, 255, 0.15);
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        body.dark .clima { background: rgba(255, 215, 0, 0.15); }
 
         .theme-btn {
             background: #1e90ff;
@@ -149,24 +371,13 @@
         body.dark .theme-btn { background: #FFD700; color: #0a1628; }
         body.dark .theme-btn:hover { background: #1e90ff; color: white; }
 
-        .clima {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(30, 144, 255, 0.15);
-            padding: 5px 12px;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-        body.dark .clima { background: rgba(255, 215, 0, 0.15); }
-
         .main-content {
             max-width: 1400px;
             margin: 0 auto;
             padding: 100px 20px 40px;
         }
 
+        /* CARROSSEL */
         .carrossel {
             width: 100%;
             border-radius: 30px;
@@ -182,17 +393,14 @@
         .slide img { width: 100%; height: auto; display: block; object-fit: cover; max-height: 500px; }
         .indicadores {
             position: absolute;
-            bottom: 15px;
-            left: 0;
-            right: 0;
+            bottom: 15px; left: 0; right: 0;
             display: flex;
             justify-content: center;
             gap: 10px;
             z-index: 10;
         }
         .indicador {
-            width: 10px;
-            height: 10px;
+            width: 10px; height: 10px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.5);
             cursor: pointer;
@@ -201,6 +409,48 @@
         .indicador.active { background: #1e90ff; width: 25px; border-radius: 10px; }
         body.dark .indicador.active { background: #FFD700; }
 
+        /* NOTÍCIAS */
+        .noticias {
+            background: white;
+            border-radius: 30px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        body.dark .noticias { background: #1e293b; }
+        .noticias h2 { color: #1e90ff; font-size: 1.5rem; margin-bottom: 15px; text-align: center; }
+        body.dark .noticias h2 { color: #FFD700; }
+        #noticiasLista { display: flex; flex-direction: column; gap: 20px; }
+        .noticia-card {
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 20px;
+            transition: transform 0.2s;
+        }
+        body.dark .noticia-card { background: #0f172a; }
+        .noticia-card:hover { transform: translateX(5px); }
+        .noticia-card h3 { font-size: 1.2rem; margin-bottom: 10px; color: #1e90ff; }
+        body.dark .noticia-card h3 { color: #FFD700; }
+        .noticia-conteudo { font-size: 0.9rem; line-height: 1.5; color: #4a627a; margin-bottom: 10px; }
+        body.dark .noticia-conteudo { color: #b0c4de; }
+        .noticia-data { font-size: 0.75rem; color: #888; display: block; margin-top: 10px; }
+        .btn-ler-mais {
+            background: none; border: none;
+            color: #1e90ff; cursor: pointer;
+            font-weight: 600; font-size: 0.85rem;
+            margin-top: 8px; display: inline-block;
+        }
+        body.dark .btn-ler-mais { color: #FFD700; }
+        .btn-ler-mais:hover { text-decoration: underline; }
+        .noticia-imagem {
+            max-width: 100%;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            max-height: 250px;
+            object-fit: cover;
+        }
+
+        /* CONTAGEM */
         .contagem-card {
             background: linear-gradient(135deg, #1e90ff, #0a1628);
             border-radius: 30px;
@@ -226,14 +476,13 @@
             min-width: 100px;
             text-align: center;
             backdrop-filter: blur(5px);
-            transition: transform 0.3s;
         }
-        .contagem-bloco:hover { transform: scale(1.05); }
         .contagem-numero { font-size: 2.5rem; font-weight: bold; font-family: 'Montserrat', monospace; }
         .contagem-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.8; }
         .contagem-mensagem { font-size: 1rem; margin-top: 15px; font-weight: 500; animation: pisca 1.5s infinite; }
         @keyframes pisca { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
 
+        /* CARD TEXTO */
         .card-texto {
             background: white;
             border-radius: 30px;
@@ -261,8 +510,7 @@
         body.dark #typed-text { color: #FFD700; background: #1e3a5f; }
         .cursor {
             display: inline-block;
-            width: 4px;
-            height: 2rem;
+            width: 4px; height: 2rem;
             background-color: #1e90ff;
             margin-left: 8px;
             animation: blink 0.7s infinite;
@@ -271,17 +519,7 @@
         body.dark .cursor { background-color: #FFD700; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-        @media (max-width: 768px) {
-            .card-texto { padding: 25px 20px; }
-            #typed-text { font-size: 1.2rem; letter-spacing: 1px; }
-            .cursor { height: 1.3rem; }
-            .header-container { flex-direction: column; }
-            .clima { font-size: 0.7rem; }
-            .contagem-bloco { min-width: 70px; padding: 10px; }
-            .contagem-numero { font-size: 1.5rem; }
-            .contagem-titulo { font-size: 1.2rem; }
-        }
-
+        /* INSCRIÇÃO */
         .inscreva-se {
             background: white;
             border-radius: 30px;
@@ -297,17 +535,13 @@
         body.dark .inscreva-se h2 { color: #FFD700; }
         .inscreva-se p { color: #4a627a; margin-bottom: 25px; font-size: 1.1rem; }
         body.dark .inscreva-se p { color: #b0c4de; }
-
         .btn-inscrever {
             background: linear-gradient(135deg, #1e90ff, #0a1628);
-            color: white;
-            border: none;
+            color: white; border: none;
             padding: 14px 40px;
             border-radius: 60px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            text-decoration: none;
+            font-size: 1.1rem; font-weight: bold;
+            cursor: pointer; text-decoration: none;
             display: inline-block;
             transition: all 0.3s;
             box-shadow: 0 5px 20px rgba(30, 144, 255, 0.4);
@@ -321,6 +555,7 @@
         }
         .btn-inscrever:hover { transform: scale(1.05); background: linear-gradient(135deg, #FFD700, #1e90ff); color: #0a1628; animation: none; }
 
+        /* COMANDO */
         .comando { text-align: center; margin-bottom: 30px; }
         .comando h2 { font-size: 2rem; color: #1e90ff; margin-bottom: 40px; }
         body.dark .comando h2 { color: #FFD700; }
@@ -337,8 +572,7 @@
         }
         .card-comando:hover { transform: translateY(-10px); }
         .foto {
-            width: 160px;
-            height: 160px;
+            width: 160px; height: 160px;
             border-radius: 50%;
             background: linear-gradient(135deg, #1e90ff, #0a1628);
             margin: 0 auto 20px;
@@ -356,6 +590,7 @@
         .card-comando .tempo { color: #4a627a; font-size: 0.9rem; }
         body.dark .card-comando .tempo { color: #b0c4de; }
 
+        /* MAPA */
         .mapa-card {
             background: white;
             border-radius: 30px;
@@ -371,7 +606,6 @@
         .mapa-container iframe { width: 100%; height: 100%; border: 0; }
         .endereco-mapa { text-align: center; color: #4a627a; font-size: 0.9rem; margin-bottom: 15px; }
         body.dark .endereco-mapa { color: #b0c4de; }
-
         .btn-mapa {
             display: inline-flex;
             align-items: center;
@@ -382,8 +616,7 @@
             text-decoration: none;
             padding: 14px 32px;
             border-radius: 60px;
-            font-weight: bold;
-            font-size: 1rem;
+            font-weight: bold; font-size: 1rem;
             transition: all 0.4s ease;
             box-shadow: 0 5px 20px rgba(30, 144, 255, 0.4);
             animation: mapaPulse 2s infinite;
@@ -396,28 +629,14 @@
         }
         .btn-mapa:hover { transform: scale(1.08); background: linear-gradient(135deg, #FFD700, #1e90ff); color: #0a1628; animation: none; }
 
-        .footer { text-align: center; padding: 0; margin-top: 20px; border-radius: 30px 30px 0 0; overflow: hidden; }
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            padding: 30px 20px 20px;
-            background: #e8f0fe;
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            padding: 0;
+            margin-top: 20px;
+            border-radius: 30px 30px 0 0;
+            overflow: hidden;
         }
-        body.dark .social-links { background: #0f1a30; }
-        .social-links a {
-            color: #0a1628;
-            text-decoration: none;
-            padding: 8px 20px;
-            border-radius: 50px;
-            background: white;
-            transition: all 0.3s;
-            font-weight: 500;
-        }
-        body.dark .social-links a { color: #ffffff; background: #1e3a5f; }
-        .social-links a:hover { background: #1e90ff; color: white; transform: translateY(-3px); }
-
         .faixa-assinatura {
             background: linear-gradient(135deg, #0a1628, #1e3a5f);
             padding: 25px 20px;
@@ -428,63 +647,180 @@
         .assinatura .destaque { color: #FFD700; font-weight: bold; }
         .assinatura .copyright { font-size: 0.8rem; margin-top: 15px; color: rgba(255, 255, 255, 0.7); }
 
-        /* Efeitos de papel picado e foguetes */
+        /* CONFETES */
         .confetti {
             position: absolute;
-            width: 10px;
-            height: 10px;
+            width: 10px; height: 10px;
             opacity: 0.8;
             pointer-events: none;
             z-index: 5;
         }
-        .firework {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 5;
-            animation: explode 1.5s ease-out forwards;
+
+        /* MODAL */
+        .modal-noticia {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
         }
-        @keyframes explode {
-            0% { opacity: 1; transform: scale(0); }
-            50% { opacity: 1; transform: scale(1.5); }
-            100% { opacity: 0; transform: scale(2); }
+        .modal-noticia-content {
+            background: white;
+            border-radius: 24px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        body.dark .modal-noticia-content { background: #1e293b; }
+        .modal-noticia-content h3 { color: #1e90ff; margin-bottom: 15px; }
+        body.dark .modal-noticia-content h3 { color: #FFD700; }
+        .btn-fechar-modal {
+            background: #1e90ff; color: white;
+            border: none; padding: 10px 24px;
+            border-radius: 50px; cursor: pointer;
+            margin-top: 15px;
+        }
+        body.dark .btn-fechar-modal { background: #FFD700; color: #0a1628; }
+
+        /* RESPONSIVO */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .social-icons { display: none; }
+            .clima { display: none; }
+            .theme-btn { display: none; }
+            .hamburger { display: flex; }
+            .card-texto { padding: 25px 20px; }
+            #typed-text { font-size: 1.2rem; letter-spacing: 1px; }
+            .cursor { height: 1.3rem; }
+            .contagem-bloco { min-width: 70px; padding: 10px; }
+            .contagem-numero { font-size: 1.5rem; }
+            .contagem-titulo { font-size: 1.2rem; }
+            .noticia-card h3 { font-size: 1rem; }
+            .noticia-conteudo { font-size: 0.8rem; }
+            .noticia-imagem { max-height: 150px; }
         }
     </style>
 </head>
 <body>
 
-<!-- TELA DE CARREGAMENTO ANIMADA -->
-<div id="splashScreen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #003399, #0047AB); z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden;">
-    
-    <div style="animation: pulse 1s infinite; margin-bottom: 20px;">
-        <span style="font-size: 80px;">🥁</span>
-    </div>
-    
+<!-- TELA DE CARREGAMENTO -->
+<div id="splashScreen">
+    <div style="animation: pulse 1s infinite; margin-bottom: 20px;"><span style="font-size: 80px;">🥁</span></div>
     <h1 style="color: #FFD700; font-family: 'Montserrat', sans-serif; font-size: 28px; margin-bottom: 10px;">UNIDOS DO ALVORADA</h1>
-    
     <div style="width: 80%; max-width: 300px; height: 8px; background: rgba(255,255,255,0.3); border-radius: 10px; margin: 20px 0; overflow: hidden;">
         <div id="progressBar" style="width: 0%; height: 100%; background: #FFD700; border-radius: 10px; transition: width 0.5s ease;"></div>
     </div>
-    
     <p id="loadingText" style="color: white; font-size: 14px; margin-bottom: 15px;">Carregando...</p>
     <p id="porcentagemTexto" style="color: #FFD700; font-size: 16px; font-weight: bold; margin-bottom: 10px;">0%</p>
     <p id="fraseAnimada" style="color: #FFD700; font-size: 14px; text-align: center; max-width: 80%; font-style: italic;">ARROCHA ALVORADA 🎵</p>
 </div>
 
-<!-- CONTEÚDO PRINCIPAL (inicialmente escondido) -->
+<!-- OVERLAY MENU -->
+<div class="menu-overlay" id="menuOverlay" onclick="fecharMenu()"></div>
+
+<!-- MENU LATERAL -->
+<div class="menu-lateral" id="menuLateral">
+    <div class="menu-header">
+        <div class="menu-logo">🥁</div>
+        <h2>UNIDOS DO ALVORADA</h2>
+    </div>
+    <nav class="menu-nav">
+        <a href="index.html">🏠 INÍCIO</a>
+        <a href="chamada.html">✅ CHAMADA</a>
+        <a href="diretoria.html">👑 DIRETORIA</a>
+        <a href="solicitacoes.html">📋 SOLICITAÇÕES</a>
+    </nav>
+    <div class="menu-divider"></div>
+    <div class="menu-clima">
+        <div class="menu-clima-box">
+            <span class="clima-icon" id="menuClimaIcone">🌡️</span>
+            <div class="menu-clima-info">
+                <div class="menu-clima-temp" id="menuClimaTemp">--°C</div>
+                <div class="menu-clima-local">Manaus, AM</div>
+            </div>
+        </div>
+    </div>
+    <div class="menu-divider"></div>
+    <div class="menu-redes">
+        <h4>REDES SOCIAIS</h4>
+        <div class="menu-redes-grid">
+            <a class="menu-rede-btn btn-whats" id="menuWhatsapp" href="#" target="_blank">
+                <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.121 1.532 5.849L.057 23.72a.75.75 0 00.919.918l5.974-1.461A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.9 0-3.683-.514-5.21-1.41l-.374-.22-3.883.95.977-3.767-.243-.388A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+                WhatsApp
+            </a>
+            <a class="menu-rede-btn btn-youtube" id="menuYoutube" href="#" target="_blank">
+                <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                YouTube
+            </a>
+            <a class="menu-rede-btn btn-insta" id="menuInstagram" href="#" target="_blank">
+                <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                Instagram
+            </a>
+            <a class="menu-rede-btn btn-face" id="menuFacebook" href="#" target="_blank">
+                <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                Facebook
+            </a>
+            <a class="menu-rede-btn btn-tiktok" id="menuTiktok" href="#" target="_blank">
+                <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+                TikTok
+            </a>
+            <a class="menu-rede-btn btn-spot" id="menuSpotify" href="#" target="_blank">
+                <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+                Spotify
+            </a>
+        </div>
+    </div>
+    <div class="menu-divider"></div>
+    <button class="menu-tema-btn" onclick="toggleTheme()">🌓 ALTERNAR TEMA</button>
+</div>
+
+<!-- CONTEÚDO PRINCIPAL -->
 <div id="mainContent" style="display: none;">
     <div class="header" id="header">
         <div class="header-container">
+            <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Abrir menu">
+                <span></span><span></span><span></span>
+            </button>
             <div class="nav-links">
-                <a href="index.html" class="active">🏠 INÍCIO</a>
+                <a href="index.html">🏠 INÍCIO</a>
                 <a href="chamada.html">✅ CHAMADA</a>
                 <a href="diretoria.html">👑 DIRETORIA</a>
                 <a href="solicitacoes.html">📋 SOLICITAÇÕES</a>
                 <button class="theme-btn" onclick="toggleTheme()">🌓 TEMA</button>
             </div>
-            <div class="clima">🌡️ 32°C | Manaus-AM</div>
+            <div class="top-right">
+                <div class="social-icons">
+                    <a id="linkWhatsapp" href="#" target="_blank" title="WhatsApp" style="background:#25D366; border-radius:8px; padding:3px;">
+                        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.121 1.532 5.849L.057 23.72a.75.75 0 00.919.918l5.974-1.461A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.9 0-3.683-.514-5.21-1.41l-.374-.22-3.883.95.977-3.767-.243-.388A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+                    </a>
+                    <a id="linkYoutube" href="#" target="_blank" title="YouTube" style="background:#FF0000; border-radius:8px; padding:3px;">
+                        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    </a>
+                    <a id="linkInstagram" href="#" target="_blank" title="Instagram" style="background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); border-radius:8px; padding:3px;">
+                        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    </a>
+                    <a id="linkFacebook" href="#" target="_blank" title="Facebook" style="background:#1877F2; border-radius:8px; padding:3px;">
+                        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    </a>
+                    <a id="linkTiktok" href="#" target="_blank" title="TikTok" style="background:#010101; border-radius:8px; padding:3px;">
+                        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+                    </a>
+                    <a id="linkSpotify" href="#" target="_blank" title="Spotify" style="background:#1DB954; border-radius:8px; padding:3px;">
+                        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+                    </a>
+                </div>
+                <div class="clima" id="climaWidget">
+                    <span id="climaIcone">🌡️</span>
+                    <span id="climaTemp">--°C</span>
+                    <span id="climaDesc">Manaus</span>
+                </div>
+                <button class="theme-btn" onclick="toggleTheme()">🌓 TEMA</button>
+            </div>
         </div>
     </div>
 
@@ -496,6 +832,11 @@
                 <div class="slide"><img src="./imagem.index/alvorada3.jpg" alt="Unidos do Alvorada 3"></div>
             </div>
             <div class="indicadores" id="indicadores"></div>
+        </div>
+
+        <div class="noticias">
+            <h2>📰 ÚLTIMAS NOTÍCIAS</h2>
+            <div id="noticiasLista">🔄 Carregando notícias...</div>
         </div>
 
         <div class="contagem-card">
@@ -531,85 +872,144 @@
             <h3>📍 ONDE FICAMOS</h3>
             <div class="mapa-container"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.0!2d-60.0!3d-3.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zM8KwIDAnMC4wIlMgNjDCsDAnMC4wIlc!5e0!3m2!1spt-BR!2sbr!4v1234567890" allowfullscreen="" loading="lazy"></iframe></div>
             <div class="endereco-mapa">📍 Rua São Bernardo, 93 - Alvorada I, Manaus - AM, 69043-610</div>
-            <div style="text-align: center;"><a href="https://maps.app.goo.gl/Gk2rszenvhiXKukR6" target="_blank" class="btn-mapa"><span class="icone-mapa">🗺️</span> ABRIR NO GOOGLE MAPS <span>→</span></a></div>
+            <div style="text-align: center;"><a href="https://maps.app.goo.gl/Gk2rszenvhiXKukR6" target="_blank" class="btn-mapa">🗺️ ABRIR NO GOOGLE MAPS →</a></div>
         </div>
 
         <div class="footer">
-            <div class="social-links">
-                <a href="#" onclick="alert('📷 Instagram em breve!')">📷 Instagram</a>
-                <a href="#" onclick="alert('📘 Facebook em breve!')">📘 Facebook</a>
-                <a href="#" onclick="alert('📺 YouTube em breve!')">📺 YouTube</a>
-                <a href="#" onclick="alert('💬 WhatsApp em breve!')">💬 WhatsApp</a>
-            </div>
             <div class="faixa-assinatura">
                 <div class="assinatura">
                     <p>Desenvolvido por <span class="destaque">Jean Silva</span></p>
                     <p>✨ Tecnologia a favor do samba ✨</p>
-                    <div class="copyright"><p>© 2026 Unidos do Alvorada. Todos os direitos reservados.</p></div>
+                    <div class="copyright">© 2026 Unidos do Alvorada. Todos os direitos reservados.</div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<div id="modalNoticia" class="modal-noticia">
+    <div class="modal-noticia-content">
+        <h3 id="modalNoticiaTitulo"></h3>
+        <div id="modalNoticiaConteudo" class="conteudo"></div>
+        <button class="btn-fechar-modal" onclick="fecharModalNoticia()">FECHAR</button>
+    </div>
+</div>
+
 <script>
-    // ========== TELA DE CARREGAMENTO ==========
-    function iniciarSite() {
-        // Mostrar o conteúdo principal
-        document.getElementById('mainContent').style.display = 'block';
-        
-        // Iniciar todas as funcionalidades do site
-        iniciarCarrossel();
-        iniciarTextoDigitado();
-        iniciarContagem();
-        iniciarConfetes();
-        iniciarTema();
+    const BACKEND_URL = 'https://backend-unidos-alvorada.onrender.com';
+
+    const redesSociais = {
+        whatsapp:  '#',
+        youtube:   '#',
+        instagram: '#',
+        facebook:  '#',
+        tiktok:    '#',
+        spotify:   '#'
+    };
+
+    function configurarRedes() {
+        document.getElementById('linkWhatsapp').href = redesSociais.whatsapp;
+        document.getElementById('linkYoutube').href = redesSociais.youtube;
+        document.getElementById('linkInstagram').href = redesSociais.instagram;
+        document.getElementById('linkFacebook').href = redesSociais.facebook;
+        document.getElementById('linkTiktok').href = redesSociais.tiktok;
+        document.getElementById('linkSpotify').href = redesSociais.spotify;
+        document.getElementById('menuWhatsapp').href = redesSociais.whatsapp;
+        document.getElementById('menuYoutube').href = redesSociais.youtube;
+        document.getElementById('menuInstagram').href = redesSociais.instagram;
+        document.getElementById('menuFacebook').href = redesSociais.facebook;
+        document.getElementById('menuTiktok').href = redesSociais.tiktok;
+        document.getElementById('menuSpotify').href = redesSociais.spotify;
     }
-    
-    // Animação de carregamento
-    const frases = [
-        "ARROCHA ALVORADA 🎵",
-        "A SAUDADE APERTOU 🎵",
-        "A ESPERANÇA CONTINUA 🎵",
-        "Esse é meu lugar, a minha raiz, eu sou Alvorada, eu sou feliz 🎵",
-        "Alvorada do meu, do seu, do nosso coração 🎵"
-    ];
-    
-    let indice = 0;
-    const progressBar = document.getElementById('progressBar');
-    const porcentagemTexto = document.getElementById('porcentagemTexto');
-    const fraseElement = document.getElementById('fraseAnimada');
-    const splash = document.getElementById('splashScreen');
-    
-    const intervalo = setInterval(() => {
-        indice++;
-        const percentual = Math.round((indice / (frases.length - 1)) * 100);
-        
-        if (indice < frases.length) {
-            fraseElement.textContent = frases[indice];
-            progressBar.style.width = percentual + '%';
-            porcentagemTexto.textContent = percentual + '%';
+
+    function toggleMenu() {
+        const menu = document.getElementById('menuLateral');
+        const hamburger = document.getElementById('hamburger');
+        const overlay = document.getElementById('menuOverlay');
+        if (menu.classList.contains('aberto')) {
+            menu.classList.remove('aberto');
+            hamburger.classList.remove('active');
+            overlay.classList.remove('active');
         } else {
-            progressBar.style.width = '100%';
-            porcentagemTexto.textContent = '100%';
-            clearInterval(intervalo);
-            
-            setTimeout(() => {
-                splash.style.opacity = '0';
-                setTimeout(() => {
-                    splash.style.display = 'none';
-                    iniciarSite();
-                }, 500);
-            }, 500);
+            menu.classList.add('aberto');
+            hamburger.classList.add('active');
+            overlay.classList.add('active');
         }
-    }, 1000);
-    
-    // ========== CARROSSEL ==========
+    }
+
+    function fecharMenu() {
+        document.getElementById('menuLateral').classList.remove('aberto');
+        document.getElementById('hamburger').classList.remove('active');
+        document.getElementById('menuOverlay').classList.remove('active');
+    }
+
+    async function buscarClima() {
+        try {
+            const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=-3.1019&longitude=-60.0250&current_weather=true&timezone=America/Manaus');
+            const dados = await response.json();
+            const temp = Math.round(dados.current_weather.temperature);
+            const codigo = dados.current_weather.weathercode;
+            let icone = '🌡️';
+            if (codigo === 0) icone = '☀️';
+            else if (codigo === 1 || codigo === 2) icone = '⛅';
+            else if (codigo === 3) icone = '☁️';
+            else if (codigo >= 45 && codigo <= 48) icone = '🌫️';
+            else if ((codigo >= 51 && codigo <= 55) || (codigo >= 61 && codigo <= 65) || (codigo >= 80 && codigo <= 82)) icone = '🌧️';
+            else if (codigo >= 95 && codigo <= 99) icone = '⛈️';
+            document.getElementById('climaTemp').innerHTML = `${temp}°C`;
+            document.getElementById('climaIcone').innerHTML = icone;
+            document.getElementById('menuClimaTemp').innerHTML = `${temp}°C`;
+            document.getElementById('menuClimaIcone').innerHTML = icone;
+        } catch (error) { console.log('Erro clima:', error); }
+    }
+
+    function carregarNoticias() {
+        fetch(`${BACKEND_URL}/noticias`)
+            .then(res => res.json())
+            .then(data => {
+                const container = document.getElementById('noticiasLista');
+                if (data.success && data.noticias && data.noticias.length > 0) {
+                    container.innerHTML = data.noticias.map(noticia => {
+                        const conteudoCurto = noticia.conteudo.length > 300 ? noticia.conteudo.substring(0, 300) + '...' : noticia.conteudo;
+                        return `
+                            <div class="noticia-card" data-id="${noticia.id}">
+                                ${noticia.imagem_base64 ? `<img src="${noticia.imagem_base64}" class="noticia-imagem" alt="${noticia.titulo}">` : ''}
+                                <h3>📰 ${noticia.titulo}</h3>
+                                <div class="noticia-conteudo">${conteudoCurto.replace(/\n/g, '<br>')}</div>
+                                ${noticia.conteudo.length > 300 ? `<button class="btn-ler-mais" onclick="abrirModalNoticia(${noticia.id})">📖 Ler mais</button>` : ''}
+                                <small class="noticia-data">📅 ${noticia.data_publicacao}</small>
+                            </div>`;
+                    }).join('');
+                } else {
+                    container.innerHTML = '<p style="text-align:center;">📭 Nenhuma notícia publicada ainda.</p>';
+                }
+            })
+            .catch(() => {
+                document.getElementById('noticiasLista').innerHTML = '<p style="text-align:center;">❌ Erro ao carregar notícias.</p>';
+            });
+    }
+
+    function abrirModalNoticia(id) {
+        fetch(`${BACKEND_URL}/noticias/${id}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('modalNoticiaTitulo').innerHTML = `📰 ${data.noticia.titulo}`;
+                    document.getElementById('modalNoticiaConteudo').innerHTML = data.noticia.conteudo.replace(/\n/g, '<br>');
+                    document.getElementById('modalNoticia').style.display = 'flex';
+                }
+            })
+            .catch(() => alert('Erro ao carregar notícia'));
+    }
+
+    function fecharModalNoticia() {
+        document.getElementById('modalNoticia').style.display = 'none';
+    }
+
     function iniciarCarrossel() {
         const slides = document.querySelectorAll('.slide');
         const indicadoresDiv = document.getElementById('indicadores');
         let currentSlide = 0;
-        
         slides.forEach((_, index) => {
             const indicador = document.createElement('div');
             indicador.classList.add('indicador');
@@ -617,9 +1017,7 @@
             indicador.addEventListener('click', () => goToSlide(index));
             indicadoresDiv.appendChild(indicador);
         });
-        
         const indicadores = document.querySelectorAll('.indicador');
-        
         function goToSlide(index) {
             slides[currentSlide].classList.remove('active');
             indicadores[currentSlide].classList.remove('active');
@@ -627,25 +1025,13 @@
             slides[currentSlide].classList.add('active');
             indicadores[currentSlide].classList.add('active');
         }
-        
-        setInterval(() => {
-            goToSlide((currentSlide + 1) % slides.length);
-        }, 4000);
+        setInterval(() => goToSlide((currentSlide + 1) % slides.length), 4000);
     }
-    
-    // ========== TEXTO DIGITADO ==========
+
     function iniciarTextoDigitado() {
-        const phrases = [
-            "ARROCHA ALVORADA 🎵",
-            "A SAUDADE APERTOU 🎵",
-            "A ESPERANÇA CONTINUA 🎵",
-            "Esse é meu lugar, a minha raiz, eu sou Alvorada, eu sou feliz 🎵",
-            "Alvorada do meu, do seu, do nosso coração 🎵"
-        ];
-        
+        const phrases = ["ARROCHA ALVORADA 🎵", "A SAUDADE APERTOU 🎵", "A ESPERANÇA CONTINUA 🎵", "Esse é meu lugar, a minha raiz, eu sou Alvorada, eu sou feliz 🎵", "Alvorada do meu, do seu, do nosso coração 🎵"];
         let phraseIndex = 0, charIndex = 0, isDeleting = false;
         const typedTextElement = document.getElementById('typed-text');
-        
         function typeEffect() {
             const currentPhrase = phrases[phraseIndex];
             let currentText;
@@ -657,7 +1043,6 @@
                 charIndex++;
             }
             typedTextElement.textContent = currentText;
-            
             if (!isDeleting && charIndex === currentPhrase.length) {
                 isDeleting = true;
                 setTimeout(typeEffect, 2000);
@@ -673,112 +1058,106 @@
         }
         typeEffect();
     }
-    
-    // ========== CONTAGEM REGRESSIVA ==========
+
     function iniciarContagem() {
-        function atualizarContagem() {
-            const alvo = new Date(2027, 1, 9, 0, 0, 0);
+        const alvo = new Date(2027, 1, 9, 0, 0, 0);
+        function atualizar() {
             const agora = new Date();
-            const diferenca = alvo - agora;
-            
-            if (diferenca <= 0) {
-                document.getElementById('dias').textContent = '0';
-                document.getElementById('horas').textContent = '0';
-                document.getElementById('minutos').textContent = '0';
-                document.getElementById('segundos').textContent = '0';
+            const diff = alvo - agora;
+            if (diff <= 0) {
+                document.getElementById('dias').textContent = document.getElementById('horas').textContent = document.getElementById('minutos').textContent = document.getElementById('segundos').textContent = '0';
                 document.getElementById('contagemMensagem').innerHTML = '🎉 HOJE É O GRANDE DIA! ALVORADA NA AVENIDA! 🎉';
                 return;
             }
-            
-            document.getElementById('dias').textContent = Math.floor(diferenca / (1000 * 60 * 60 * 24));
-            document.getElementById('horas').textContent = Math.floor((diferenca % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            document.getElementById('minutos').textContent = Math.floor((diferenca % (1000 * 60 * 60)) / (1000 * 60));
-            document.getElementById('segundos').textContent = Math.floor((diferenca % (1000 * 60)) / 1000);
+            document.getElementById('dias').textContent = Math.floor(diff / (1000*60*60*24));
+            document.getElementById('horas').textContent = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+            document.getElementById('minutos').textContent = Math.floor((diff % (1000*60*60)) / (1000*60));
+            document.getElementById('segundos').textContent = Math.floor((diff % (1000*60)) / 1000);
         }
-        atualizarContagem();
-        setInterval(atualizarContagem, 1000);
+        atualizar();
+        setInterval(atualizar, 1000);
     }
-    
-    // ========== CONFETES E FOGUETES ==========
+
     function iniciarConfetes() {
-        const textCard = document.getElementById('textCard');
-        const header = document.getElementById('header');
         const contagemCard = document.querySelector('.contagem-card');
-        
-        function createConfetti(parent, isIntense = true) {
+        function createConfetti(parent) {
             if (!parent) return;
             const confetti = document.createElement('div');
             confetti.classList.add('confetti');
-            
             const colors = ['#FFD700', '#1e90ff', '#ffffff', '#FF6347', '#00FF7F', '#FF69B4'];
             confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            
-            const parentRect = parent.getBoundingClientRect();
-            let x = Math.random() * (parentRect.width - 20);
-            confetti.style.left = x + 'px';
+            const rect = parent.getBoundingClientRect();
+            confetti.style.left = (Math.random() * (rect.width - 20)) + 'px';
             confetti.style.top = '-10px';
-            
-            const size = isIntense ? Math.random() * 12 + 6 : Math.random() * 8 + 4;
+            const size = Math.random() * 10 + 5;
             confetti.style.width = size + 'px';
             confetti.style.height = size + 'px';
             confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0%';
-            
+            confetti.style.position = 'absolute';
+            parent.style.position = 'relative';
             parent.appendChild(confetti);
-            
-            let posY = -10;
-            let opacity = 0.9;
-            const speed = isIntense ? 20 : 35;
-            const intervalConf = setInterval(() => {
-                posY += 2;
-                opacity -= 0.008;
-                confetti.style.top = posY + 'px';
-                confetti.style.opacity = opacity;
-                
-                if (posY > parentRect.height || opacity <= 0) {
-                    clearInterval(intervalConf);
+            let y = -10, op = 0.9;
+            const interval = setInterval(() => {
+                y += 2;
+                op -= 0.01;
+                confetti.style.top = y + 'px';
+                confetti.style.opacity = op;
+                if (y > rect.height || op <= 0) {
+                    clearInterval(interval);
                     confetti.remove();
                 }
-            }, speed);
+            }, 30);
         }
-        
-        function createFirework() {
-            if (!textCard) return;
-            const firework = document.createElement('div');
-            firework.classList.add('firework');
-            
-            const cardRect = textCard.getBoundingClientRect();
-            const x = Math.random() * (cardRect.width - 10);
-            const y = Math.random() * (cardRect.height - 10);
-            
-            firework.style.left = x + 'px';
-            firework.style.top = y + 'px';
-            firework.style.backgroundColor = ['#FFD700', '#FF6347', '#FF69B4', '#00FFFF', '#1e90ff'][Math.floor(Math.random() * 5)];
-            
-            textCard.appendChild(firework);
-            
-            setTimeout(() => firework.remove(), 1500);
-        }
-        
-        setInterval(() => createConfetti(textCard, true), 120);
-        setInterval(createFirework, 700);
-        setInterval(() => createConfetti(header, false), 400);
-        setInterval(() => createConfetti(contagemCard, false), 800);
+        setInterval(() => createConfetti(contagemCard), 300);
     }
-    
-    // ========== TEMA ESCURO/CLARO ==========
+
     function iniciarTema() {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            document.body.classList.add('dark');
-        }
+        if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
     }
-    
-    function toggleTheme() {
+    window.toggleTheme = () => {
         document.body.classList.toggle('dark');
         localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
-    }
-    window.toggleTheme = toggleTheme;
-</script>
+    };
 
+    function iniciarSite() {
+        document.getElementById('mainContent').style.display = 'block';
+        iniciarCarrossel();
+        iniciarTextoDigitado();
+        iniciarContagem();
+        iniciarConfetes();
+        iniciarTema();
+        carregarNoticias();
+        buscarClima();
+        configurarRedes();
+        setInterval(buscarClima, 300000);
+    }
+
+    const frases = ["ARROCHA ALVORADA 🎵", "A SAUDADE APERTOU 🎵", "A ESPERANÇA CONTINUA 🎵", "Esse é meu lugar, a minha raiz, eu sou Alvorada, eu sou feliz 🎵", "Alvorada do meu, do seu, do nosso coração 🎵"];
+    let indice = 0;
+    const progressBar = document.getElementById('progressBar');
+    const porcentagemTexto = document.getElementById('porcentagemTexto');
+    const fraseElement = document.getElementById('fraseAnimada');
+    const splash = document.getElementById('splashScreen');
+    const intervalo = setInterval(() => {
+        indice++;
+        const percentual = Math.round((indice / (frases.length - 1)) * 100);
+        if (indice < frases.length) {
+            fraseElement.textContent = frases[indice];
+            progressBar.style.width = percentual + '%';
+            porcentagemTexto.textContent = percentual + '%';
+        } else {
+            progressBar.style.width = '100%';
+            porcentagemTexto.textContent = '100%';
+            clearInterval(intervalo);
+            setTimeout(() => {
+                splash.style.opacity = '0';
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                    iniciarSite();
+                }, 500);
+            }, 500);
+        }
+    }, 1000);
+</script>
 </body>
 </html>
