@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Diretoria | Unidos do Alvorada</title>
     
-    <!-- PWA LINKS -->
     <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#003399">
@@ -97,6 +96,49 @@
             padding: 30px 20px;
         }
 
+        .abas-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            background: white;
+            padding: 10px 15px;
+            border-radius: 60px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        body.dark .abas-nav {
+            background: #1e3a5f;
+        }
+        .aba-btn {
+            padding: 10px 24px;
+            border-radius: 40px;
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+        body.dark .aba-btn {
+            background: #0f1a30;
+            color: #e2e8f0;
+        }
+        .aba-btn.ativa {
+            background: #1e90ff;
+            color: white;
+        }
+        body.dark .aba-btn.ativa {
+            background: #FFD700;
+            color: #0a1628;
+        }
+        .aba-conteudo {
+            display: none;
+        }
+        .aba-conteudo.ativa {
+            display: block;
+        }
+
         .cards {
             display: flex;
             gap: 20px;
@@ -174,6 +216,95 @@
             border-left-color: #FFD700;
         }
 
+        .form-grupo {
+            margin-bottom: 15px;
+        }
+        .form-grupo label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .form-grupo input, .form-grupo textarea, .form-grupo select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+        body.dark .form-grupo input, body.dark .form-grupo textarea, body.dark .form-grupo select {
+            background: #0f1a30;
+            border-color: #1e3a5f;
+            color: white;
+        }
+        .btn-submit {
+            background: #1e90ff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        body.dark .btn-submit {
+            background: #FFD700;
+            color: #0a1628;
+        }
+        .btn-apagar {
+            background: #ff4444;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .btn-editar {
+            background: #f39c12;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .btn-velocidade {
+            background: #1e90ff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        body.dark .btn-velocidade { background: #FFD700; color: #0a1628; }
+
+        .noticia-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        body.dark .noticia-item {
+            border-bottom-color: #1e3a5f;
+        }
+        .noticia-info {
+            flex: 1;
+        }
+        .noticia-titulo {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .noticia-status {
+            font-size: 0.8rem;
+            padding: 2px 8px;
+            border-radius: 20px;
+            background: #ddd;
+        }
+        .noticia-status.publicada { background: #2ecc71; color: white; }
+        .noticia-status.rascunho { background: #f39c12; color: white; }
+
         .filtros-ranking {
             display: flex;
             flex-wrap: wrap;
@@ -204,8 +335,6 @@
             transition: transform 0.2s;
         }
 
-        .btn-inverter:hover { transform: scale(1.05); }
-
         .ranking-container { overflow-x: auto; }
         .ranking-table { width: 100%; border-collapse: collapse; }
         .ranking-table th, .ranking-table td { padding: 12px; text-align: left; border-bottom: 1px solid #e0e0e0; }
@@ -224,47 +353,28 @@
         .percentual-medio { background: #f39c12; }
         .percentual-baixo { background: #e74c3c; }
 
-        .destaque-100 {
-            background: linear-gradient(135deg, #f1c40f, #e67e22);
-            color: #0a1628;
-            animation: pulse 1s infinite;
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(241, 196, 15, 0.4); }
-            70% { box-shadow: 0 0 0 5px rgba(241, 196, 15, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(241, 196, 15, 0); }
-        }
-
         .camisas-grid {
             display: flex;
             flex-direction: column;
             gap: 15px;
         }
-
         .camisa-item {
             background: #f0f0f0;
             border-radius: 15px;
             padding: 15px;
-            transition: transform 0.2s;
         }
-
-        .camisa-item:hover { transform: scale(1.02); }
-
         body.dark .camisa-item { background: #0f1a30; }
-
         .camisa-linha {
             display: flex;
             align-items: center;
             gap: 15px;
             flex-wrap: wrap;
         }
-
         .camisa-medalha { width: 50px; font-size: 1.3rem; font-weight: bold; }
         .camisa-tamanho { width: 50px; font-weight: bold; }
         .camisa-qtd { width: 80px; }
         .camisa-barra { flex: 1; height: 20px; background: #ddd; border-radius: 10px; overflow: hidden; }
-        .camisa-barra-fill { height: 100%; background: #1e90ff; border-radius: 10px; transition: width 0.5s; }
+        .camisa-barra-fill { height: 100%; background: #1e90ff; border-radius: 10px; }
         .camisa-pct { width: 60px; text-align: right; }
 
         .status-carregamento {
@@ -296,7 +406,6 @@
             background: #f8f9fa;
             border-radius: 10px;
         }
-
         body.dark .nivel-item { background: #0f1a30; }
 
         .data-calendario {
@@ -311,14 +420,12 @@
         .data-calendario input { padding: 8px 12px; border-radius: 10px; border: 1px solid #ccc; }
         body.dark .data-calendario input { background: #0f1a30; border-color: #1e3a5f; color: white; }
 
-        /* ESTILOS DO HISTÓRICO */
         .historico-card {
             background: white;
             border-radius: 12px;
             padding: 15px;
             margin-bottom: 10px;
             cursor: pointer;
-            transition: transform 0.2s;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -327,96 +434,183 @@
             border-left: 4px solid #1e90ff;
         }
         body.dark .historico-card { background: #0f1a30; }
-        .historico-card:hover { transform: translateX(5px); background: #e8f0fe; }
-        body.dark .historico-card:hover { background: #1e3a5f; }
         .historico-data { font-size: 1.1rem; font-weight: bold; color: #1e90ff; }
         body.dark .historico-data { color: #FFD700; }
-        .historico-resumo { font-size: 0.85rem; color: #666; }
-        body.dark .historico-resumo { color: #ccc; }
 
-        /* ESTILOS DOS BOTÕES DE LIMPAR */
-        .btn-limpar {
-            background: #ff4444;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: transform 0.2s;
-        }
-        .btn-limpar:hover { transform: scale(1.02); background: #cc0000; }
-        .btn-limpar-tudo { background: #8b0000; }
-
-        /* MODAL DE CONFIRMAÇÃO */
-        .modal-limpar {
+        .modal, .modal-sorteio {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.7);
             z-index: 3000;
             justify-content: center;
             align-items: center;
         }
-        .modal-limpar-content {
+        .modal-content {
             background: white;
-            border-radius: 20px;
+            border-radius: 24px;
             padding: 30px;
-            max-width: 450px;
+            max-width: 500px;
             width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
             text-align: center;
         }
-        body.dark .modal-limpar-content { background: #1e3a5f; }
-        .modal-limpar-content h2 { margin-bottom: 15px; }
-        .modal-limpar-content input {
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            width: 100%;
-            margin: 15px 0;
-            text-align: center;
+        body.dark .modal-content {
+            background: #1e3a5f;
         }
-        body.dark .modal-limpar-content input { background: #0f1a30; border-color: #1e3a5f; color: white; }
-        .checkbox-confirmar {
+        .modal-content h3 {
+            color: #1e90ff;
+            margin-bottom: 20px;
+        }
+        body.dark .modal-content h3 {
+            color: #FFD700;
+        }
+        .lista-presentes {
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .lista-ausentes {
+            background: #ffebee;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        body.dark .lista-presentes { background: #1b5e20; color: white; }
+        body.dark .lista-ausentes { background: #b71c1c; color: white; }
+        .btn-fechar-modal {
+            background: #1e90ff;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+        body.dark .btn-fechar-modal { background: #FFD700; color: #0a1628; }
+
+        .filtros-sorteio {
+            background: #f8f9fa;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        body.dark .filtros-sorteio { background: #0f1a30; }
+        .grupo-filtro {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 15px;
+        }
+        body.dark .grupo-filtro { border-bottom-color: #1e3a5f; }
+        .grupo-filtro h4 {
+            margin-bottom: 10px;
+            color: #1e90ff;
             display: flex;
             align-items: center;
-            justify-content: center;
             gap: 10px;
-            margin: 15px 0;
         }
-        .checkbox-confirmar input { width: 20px; height: 20px; margin: 0; }
-        .btn-confirmar {
-            background: #ff4444;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 12px;
+        body.dark .grupo-filtro h4 { color: #FFD700; }
+        .opcoes-filtro {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+        }
+        .opcoes-filtro label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
             cursor: pointer;
+        }
+        .quantidade-sorteio {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .btn-sortear {
+            background: linear-gradient(135deg, #FFD700, #1e90ff);
+            color: #0a1628;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 60px;
             font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+            width: 100%;
             margin-top: 10px;
         }
-        .btn-confirmar:disabled { opacity: 0.5; cursor: not-allowed; }
-        .btn-cancelar {
-            background: #999;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-top: 10px;
-            margin-left: 10px;
+        .btn-sortear:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Banner list */
+        .banner-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .banner-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 16px;
+            flex-wrap: wrap;
+        }
+        body.dark .banner-item { background: #0f1a30; }
+        .banner-item img {
+            width: 100px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .banner-info {
+            flex: 1;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .banner-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .velocidade-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 16px;
+        }
+        body.dark .velocidade-control { background: #0f1a30; }
+        .velocidade-control input {
+            width: 80px;
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            text-align: center;
         }
 
         @media (max-width: 768px) {
             .graficos-grid { grid-template-columns: 1fr; }
             .cards { flex-direction: column; }
-            .ranking-table th, .ranking-table td { padding: 8px; font-size: 0.8rem; }
-            .btn-limpar { padding: 10px 16px; font-size: 0.8rem; }
-            .historico-card { flex-direction: column; text-align: center; }
+            .ranking-table th, .ranking-table td { padding: 8px; font-size: 0.7rem; }
+            .opcoes-filtro { flex-direction: column; align-items: flex-start; }
+            .banner-item { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
@@ -441,135 +635,289 @@
     <div id="status" class="status-carregamento">🔄 Carregando dados...</div>
     
     <div id="conteudo" style="display: none;">
-        <!-- Cards -->
-        <div class="cards">
-            <div class="card"><div class="numero" id="totalRitmistas">0</div><div class="label">👥 TOTAL</div></div>
-            <div class="card"><div class="numero" id="totalAtivos">0</div><div class="label">🟢 ATIVOS</div></div>
-            <div class="card"><div class="numero" id="totalPendentes">0</div><div class="label">🟡 PENDENTES</div></div>
-            <div class="card"><div class="numero" id="totalInativos">0</div><div class="label">🔴 INATIVOS</div></div>
-            <div class="card"><div class="numero" id="mediaIdade">0</div><div class="label">🎂 MÉDIA IDADE</div></div>
+        
+        <!-- ABAS DE NAVEGAÇÃO -->
+        <div class="abas-nav">
+            <button class="aba-btn ativa" data-aba="dashboard">📊 DASHBOARD</button>
+            <button class="aba-btn" data-aba="noticias">📰 NOTÍCIAS</button>
+            <button class="aba-btn" data-aba="banner">🖼️ BANNER</button>
+            <button class="aba-btn" data-aba="sorteios">🎲 SORTEIOS</button>
         </div>
 
-        <!-- Nível de Experiência -->
-        <div class="graficos-grid">
-            <div class="grafico-card">
-                <h3>⭐ NÍVEL DE EXPERIÊNCIA</h3>
-                <canvas id="graficoNivel"></canvas>
-                <div id="niveisLista" class="niveis-lista"></div>
+        <!-- ABA DASHBOARD -->
+        <div id="abaDashboard" class="aba-conteudo ativa">
+            <div class="cards">
+                <div class="card"><div class="numero" id="totalRitmistas">0</div><div class="label">👥 TOTAL</div></div>
+                <div class="card"><div class="numero" id="totalAtivos">0</div><div class="label">🟢 ATIVOS</div></div>
+                <div class="card"><div class="numero" id="totalPendentes">0</div><div class="label">🟡 PENDENTES</div></div>
+                <div class="card"><div class="numero" id="totalInativos">0</div><div class="label">🔴 INATIVOS</div></div>
+                <div class="card"><div class="numero" id="mediaIdade">0</div><div class="label">🎂 MÉDIA IDADE</div></div>
             </div>
-            <div class="grafico-card">
-                <h3>🏘️ RITMISTAS POR BAIRRO</h3>
-                <canvas id="graficoBairro"></canvas>
-                <div id="bairrosLista" class="niveis-lista"></div>
+
+            <div class="graficos-grid">
+                <div class="grafico-card">
+                    <h3>⭐ NÍVEL DE EXPERIÊNCIA</h3>
+                    <canvas id="graficoNivel"></canvas>
+                    <div id="niveisLista" class="niveis-lista"></div>
+                </div>
+                <div class="grafico-card">
+                    <h3>🏘️ RITMISTAS POR BAIRRO</h3>
+                    <canvas id="graficoBairro"></canvas>
+                    <div id="bairrosLista" class="niveis-lista"></div>
+                </div>
+            </div>
+
+            <div class="grafico-card" style="margin-bottom: 25px;">
+                <h3>✅ PRESENÇA x AUSÊNCIA</h3>
+                <div class="data-calendario">
+                    <label>De:</label>
+                    <input type="date" id="dataInicio">
+                    <label>Até:</label>
+                    <input type="date" id="dataFim">
+                    <button class="btn-inverter" onclick="aplicarFiltroPresenca()">📅 TODOS</button>
+                    <button class="btn-inverter" onclick="aplicarFiltroPresenca()">📊 APLICAR</button>
+                </div>
+                <canvas id="graficoPresenca"></canvas>
+                <div id="presencaResumo" style="text-align: center; margin-top: 15px;"></div>
+            </div>
+
+            <div class="secao">
+                <h2>📅 HISTÓRICO DE CHAMADAS</h2>
+                <div id="listaHistorico" style="display: flex; flex-direction: column; gap: 10px;"></div>
+            </div>
+
+            <div class="secao">
+                <h2>🏆 RANKING DE PRESENÇA</h2>
+                <div class="filtros-ranking">
+                    <input type="text" id="buscaNome" placeholder="🔍 Buscar por nome...">
+                    <select id="filtroInstrumento">
+                        <option value="todos">🥁 Todos instrumentos</option>
+                        <option value="Surdo">Surdo</option><option value="Caixa">Caixa</option>
+                        <option value="Repique">Repique</option><option value="Tamborim">Tamborim</option>
+                        <option value="Chocalho">Chocalho</option><option value="Cuíca">Cuíca</option>
+                    </select>
+                    <select id="filtroNivel">
+                        <option value="todos">⭐ Todos níveis</option>
+                        <option value="Primeira vez">Primeira vez</option>
+                        <option value="Básico">Básico</option>
+                        <option value="Intermediário">Intermediário</option>
+                        <option value="Avançado">Avançado</option>
+                        <option value="Mestre">Mestre</option>
+                    </select>
+                    <button class="btn-inverter" onclick="alternarOrdem()">🔄 MAIS AUSENTES</button>
+                </div>
+                <div class="ranking-container">
+                    <table class="ranking-table">
+                        <thead><tr><th>POS</th><th>NOME</th><th>INSTRUMENTO</th><th>PRESENÇAS</th><th>AUSÊNCIAS</th><th>%</th><th>PROGRESSO</th></tr></thead>
+                        <tbody id="rankingBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="secao">
+                <h2>👕 RANKING DE CAMISAS</h2>
+                <div id="camisasGrid" class="camisas-grid"></div>
             </div>
         </div>
 
-        <!-- Presença e Ausência com Calendário -->
-        <div class="grafico-card" style="margin-bottom: 25px;">
-            <h3>✅ PRESENÇA x AUSÊNCIA</h3>
-            <div class="data-calendario">
-                <label>De:</label>
-                <input type="date" id="dataInicio">
-                <label>Até:</label>
-                <input type="date" id="dataFim">
-                <button id="btnTodos" class="btn-inverter" onclick="aplicarFiltroPresenca()">📅 TODOS</button>
-                <button id="btnAplicar" class="btn-inverter" onclick="aplicarFiltroPresenca()">📊 APLICAR</button>
+        <!-- ABA NOTÍCIAS -->
+        <div id="abaNoticias" class="aba-conteudo">
+            <div class="secao">
+                <h2>➕ CRIAR NOVA NOTÍCIA</h2>
+                <form id="formNoticia">
+                    <div class="form-grupo">
+                        <label>📰 Título</label>
+                        <input type="text" id="noticiaTitulo" required placeholder="Digite o título da notícia">
+                    </div>
+                    <div class="form-grupo">
+                        <label>📝 Resumo</label>
+                        <textarea id="noticiaResumo" rows="2" placeholder="Um breve resumo..."></textarea>
+                    </div>
+                    <div class="form-grupo">
+                        <label>📖 Conteúdo completo</label>
+                        <textarea id="noticiaConteudo" rows="5" required placeholder="Escreva a notícia completa aqui..."></textarea>
+                    </div>
+                    <div class="form-grupo">
+                        <label>🖼️ Imagem da notícia</label>
+                        <input type="file" id="noticiaImagemFile" accept="image/*" onchange="previewImagem(event)">
+                        <div id="previewImagem" style="margin-top: 10px; display: none;">
+                            <img id="previewImg" style="max-width: 100%; max-height: 150px; border-radius: 10px;">
+                            <button type="button" onclick="removerImagem()">🗑️ Remover</button>
+                        </div>
+                    </div>
+                    <div class="form-grupo">
+                        <label>📅 Agendamento</label>
+                        <div style="display: flex; gap: 15px; margin-bottom: 10px;">
+                            <label><input type="radio" name="tipoPublicacao" value="agora" checked> 🚀 Publicar agora</label>
+                            <label><input type="radio" name="tipoPublicacao" value="agendar"> 📅 Agendar</label>
+                        </div>
+                        <input type="datetime-local" id="noticiaDataPublicacao" style="display: none;">
+                    </div>
+                    <div class="form-grupo">
+                        <label>📌 Status</label>
+                        <select id="noticiaStatus">
+                            <option value="PUBLICADA">Publicada</option>
+                            <option value="RASCUNHO">Rascunho</option>
+                        </select>
+                    </div>
+                    <div class="form-grupo">
+                        <label>⭐ Destaque</label>
+                        <select id="noticiaDestaque">
+                            <option value="0">Normal</option>
+                            <option value="1">Destaque</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-submit" id="btnPublicarNoticia">📤 PUBLICAR / SALVAR</button>
+                </form>
             </div>
-            <canvas id="graficoPresenca"></canvas>
-            <div id="presencaResumo" style="text-align: center; margin-top: 15px;"></div>
+
+            <div class="secao">
+                <h2>📋 NOTÍCIAS PUBLICADAS</h2>
+                <div id="listaNoticiasAdmin">
+                    <div class="status-carregamento" style="padding: 20px;">Carregando notícias...</div>
+                </div>
+            </div>
         </div>
 
-        <!-- HISTÓRICO DE CHAMADAS -->
-        <div class="secao">
-            <h2>📅 HISTÓRICO DE CHAMADAS</h2>
-            <div id="listaHistorico" style="display: flex; flex-direction: column; gap: 10px;">
-                <div class="status-carregamento" style="padding: 20px;">Carregando histórico...</div>
+        <!-- ABA BANNER -->
+        <div id="abaBanner" class="aba-conteudo">
+            <div class="secao">
+                <h2>🖼️ ADICIONAR BANNER</h2>
+                <div class="form-grupo">
+                    <label>📸 Imagem para o carrossel</label>
+                    <input type="file" id="novoBannerFile" accept="image/*" onchange="previewNovoBanner(event)">
+                    <div id="previewNovoBanner" style="margin-top: 10px; display: none;">
+                        <img id="previewNovoBannerImg" style="max-width: 200px; border-radius: 12px;">
+                        <button type="button" onclick="removerNovoBanner()" class="btn-apagar">🗑️ Remover</button>
+                    </div>
+                    <button class="btn-submit" onclick="adicionarBanner()" style="margin-top: 15px;">➕ ADICIONAR BANNER</button>
+                </div>
+            </div>
+
+            <div class="secao">
+                <h2>🖼️ BANNERS DO CARROSSEL</h2>
+                <div class="velocidade-control">
+                    <label>⚡ Velocidade do carrossel (segundos):</label>
+                    <input type="number" id="velocidadeCarrossel" min="2" max="10" step="1" value="4">
+                    <button class="btn-velocidade" onclick="salvarVelocidade()">💾 SALVAR VELOCIDADE</button>
+                </div>
+                <div id="listaBanners" class="banner-list">
+                    <div class="status-carregamento">Carregando banners...</div>
+                </div>
             </div>
         </div>
 
-        <!-- Ranking de Presença -->
-        <div class="secao">
-            <h2>🏆 RANKING DE PRESENÇA</h2>
-            <div class="filtros-ranking">
-                <input type="text" id="buscaNome" placeholder="🔍 Buscar por nome...">
-                <select id="filtroInstrumento">
-                    <option value="todos">🥁 Todos instrumentos</option>
-                    <option value="Surdo">Surdo</option><option value="Caixa">Caixa</option>
-                    <option value="Repique">Repique</option><option value="Tamborim">Tamborim</option>
-                    <option value="Chocalho">Chocalho</option><option value="Cuíca">Cuíca</option>
-                </select>
-                <select id="filtroNivel">
-                    <option value="todos">⭐ Todos níveis</option>
-                    <option value="Primeira vez">Primeira vez</option>
-                    <option value="Básico">Básico</option>
-                    <option value="Intermediário">Intermediário</option>
-                    <option value="Avançado">Avançado</option>
-                    <option value="Mestre">Mestre</option>
-                </select>
-                <button id="btnInverter" class="btn-inverter" onclick="alternarOrdem()">🔄 MAIS AUSENTES</button>
-            </div>
-            <div class="ranking-container">
-                <table class="ranking-table" id="rankingTabela">
-                    <thead><tr><th>POS</th><th>NOME</th><th>INSTRUMENTO</th><th>PRESENÇAS</th><th>AUSÊNCIAS</th><th>%</th><th>PROGRESSO</th></tr></thead>
-                    <tbody id="rankingBody"></tbody>
-                </table>
-            </div>
-        </div>
+        <!-- ABA SORTEIOS -->
+        <div id="abaSorteios" class="aba-conteudo">
+            <div class="secao">
+                <h2>🎲 SISTEMA DE SORTEIO</h2>
+                
+                <div class="filtros-sorteio">
+                    <div class="grupo-filtro">
+                        <h4>📌 STATUS</h4>
+                        <div class="opcoes-filtro">
+                            <label><input type="radio" name="filtroStatus" value="todos" checked> 🌐 Todos</label>
+                            <label><input type="radio" name="filtroStatus" value="ativo"> 🟢 Ativos</label>
+                            <label><input type="radio" name="filtroStatus" value="pendente"> 🟡 Pendentes</label>
+                            <label><input type="radio" name="filtroStatus" value="desativado"> 🔴 Desativados</label>
+                        </div>
+                    </div>
+                    <div class="grupo-filtro">
+                        <h4>⚥ SEXO</h4>
+                        <div class="opcoes-filtro">
+                            <label><input type="checkbox" class="filtro-sexo" value="M"> ♂ Masculino</label>
+                            <label><input type="checkbox" class="filtro-sexo" value="F"> ♀ Feminino</label>
+                            <label><input type="checkbox" class="filtro-sexo-todos" checked> 🌐 Todos</label>
+                        </div>
+                    </div>
+                    <div class="grupo-filtro">
+                        <h4>🎚️ NÍVEL (EXPERIÊNCIA)</h4>
+                        <div class="opcoes-filtro">
+                            <label><input type="checkbox" value="todos" class="filtro-nivel-todos" checked> 🌐 Todos</label>
+                            <label><input type="checkbox" value="Primeira vez" class="filtro-nivel"> 🔴 Primeira vez</label>
+                            <label><input type="checkbox" value="Básico" class="filtro-nivel"> 🔵 Básico</label>
+                            <label><input type="checkbox" value="Intermediário" class="filtro-nivel"> 🟡 Intermediário</label>
+                            <label><input type="checkbox" value="Avançado" class="filtro-nivel"> 🟢 Avançado</label>
+                            <label><input type="checkbox" value="Mestre" class="filtro-nivel"> ⚫ Mestre</label>
+                        </div>
+                    </div>
+                    <div class="grupo-filtro">
+                        <h4>🥁 INSTRUMENTO</h4>
+                        <div class="opcoes-filtro">
+                            <label><input type="checkbox" value="todos" class="filtro-instrumento-todos" checked> 🌐 Todos</label>
+                            <label><input type="checkbox" value="Surdo" class="filtro-instrumento"> Surdo</label>
+                            <label><input type="checkbox" value="Caixa" class="filtro-instrumento"> Caixa</label>
+                            <label><input type="checkbox" value="Repique" class="filtro-instrumento"> Repique</label>
+                            <label><input type="checkbox" value="Tamborim" class="filtro-instrumento"> Tamborim</label>
+                            <label><input type="checkbox" value="Chocalho" class="filtro-instrumento"> Chocalho</label>
+                            <label><input type="checkbox" value="Cuíca" class="filtro-instrumento"> Cuíca</label>
+                        </div>
+                    </div>
+                    <div class="grupo-filtro">
+                        <h4>📊 PORCENTAGEM DE PRESENÇA</h4>
+                        <div class="opcoes-filtro">
+                            <label><input type="radio" name="filtroPresenca" value="todos" checked> 🌐 Todos</label>
+                            <label><input type="radio" name="filtroPresenca" value="0-25"> 0-25%</label>
+                            <label><input type="radio" name="filtroPresenca" value="26-50"> 26-50%</label>
+                            <label><input type="radio" name="filtroPresenca" value="51-75"> 51-75%</label>
+                            <label><input type="radio" name="filtroPresenca" value="76-99"> 76-99%</label>
+                            <label><input type="radio" name="filtroPresenca" value="100"> 100%</label>
+                        </div>
+                    </div>
+                </div>
 
-        <!-- Camisas por Tamanho (Ranking ordenado) -->
-        <div class="secao">
-            <h2>👕 RANKING DE CAMISAS</h2>
-            <div id="camisasGrid" class="camisas-grid"></div>
-        </div>
+                <div class="quantidade-sorteio">
+                    <label>🎲 Quantos vencedores?</label>
+                    <input type="number" id="quantidadeVencedores" min="1" value="1" max="10">
+                    <button class="btn-submit" id="btnSelecionarTodosParticipantes">☑️ SELECIONAR TODOS</button>
+                    <button class="btn-submit" id="btnDesmarcarTodosParticipantes">☐ DESMARCAR TODOS</button>
+                    <button class="btn-submit" id="btnLimparHistoricoSorteio">🔄 LIMPAR HISTÓRICO</button>
+                </div>
 
-        <!-- SEÇÃO LIMPAR CHAMADAS -->
-        <div class="secao" style="margin-top: 25px; border-left: 4px solid #ff4444;">
-            <h2>🗑️ LIMPAR DADOS DE CHAMADAS</h2>
-            <p style="margin-bottom: 15px; color: #ff4444;">⚠️ Atenção: Esta ação é irreversível!</p>
-            
-            <div style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center;">
-                <button class="btn-limpar" onclick="abrirModalLimpar('semana')">📅 ÚLTIMA SEMANA</button>
-                <button class="btn-limpar" onclick="abrirModalLimpar('mes')">📆 POR MÊS</button>
-                <button class="btn-limpar" onclick="abrirModalLimpar('ano')">📅 POR ANO</button>
-                <button class="btn-limpar btn-limpar-tudo" onclick="abrirModalLimpar('tudo')">🗑️ LIMPAR TUDO</button>
+                <div class="lista-participantes" id="listaParticipantesSorteio">
+                    <div class="status-carregamento">Carregando participantes...</div>
+                </div>
+
+                <button class="btn-sortear" id="btnSortear">🎲 SORTEAR</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- MODAL DE CONFIRMAÇÃO DE LIMPEZA -->
-<div id="modalLimpar" class="modal-limpar">
-    <div class="modal-limpar-content">
-        <h2 style="color: #ff4444;">⚠️ CONFIRMAR EXCLUSÃO</h2>
-        <p id="modalMensagem">Tem certeza que deseja excluir as chamadas?</p>
-        <div id="campoValor" style="display: none;">
-            <input type="text" id="valorLimpar" placeholder="Digite o mês (YYYY-MM) ou ano (YYYY)">
-        </div>
-        <div class="checkbox-confirmar">
-            <input type="checkbox" id="confirmarLimpeza">
-            <label for="confirmarLimpeza">Confirmo que quero excluir estas chamadas</label>
-        </div>
-        <div>
-            <button class="btn-confirmar" id="btnConfirmarLimpeza" onclick="executarLimpeza()" disabled>🗑️ EXCLUIR</button>
-            <button class="btn-cancelar" onclick="fecharModalLimpar()">CANCELAR</button>
+<!-- MODAL EDITAR NOTÍCIA -->
+<div id="modalEditarNoticia" class="modal">
+    <div class="modal-content">
+        <h2>✏️ EDITAR NOTÍCIA</h2>
+        <input type="hidden" id="editNoticiaId">
+        <div class="form-grupo"><label>Título</label><input type="text" id="editTitulo"></div>
+        <div class="form-grupo"><label>Resumo</label><textarea id="editResumo" rows="2"></textarea></div>
+        <div class="form-grupo"><label>Conteúdo</label><textarea id="editConteudo" rows="5"></textarea></div>
+        <div class="form-grupo"><label>URL da Imagem</label><input type="text" id="editImagem"></div>
+        <div class="form-grupo"><label>Status</label><select id="editStatus"><option value="PUBLICADA">Publicada</option><option value="RASCUNHO">Rascunho</option></select></div>
+        <div class="form-grupo"><label>Destaque</label><select id="editDestaque"><option value="0">Normal</option><option value="1">Destaque</option></select></div>
+        <div style="text-align: right; margin-top: 20px;">
+            <button class="btn-editar" onclick="salvarEdicaoNoticia()">💾 SALVAR</button>
+            <button class="btn-cancelar" onclick="fecharModalEditar()">CANCELAR</button>
         </div>
     </div>
 </div>
 
-<!-- MODAL DE DETALHE DA CHAMADA -->
-<div id="modalDetalhe" class="modal-limpar" style="display: none;">
-    <div class="modal-limpar-content" style="max-width: 500px;">
-        <h2 style="color: #003399;">📋 DETALHES DA CHAMADA</h2>
-        <p id="modalDetalheData" style="font-weight: bold; margin-bottom: 15px;"></p>
-        <div id="modalDetalhePresentes" style="background: #e8f5e9; padding: 10px; border-radius: 10px; margin-bottom: 10px;">
-            <strong>✅ PRESENTES</strong>
-            <div id="listaPresentes" style="margin-top: 8px;"></div>
-        </div>
-        <div id="modalDetalheAusentes" style="background: #ffebee; padding: 10px; border-radius: 10px; margin-bottom: 10px;">
-            <strong>❌ AUSENTES</strong>
-            <div id="listaAusentes" style="margin-top: 8px;"></div>
-        </div>
-        <button class="btn-cancelar" onclick="fecharModalDetalhe()" style="background: #003399; color: white; margin-left: 0;">FECHAR</button>
+<!-- MODAL DETALHES CHAMADA -->
+<div id="modalDetalhesChamada" class="modal">
+    <div class="modal-content">
+        <h3 id="modalChamadaTitulo">📋 DETALHES DA CHAMADA</h3>
+        <div id="modalPresentes" class="lista-presentes"><strong>✅ PRESENTES</strong><br>Carregando...</div>
+        <div id="modalAusentes" class="lista-ausentes"><strong>❌ AUSENTES</strong><br>Carregando...</div>
+        <button class="btn-fechar-modal" onclick="fecharModalDetalhesChamada()">FECHAR</button>
+    </div>
+</div>
+
+<!-- MODAL VENCEDORES -->
+<div id="modalVencedores" class="modal-sorteio">
+    <div class="modal-content" style="pointer-events: auto;">
+        <h3>🎉🎉🎉 VENCEDOR(ES)! 🎉🎉🎉</h3>
+        <div id="listaVencedores"></div>
+        <button class="btn-fechar-modal" id="btnFecharModalVencedores">FECHAR</button>
     </div>
 </div>
 
@@ -606,23 +954,76 @@
     let ritmistasOriginais = [];
     let ordemRanking = 'mais';
     let dadosRankingReal = [];
-    let tipoLimpezaAtual = '';
-    
-    // Data padrão (últimos 30 dias)
+    let ganhadoresIds = [];
+
+    // ========== TOAST ==========
+    function mostrarToast(mensagem, tipo = 'success') {
+        const toast = document.createElement('div');
+        toast.className = `toast ${tipo}`;
+        toast.textContent = mensagem;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+    }
+
+    // ========== ABAS ==========
+    document.querySelectorAll('.aba-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.aba-btn').forEach(b => b.classList.remove('ativa'));
+            btn.classList.add('ativa');
+            document.querySelectorAll('.aba-conteudo').forEach(c => c.classList.remove('ativa'));
+            document.getElementById(`aba${btn.dataset.aba.charAt(0).toUpperCase() + btn.dataset.aba.slice(1)}`).classList.add('ativa');
+            if (btn.dataset.aba === 'noticias') carregarNoticiasAdmin();
+            if (btn.dataset.aba === 'sorteios') carregarParticipantesSorteio();
+            if (btn.dataset.aba === 'banner') carregarBanners();
+        });
+    });
+
+    // Datas padrão
     const hoje = new Date();
     const trintaDiasAtras = new Date();
     trintaDiasAtras.setDate(hoje.getDate() - 30);
-    
     document.getElementById('dataInicio').value = trintaDiasAtras.toISOString().split('T')[0];
     document.getElementById('dataFim').value = hoje.toISOString().split('T')[0];
-    
+
+    // Velocidade do carrossel
+    function salvarVelocidade() {
+        const velocidade = document.getElementById('velocidadeCarrossel').value;
+        localStorage.setItem('velocidadeCarrossel', velocidade);
+        mostrarToast(`⚡ Velocidade do carrossel salva: ${velocidade} segundos`, 'success');
+    }
+
+    function carregarVelocidade() {
+        const saved = localStorage.getItem('velocidadeCarrossel');
+        if (saved) {
+            document.getElementById('velocidadeCarrossel').value = saved;
+        }
+    }
+
+    // Agendamento
+    document.querySelectorAll('input[name="tipoPublicacao"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            const dateInput = document.getElementById('noticiaDataPublicacao');
+            if (this.value === 'agendar') {
+                dateInput.style.display = 'block';
+                if (!dateInput.value) {
+                    const amanha = new Date();
+                    amanha.setDate(amanha.getDate() + 1);
+                    dateInput.value = amanha.toISOString().slice(0, 16);
+                }
+            } else {
+                dateInput.style.display = 'none';
+                dateInput.value = '';
+            }
+        });
+    });
+
     function calcularIdade(dataNasc) {
         if (!dataNasc) return null;
         const anoNasc = parseInt(dataNasc.substring(0, 4));
         if (isNaN(anoNasc)) return null;
         return new Date().getFullYear() - anoNasc;
     }
-    
+
     async function carregarRankingReal() {
         try {
             const response = await fetch(`${API_BASE}/ranking_presenca`);
@@ -633,123 +1034,73 @@
             }
             return [];
         } catch (error) {
-            console.error('Erro ao carregar ranking:', error);
+            console.error('Erro carregar ranking:', error);
             return [];
         }
     }
-    
+
     async function carregarHistorico() {
         try {
             const response = await fetch(`${API_BASE}/listar_chamadas`);
             const data = await response.json();
-            
             const container = document.getElementById('listaHistorico');
-            
             if (data.success && data.chamadas && data.chamadas.length > 0) {
                 container.innerHTML = '';
                 data.chamadas.forEach(chamada => {
-
                     const [ano, mes, dia] = chamada.data.split('-');
-                    const dataFormatada = `${dia}/${mes}/${ano}`;
-                    
-                    
                     const card = document.createElement('div');
                     card.className = 'historico-card';
                     card.onclick = () => buscarDetalheChamada(chamada.data);
-                    card.innerHTML = `
-                        <div class="historico-data">📆 ${dataFormatada}</div>
-                        <div class="historico-resumo">✅ ${chamada.presentes} presentes • ❌ ${chamada.ausentes} ausentes</div>
-                        <div style="font-size: 0.8rem; color: #1e90ff;">🔍 Clique para ver detalhes</div>
-                    `;
+                    card.innerHTML = `<div class="historico-data">📆 ${dia}/${mes}/${ano}</div><div>✅ ${chamada.presentes} presentes • ❌ ${chamada.ausentes} ausentes</div>`;
                     container.appendChild(card);
                 });
             } else {
-                container.innerHTML = '<div class="status-carregamento" style="padding: 20px;">📭 Nenhuma chamada registrada ainda</div>';
+                container.innerHTML = '<div class="status-carregamento" style="padding: 20px;">📭 Nenhuma chamada registrada</div>';
             }
-        } catch (error) {
-            console.error('Erro ao carregar histórico:', error);
-            document.getElementById('listaHistorico').innerHTML = '<div class="status-carregamento" style="padding: 20px;">❌ Erro ao carregar histórico</div>';
-        }
+        } catch (error) { console.error('Erro:', error); }
     }
-    
+
     async function buscarDetalheChamada(data) {
         try {
             const response = await fetch(`${API_BASE}/chamada?data=${data}`);
             const result = await response.json();
-            
             if (result.success) {
-                const dataObj = new Date(data);
-                document.getElementById('modalDetalheData').innerHTML = `📅 ${dataObj.toLocaleDateString('pt-BR')}`;
-                
-                const listaPresentes = document.getElementById('listaPresentes');
-                const listaAusentes = document.getElementById('listaAusentes');
-                
-                if (result.presentes && result.presentes.length > 0) {
-                    listaPresentes.innerHTML = result.presentes.map(nome => `<div style="margin: 5px 0;">• ${nome}</div>`).join('');
-                } else {
-                    listaPresentes.innerHTML = '<div style="margin: 5px 0;">Nenhum presente</div>';
-                }
-                
-                if (result.ausentes && result.ausentes.length > 0) {
-                    listaAusentes.innerHTML = result.ausentes.map(nome => `<div style="margin: 5px 0;">• ${nome}</div>`).join('');
-                } else {
-                    listaAusentes.innerHTML = '<div style="margin: 5px 0;">Nenhum ausente</div>';
-                }
-                
-                document.getElementById('modalDetalhe').style.display = 'flex';
+                const [ano, mes, dia] = data.split('-');
+                document.getElementById('modalChamadaTitulo').innerHTML = `📋 DETALHES DA CHAMADA - ${dia}/${mes}/${ano}`;
+                document.getElementById('modalPresentes').innerHTML = `<strong>✅ PRESENTES (${result.presentes?.length || 0})</strong><br>${result.presentes?.map(n => `• ${n}`).join('<br>') || 'Nenhum'}`;
+                document.getElementById('modalAusentes').innerHTML = `<strong>❌ AUSENTES (${result.ausentes?.length || 0})</strong><br>${result.ausentes?.map(n => `• ${n}`).join('<br>') || 'Nenhum'}`;
+                document.getElementById('modalDetalhesChamada').style.display = 'flex';
             } else {
-                alert('Erro ao carregar detalhes da chamada');
+                mostrarToast('Erro ao carregar detalhes', 'error');
             }
         } catch (error) {
-            console.error('Erro:', error);
-            alert('Erro ao carregar detalhes');
+            mostrarToast('Erro ao carregar detalhes', 'error');
         }
     }
-    
-    function fecharModalDetalhe() {
-        document.getElementById('modalDetalhe').style.display = 'none';
+
+    function fecharModalDetalhesChamada() {
+        document.getElementById('modalDetalhesChamada').style.display = 'none';
     }
-    
-    async function carregarPresencaReal(inicio, fim) {
-        try {
-            const response = await fetch(`${API_BASE}/presenca_periodo?inicio=${inicio}&fim=${fim}`);
-            const data = await response.json();
-            if (data.success) {
-                return { presentes: data.presentes, ausentes: data.ausentes };
-            }
-            return { presentes: 0, ausentes: 0 };
-        } catch (error) {
-            console.error('Erro ao carregar presença:', error);
-            return { presentes: 0, ausentes: 0 };
-        }
-    }
-    
+
     async function carregarDados() {
         try {
             const response = await fetch(`${API_BASE}/exec?acao=buscarTodosRitmistas`);
             const data = await response.json();
-            
             if (data.success && data.ritmistas) {
                 ritmistasOriginais = data.ritmistas;
-                
                 const total = ritmistasOriginais.length;
                 const ativos = ritmistasOriginais.filter(r => (r.status || '').toLowerCase() === 'ativo').length;
                 const pendentes = ritmistasOriginais.filter(r => (r.status || '').toLowerCase() === 'pendente').length;
                 const inativos = ritmistasOriginais.filter(r => (r.status || '').toLowerCase() === 'desativado').length;
-                
                 let somaIdade = 0, countIdade = 0;
-                ritmistasOriginais.forEach(r => {
-                    const idade = calcularIdade(r.dataNasc);
-                    if (idade) { somaIdade += idade; countIdade++; }
-                });
+                ritmistasOriginais.forEach(r => { const idade = calcularIdade(r.dataNasc); if (idade) { somaIdade += idade; countIdade++; } });
                 const mediaIdade = countIdade > 0 ? Math.round(somaIdade / countIdade) : 0;
-                
                 document.getElementById('totalRitmistas').textContent = total;
                 document.getElementById('totalAtivos').textContent = ativos;
                 document.getElementById('totalPendentes').textContent = pendentes;
                 document.getElementById('totalInativos').textContent = inativos;
                 document.getElementById('mediaIdade').textContent = mediaIdade;
-                
+
                 const niveis = { 'Primeira vez': 0, 'Básico': 0, 'Intermediário': 0, 'Avançado': 0, 'Mestre': 0 };
                 ritmistasOriginais.forEach(r => {
                     const nivel = r.nivel || '';
@@ -760,84 +1111,61 @@
                     else if (nivel.includes('Mestre')) niveis['Mestre']++;
                     else niveis['Primeira vez']++;
                 });
-                
                 const niveisLabels = Object.keys(niveis);
                 const niveisDados = Object.values(niveis);
                 const coresNiveis = ['#ff4444', '#1e90ff', '#FFD700', '#00cc66', '#111111'];
                 const iconesNiveis = ['🔴', '🔵', '🟡', '🟢', '⚫'];
-                
                 if (charts.nivel) charts.nivel.destroy();
                 charts.nivel = new Chart(document.getElementById('graficoNivel'), {
-                    type: 'pie',
-                    data: { labels: niveisLabels, datasets: [{ data: niveisDados, backgroundColor: coresNiveis }] }
+                    type: 'pie', data: { labels: niveisLabels, datasets: [{ data: niveisDados, backgroundColor: coresNiveis }] }
                 });
-                
                 const niveisLista = document.getElementById('niveisLista');
                 niveisLista.innerHTML = '';
                 niveisLabels.forEach((nivel, i) => {
                     const qtd = niveisDados[i];
                     const pct = total > 0 ? Math.round((qtd / total) * 100) : 0;
-                    niveisLista.innerHTML += `
-                        <div class="nivel-item">
-                            <span>${iconesNiveis[i]} ${nivel}</span>
-                            <span>${qtd} pessoa(s) (${pct}%)</span>
-                        </div>
-                    `;
+                    niveisLista.innerHTML += `<div class="nivel-item"><span>${iconesNiveis[i]} ${nivel}</span><span>${qtd} (${pct}%)</span></div>`;
                 });
-                
+
                 const bairros = {};
-                ritmistasOriginais.forEach(r => {
-                    if (r.bairro) {
-                        let bairro = r.bairro.toUpperCase();
-                        if (bairro.includes('ALVORADA')) bairro = 'Alvorada';
-                        bairros[bairro] = (bairros[bairro] || 0) + 1;
-                    }
-                });
+                ritmistasOriginais.forEach(r => { if (r.bairro) bairros[r.bairro] = (bairros[r.bairro] || 0) + 1; });
                 const bairrosSorted = Object.entries(bairros).sort((a,b) => b[1]-a[1]).slice(0,5);
-                
                 if (charts.bairro) charts.bairro.destroy();
                 charts.bairro = new Chart(document.getElementById('graficoBairro'), {
-                    type: 'bar',
-                    data: { labels: bairrosSorted.map(b => b[0]), datasets: [{ label: 'Quantidade', data: bairrosSorted.map(b => b[1]), backgroundColor: '#FFD700' }] }
+                    type: 'bar', data: { labels: bairrosSorted.map(b => b[0]), datasets: [{ label: 'Quantidade', data: bairrosSorted.map(b => b[1]), backgroundColor: '#FFD700' }] }
                 });
-                
                 const bairrosLista = document.getElementById('bairrosLista');
                 bairrosLista.innerHTML = '';
                 bairrosSorted.forEach(([bairro, qtd]) => {
                     const pct = total > 0 ? Math.round((qtd / total) * 100) : 0;
-                    bairrosLista.innerHTML += `
-                        <div class="nivel-item">
-                            <span>🏠 ${bairro}</span>
-                            <span>${qtd} pessoa(s) (${pct}%)</span>
-                        </div>
-                    `;
+                    bairrosLista.innerHTML += `<div class="nivel-item"><span>🏠 ${bairro}</span><span>${qtd} (${pct}%)</span></div>`;
                 });
-                
+
                 await carregarRankingReal();
                 carregarRankingPresenca();
                 carregarRankingCamisas();
                 await carregarGraficoPresenca();
                 await carregarHistorico();
-                
+                await carregarNoticiasAdmin();
+                await carregarBanners();
+                carregarVelocidade();
+
                 document.getElementById('status').style.display = 'none';
                 document.getElementById('conteudo').style.display = 'block';
             }
         } catch (error) {
-            document.getElementById('status').innerHTML = '❌ Erro ao carregar dados. Verifique a API.';
+            document.getElementById('status').innerHTML = '❌ Erro ao carregar dados';
         }
     }
-    
-    async function carregarRankingPresenca() {
+
+    function carregarRankingPresenca() {
         const buscaNome = document.getElementById('buscaNome').value.toLowerCase();
         const filtroInstrumento = document.getElementById('filtroInstrumento').value;
         const filtroNivel = document.getElementById('filtroNivel').value;
-        
         let rankingComDados = [...dadosRankingReal];
-        
         rankingComDados = rankingComDados.filter(r => {
             const ritmistaOriginal = ritmistasOriginais.find(ro => ro.id === r.id);
             if (!ritmistaOriginal) return false;
-            
             if (buscaNome && !(ritmistaOriginal.nome || '').toLowerCase().includes(buscaNome)) return false;
             if (filtroInstrumento !== 'todos' && (ritmistaOriginal.instrumento || '') !== filtroInstrumento) return false;
             if (filtroNivel !== 'todos') {
@@ -846,238 +1174,622 @@
             }
             return true;
         });
-        
-        if (ordemRanking === 'mais') {
-            rankingComDados.sort((a, b) => b.percentual - a.percentual);
-        } else {
-            rankingComDados.sort((a, b) => a.percentual - b.percentual);
-        }
-        
+        rankingComDados.sort((a, b) => ordemRanking === 'mais' ? b.percentual - a.percentual : a.percentual - b.percentual);
         const rankingBody = document.getElementById('rankingBody');
         rankingBody.innerHTML = '';
-        
         rankingComDados.forEach((r, index) => {
-            const ritmistaOriginal = ritmistasOriginais.find(ro => ro.id === r.id);
-            const nome = ritmistaOriginal ? ritmistaOriginal.nome : r.nome;
-            const instrumento = ritmistaOriginal ? ritmistaOriginal.instrumento : '-';
-            
-            const row = rankingBody.insertRow();
+            const ritmista = ritmistasOriginais.find(ro => ro.id === r.id);
+            const nome = ritmista ? ritmista.nome : r.nome;
+            const instrumento = ritmista ? ritmista.instrumento : '-';
             let medalha = `${index+1}º`;
             if (index === 0) medalha = '🥇 1º';
             else if (index === 1) medalha = '🥈 2º';
             else if (index === 2) medalha = '🥉 3º';
-            
-            let corPercentual = '';
-            let classeDestaque = '';
-            if (r.percentual >= 70) corPercentual = 'color: #2ecc71;';
-            else if (r.percentual >= 50) corPercentual = 'color: #f39c12;';
-            else corPercentual = 'color: #e74c3c;';
-            
-            if (r.percentual === 100) classeDestaque = 'destaque-100';
-            
-            row.className = classeDestaque;
+            let destaqueClass = '';
+            if (r.percentual === 100) destaqueClass = 'destaque-100';
+            const row = rankingBody.insertRow();
+            if (destaqueClass) row.className = destaqueClass;
             row.insertCell(0).innerHTML = medalha;
             row.insertCell(1).innerHTML = nome || '-';
             row.insertCell(2).innerHTML = instrumento || '-';
             row.insertCell(3).innerHTML = r.presentes || 0;
             row.insertCell(4).innerHTML = r.ausentes || 0;
-            row.insertCell(5).innerHTML = `<span style="${corPercentual} font-weight: bold;">${r.percentual || 0}%</span>`;
-            
-            const barraCell = row.insertCell(6);
+            row.insertCell(5).innerHTML = `<span style="font-weight:bold">${r.percentual || 0}%</span>`;
             const barraCor = r.percentual >= 70 ? 'percentual-alto' : (r.percentual >= 50 ? 'percentual-medio' : 'percentual-baixo');
-            barraCell.innerHTML = `<div class="progress-bar-container"><div class="progress-bar ${barraCor}" style="width: ${r.percentual || 0}%;"></div></div>`;
+            row.insertCell(6).innerHTML = `<div class="progress-bar-container"><div class="progress-bar ${barraCor}" style="width: ${r.percentual || 0}%;"></div></div>`;
         });
-        
-        const btnInverter = document.getElementById('btnInverter');
-        btnInverter.textContent = ordemRanking === 'mais' ? '🔄 MAIS AUSENTES' : '🔄 MAIS PRESENTES';
     }
-    
+
     function alternarOrdem() {
         ordemRanking = ordemRanking === 'mais' ? 'menos' : 'mais';
         carregarRankingPresenca();
     }
-    
+
     function carregarRankingCamisas() {
         const camisas = {};
-        ritmistasOriginais.forEach(r => {
-            let tam = (r.blusa || 'M').toUpperCase();
-            if (!['PP','P','M','G','GG','GGG','XGG'].includes(tam)) tam = 'M';
-            camisas[tam] = (camisas[tam] || 0) + 1;
-        });
-        
+        ritmistasOriginais.forEach(r => { let tam = (r.blusa || 'M').toUpperCase(); if (!['PP','P','M','G','GG','GGG','XGG'].includes(tam)) tam = 'M'; camisas[tam] = (camisas[tam] || 0) + 1; });
         const total = ritmistasOriginais.length;
         const camisasArray = Object.entries(camisas).map(([tam, qtd]) => ({ tam, qtd, pct: total > 0 ? Math.round((qtd / total) * 100) : 0 }));
         camisasArray.sort((a, b) => b.qtd - a.qtd);
-        
         const camisasGrid = document.getElementById('camisasGrid');
         camisasGrid.innerHTML = '';
-        
         camisasArray.forEach((item, idx) => {
-            let medalha = '';
-            if (idx === 0) medalha = '🥇';
-            else if (idx === 1) medalha = '🥈';
-            else if (idx === 2) medalha = '🥉';
-            else medalha = `${idx+1}º`;
-            
-            camisasGrid.innerHTML += `
-                <div class="camisa-item">
-                    <div class="camisa-linha">
-                        <div class="camisa-medalha">${medalha}</div>
-                        <div class="camisa-tamanho">👕 ${item.tam}</div>
-                        <div class="camisa-qtd">${item.qtd} pessoa(s)</div>
-                        <div class="camisa-barra"><div class="camisa-barra-fill" style="width: ${item.pct}%;"></div></div>
-                        <div class="camisa-pct">${item.pct}%</div>
-                    </div>
-                </div>
-            `;
+            let medalha = idx === 0 ? '🥇' : (idx === 1 ? '🥈' : (idx === 2 ? '🥉' : `${idx+1}º`));
+            camisasGrid.innerHTML += `<div class="camisa-item"><div class="camisa-linha"><div class="camisa-medalha">${medalha}</div><div class="camisa-tamanho">👕 ${item.tam}</div><div class="camisa-qtd">${item.qtd}</div><div class="camisa-barra"><div class="camisa-barra-fill" style="width: ${item.pct}%;"></div></div><div class="camisa-pct">${item.pct}%</div></div></div>`;
         });
     }
-    
+
     async function carregarGraficoPresenca() {
         const inicio = document.getElementById('dataInicio').value;
         const fim = document.getElementById('dataFim').value;
-        
         try {
             const response = await fetch(`${API_BASE}/presenca_periodo?inicio=${inicio}&fim=${fim}`);
             const data = await response.json();
-            
             let presentes = 0, ausentes = 0;
-            
-            if (data.success) {
-                presentes = data.presentes || 0;
-                ausentes = data.ausentes || 0;
-            } else {
-                presentes = Math.floor(Math.random() * 50) + 20;
-                ausentes = Math.floor(Math.random() * 30) + 5;
-            }
-            
+            if (data.success) { presentes = data.presentes || 0; ausentes = data.ausentes || 0; }
             const total = presentes + ausentes;
             const pctP = total > 0 ? Math.round((presentes / total) * 100) : 0;
             const pctA = total > 0 ? Math.round((ausentes / total) * 100) : 0;
-            
             if (charts.presenca) charts.presenca.destroy();
             charts.presenca = new Chart(document.getElementById('graficoPresenca'), {
-                type: 'pie',
-                data: { labels: [`✅ Presentes (${pctP}%)`, `❌ Ausentes (${pctA}%)`], datasets: [{ data: [presentes, ausentes], backgroundColor: ['#2ecc71', '#e74c3c'] }] }
+                type: 'pie', data: { labels: [`✅ Presentes (${pctP}%)`, `❌ Ausentes (${pctA}%)`], datasets: [{ data: [presentes, ausentes], backgroundColor: ['#2ecc71', '#e74c3c'] }] }
             });
-            
-            document.getElementById('presencaResumo').innerHTML = `
-                📅 Período: ${inicio || 'início'} até ${fim || 'fim'}<br>
-                ✅ Presentes: ${presentes} (${pctP}%) | ❌ Ausentes: ${ausentes} (${pctA}%)
-            `;
+            document.getElementById('presencaResumo').innerHTML = `📅 Período: ${inicio} até ${fim}<br>✅ Presentes: ${presentes} (${pctP}%) | ❌ Ausentes: ${ausentes} (${pctA}%)`;
+        } catch (error) { console.error('Erro:', error); }
+    }
+
+    function aplicarFiltroPresenca() { carregarGraficoPresenca(); }
+
+    // ========== NOTÍCIAS ==========
+    let imagemBase64 = '';
+
+    function previewImagem(event) {
+        const file = event.target.files[0];
+        if (file && file.type.startsWith('image/')) {
+            if (file.size > 2 * 1024 * 1024) {
+                mostrarToast('Imagem muito grande! Máximo 2MB', 'error');
+                event.target.value = '';
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                imagemBase64 = e.target.result;
+                document.getElementById('previewImg').src = imagemBase64;
+                document.getElementById('previewImagem').style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function removerImagem() {
+        imagemBase64 = '';
+        document.getElementById('previewImagem').style.display = 'none';
+        document.getElementById('noticiaImagemFile').value = '';
+    }
+
+    async function carregarNoticiasAdmin() {
+        try {
+            const response = await fetch(`${API_BASE}/noticias`);
+            const data = await response.json();
+            const container = document.getElementById('listaNoticiasAdmin');
+            if (data.success && data.noticias && data.noticias.length > 0) {
+                container.innerHTML = '';
+                data.noticias.forEach(noticia => {
+                    container.innerHTML += `
+                        <div class="noticia-item">
+                            <div class="noticia-info">
+                                <div class="noticia-titulo">📰 ${noticia.titulo}</div>
+                                <div>📅 ${noticia.data_publicacao} | ✍️ ${noticia.autor}</div>
+                                <div><span class="noticia-status ${noticia.status === 'PUBLICADA' ? 'publicada' : 'rascunho'}">${noticia.status === 'PUBLICADA' ? '✅ Publicada' : '📝 Rascunho'}</span> ${noticia.destaque ? '⭐ Destaque' : ''}</div>
+                            </div>
+                            <div>
+                                <button class="btn-editar" onclick="abrirEditarNoticia(${noticia.id})">✏️ Editar</button>
+                                <button class="btn-apagar" onclick="apagarNoticia(${noticia.id})">🗑️ Apagar</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            } else {
+                container.innerHTML = '<div style="text-align:center; padding:20px;">📭 Nenhuma notícia cadastrada</div>';
+            }
         } catch (error) {
-            console.error('Erro ao carregar presença:', error);
+            console.error('Erro:', error);
         }
     }
-    
-    function aplicarFiltroPresenca() {
-        carregarGraficoPresenca();
-    }
-    
-    // ========== FUNÇÕES DE LIMPEZA ==========
-    function abrirModalLimpar(tipo) {
-        tipoLimpezaAtual = tipo;
-        const modal = document.getElementById('modalLimpar');
-        const campoValor = document.getElementById('campoValor');
-        const modalMsg = document.getElementById('modalMensagem');
-        const checkbox = document.getElementById('confirmarLimpeza');
-        const btnConfirmar = document.getElementById('btnConfirmarLimpeza');
-        
-        checkbox.checked = false;
-        btnConfirmar.disabled = true;
-        
-        if (tipo === 'mes') {
-            campoValor.style.display = 'block';
-            modalMsg.innerHTML = 'Digite o mês que deseja excluir (formato: YYYY-MM)<br><small>Exemplo: 2026-05</small>';
-            document.getElementById('valorLimpar').value = '';
-        } else if (tipo === 'ano') {
-            campoValor.style.display = 'block';
-            modalMsg.innerHTML = 'Digite o ano que deseja excluir (formato: YYYY)<br><small>Exemplo: 2026</small>';
-            document.getElementById('valorLimpar').value = '';
-        } else if (tipo === 'semana') {
-            campoValor.style.display = 'none';
-            modalMsg.innerHTML = 'Tem certeza que deseja excluir TODAS as chamadas da ÚLTIMA SEMANA?';
-        } else if (tipo === 'tudo') {
-            campoValor.style.display = 'none';
-            modalMsg.innerHTML = '⚠️ ATENÇÃO! Isso vai excluir TODAS as chamadas do sistema. Esta ação é irreversível. Tem certeza?';
-        }
-        
-        modal.style.display = 'flex';
-        
-        document.getElementById('confirmarLimpeza').onchange = function() {
-            document.getElementById('btnConfirmarLimpeza').disabled = !this.checked;
-        };
-    }
-    
-    function fecharModalLimpar() {
-        document.getElementById('modalLimpar').style.display = 'none';
-    }
-    
-    async function executarLimpeza() {
-        const btn = document.getElementById('btnConfirmarLimpeza');
+
+    document.getElementById('formNoticia').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('btnPublicarNoticia');
         btn.disabled = true;
-        btn.textContent = '⏳ EXCLUINDO...';
         
-        const dados = { tipo: tipoLimpezaAtual };
+        const titulo = document.getElementById('noticiaTitulo').value;
+        const resumo = document.getElementById('noticiaResumo').value;
+        const conteudo = document.getElementById('noticiaConteudo').value;
+        const status = document.getElementById('noticiaStatus').value;
+        const destaque = parseInt(document.getElementById('noticiaDestaque').value);
         
-        if (tipoLimpezaAtual === 'mes') {
-            dados.valor = document.getElementById('valorLimpar').value;
-            if (!dados.valor) {
-                alert('Digite o mês no formato YYYY-MM');
+        const tipoPublicacao = document.querySelector('input[name="tipoPublicacao"]:checked').value;
+        let data_publicacao = '';
+        if (tipoPublicacao === 'agendar') {
+            data_publicacao = document.getElementById('noticiaDataPublicacao').value;
+            if (!data_publicacao) {
+                mostrarToast('Selecione uma data para agendamento', 'error');
                 btn.disabled = false;
-                btn.textContent = '🗑️ EXCLUIR';
                 return;
             }
-        } else if (tipoLimpezaAtual === 'ano') {
-            dados.valor = document.getElementById('valorLimpar').value;
-            if (!dados.valor) {
-                alert('Digite o ano no formato YYYY');
-                btn.disabled = false;
-                btn.textContent = '🗑️ EXCLUIR';
-                return;
-            }
+        } else {
+            data_publicacao = new Date().toISOString().slice(0, 16);
         }
+        
+        const dados = {
+            titulo, resumo, conteudo, status, destaque, data_publicacao,
+            imagem_base64: imagemBase64
+        };
         
         try {
-            const response = await fetch(`${API_BASE}/limpar_chamadas`, {
+            const response = await fetch(`${API_BASE}/noticias/criar`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(dados)
             });
-            
             const result = await response.json();
-            
             if (result.success) {
-                alert(`✅ ${result.message}\n📊 ${result.excluidas} registros excluídos!`);
-                fecharModalLimpar();
-                carregarDados();
-                carregarGraficoPresenca();
-                carregarHistorico();
+                mostrarToast('✅ Notícia salva com sucesso!', 'success');
+                document.getElementById('formNoticia').reset();
+                removerImagem();
+                carregarNoticiasAdmin();
+                if (tipoPublicacao === 'agendar') {
+                    mostrarToast(`📅 Notícia agendada para ${data_publicacao}`, 'info');
+                }
             } else {
-                alert(`❌ Erro: ${result.error}`);
+                mostrarToast('❌ Erro: ' + result.error, 'error');
             }
         } catch (error) {
-            alert('❌ Erro ao conectar com o servidor');
+            mostrarToast('❌ Erro ao salvar notícia', 'error');
         } finally {
             btn.disabled = false;
-            btn.textContent = '🗑️ EXCLUIR';
+        }
+    });
+
+    function abrirEditarNoticia(id) {
+        fetch(`${API_BASE}/noticias/${id}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('editNoticiaId').value = id;
+                    document.getElementById('editTitulo').value = data.noticia.titulo;
+                    document.getElementById('editResumo').value = data.noticia.resumo || '';
+                    document.getElementById('editConteudo').value = data.noticia.conteudo;
+                    document.getElementById('editImagem').value = data.noticia.imagem_url || '';
+                    document.getElementById('editStatus').value = data.noticia.status || 'PUBLICADA';
+                    document.getElementById('editDestaque').value = data.noticia.destaque ? '1' : '0';
+                    document.getElementById('modalEditarNoticia').style.display = 'flex';
+                } else {
+                    mostrarToast('Erro ao carregar notícia', 'error');
+                }
+            })
+            .catch(() => mostrarToast('Erro ao carregar notícia', 'error'));
+    }
+
+    async function salvarEdicaoNoticia() {
+        const id = document.getElementById('editNoticiaId').value;
+        const dados = {
+            titulo: document.getElementById('editTitulo').value,
+            resumo: document.getElementById('editResumo').value,
+            conteudo: document.getElementById('editConteudo').value,
+            imagem_url: document.getElementById('editImagem').value,
+            status: document.getElementById('editStatus').value,
+            destaque: parseInt(document.getElementById('editDestaque').value)
+        };
+        try {
+            const response = await fetch(`${API_BASE}/noticias/editar/${id}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dados)
+            });
+            const result = await response.json();
+            if (result.success) {
+                mostrarToast('✅ Notícia atualizada!', 'success');
+                fecharModalEditar();
+                carregarNoticiasAdmin();
+            } else {
+                mostrarToast('❌ Erro: ' + result.error, 'error');
+            }
+        } catch (error) {
+            mostrarToast('❌ Erro ao salvar', 'error');
+        }
+    }
+
+    async function apagarNoticia(id) {
+        if (!confirm('Tem certeza que deseja apagar esta notícia?')) return;
+        const token = localStorage.getItem('token_admin') || 'admin';
+        try {
+            const response = await fetch(`${API_BASE}/noticias/excluir/${id}`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ token: token })
+            });
+            const result = await response.json();
+            if (result.success) {
+                mostrarToast('✅ Notícia apagada!', 'success');
+                carregarNoticiasAdmin();
+            } else {
+                mostrarToast('❌ Erro: ' + result.error, 'error');
+            }
+        } catch (error) {
+            mostrarToast('❌ Erro ao apagar notícia', 'error');
+        }
+    }
+
+    function fecharModalEditar() {
+        document.getElementById('modalEditarNoticia').style.display = 'none';
+    }
+
+    // ========== BANNER ==========
+    let novoBannerBase64 = '';
+
+    function previewNovoBanner(event) {
+        const file = event.target.files[0];
+        if (file && file.type.startsWith('image/')) {
+            if (file.size > 2 * 1024 * 1024) {
+                mostrarToast('Imagem muito grande! Máximo 2MB', 'error');
+                event.target.value = '';
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                novoBannerBase64 = e.target.result;
+                document.getElementById('previewNovoBannerImg').src = novoBannerBase64;
+                document.getElementById('previewNovoBanner').style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function removerNovoBanner() {
+        novoBannerBase64 = '';
+        document.getElementById('previewNovoBanner').style.display = 'none';
+        document.getElementById('novoBannerFile').value = '';
+    }
+
+    async function adicionarBanner() {
+        if (!novoBannerBase64) {
+            mostrarToast('Selecione uma imagem primeiro', 'error');
+            return;
+        }
+        const btn = event.target;
+        btn.disabled = true;
+        btn.textContent = '⏳ ENVIANDO...';
+        
+        try {
+            const response = await fetch(`${API_BASE}/banners/criar`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ imagem_base64: novoBannerBase64, ordem: 0 })
+            });
+            const result = await response.json();
+            if (result.success) {
+                mostrarToast('✅ Banner adicionado!', 'success');
+                removerNovoBanner();
+                carregarBanners();
+            } else {
+                mostrarToast('❌ Erro: ' + result.error, 'error');
+            }
+        } catch (error) {
+            mostrarToast('❌ Erro ao adicionar banner', 'error');
+        } finally {
+            btn.disabled = false;
+            btn.textContent = '➕ ADICIONAR BANNER';
+        }
+    }
+
+    async function excluirBanner(id) {
+        if (!confirm('Tem certeza que deseja excluir este banner?')) return;
+        try {
+            const response = await fetch(`${API_BASE}/banners/excluir/${id}`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' }
+            });
+            const result = await response.json();
+            if (result.success) {
+                mostrarToast('✅ Banner excluído!', 'success');
+                carregarBanners();
+            } else {
+                mostrarToast('❌ Erro: ' + result.error, 'error');
+            }
+        } catch (error) {
+            mostrarToast('❌ Erro ao excluir banner', 'error');
+        }
+    }
+
+    async function carregarBanners() {
+        try {
+            const response = await fetch(`${API_BASE}/banners`);
+            const data = await response.json();
+            const container = document.getElementById('listaBanners');
+            if (data.success && data.banners && data.banners.length > 0) {
+                container.innerHTML = data.banners.map(banner => `
+                    <div class="banner-item" data-id="${banner.id}">
+                        <img src="${banner.imagem_base64}" alt="Banner">
+                        <div class="banner-info">
+                            <span>Banner #${banner.id}</span>
+                        </div>
+                        <div class="banner-actions">
+                            <button class="btn-apagar" onclick="excluirBanner(${banner.id})">🗑️ Excluir</button>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                container.innerHTML = '<div style="text-align:center; padding:20px;">📭 Nenhum banner cadastrado</div>';
+            }
+        } catch (error) {
+            console.error('Erro:', error);
+            document.getElementById('listaBanners').innerHTML = '<div style="text-align:center; padding:20px;">❌ Erro ao carregar banners</div>';
+        }
+    }
+
+    // ========== SORTEIOS ==========
+    let participantesFiltrados = [];
+    let participantesSelecionados = [];
+
+    function aplicarFiltrosSorteio() {
+        let filtrados = [...ritmistasOriginais];
+        
+        const statusSelecionado = document.querySelector('input[name="filtroStatus"]:checked').value;
+        if (statusSelecionado !== 'todos') {
+            filtrados = filtrados.filter(r => r.status?.toLowerCase() === statusSelecionado);
+        }
+        
+        const sexosSelecionados = Array.from(document.querySelectorAll('.filtro-sexo:checked')).map(cb => cb.value);
+        const sexoTodosCheck = document.querySelector('.filtro-sexo-todos');
+        if (sexosSelecionados.length > 0 && !sexoTodosCheck?.checked) {
+            filtrados = filtrados.filter(r => sexosSelecionados.includes(r.sexo || ''));
+        }
+        
+        const niveisSelecionados = Array.from(document.querySelectorAll('.filtro-nivel:checked')).map(cb => cb.value);
+        if (niveisSelecionados.length > 0 && !document.querySelector('.filtro-nivel-todos:checked')) {
+            filtrados = filtrados.filter(r => niveisSelecionados.includes(r.nivel));
+        }
+        
+        const instrumentosSelecionados = Array.from(document.querySelectorAll('.filtro-instrumento:checked')).map(cb => cb.value);
+        if (instrumentosSelecionados.length > 0 && !document.querySelector('.filtro-instrumento-todos:checked')) {
+            filtrados = filtrados.filter(r => instrumentosSelecionados.includes(r.instrumento));
+        }
+        
+        const presencaFiltro = document.querySelector('input[name="filtroPresenca"]:checked').value;
+        if (presencaFiltro !== 'todos') {
+            filtrados = filtrados.filter(r => {
+                const ranking = dadosRankingReal.find(rank => rank.id === r.id);
+                const percentual = ranking?.percentual || 0;
+                if (presencaFiltro === '0-25') return percentual <= 25;
+                if (presencaFiltro === '26-50') return percentual >= 26 && percentual <= 50;
+                if (presencaFiltro === '51-75') return percentual >= 51 && percentual <= 75;
+                if (presencaFiltro === '76-99') return percentual >= 76 && percentual <= 99;
+                if (presencaFiltro === '100') return percentual === 100;
+                return true;
+            });
+        }
+        
+        filtrados = filtrados.filter(r => !ganhadoresIds.includes(r.id));
+        participantesFiltrados = filtrados;
+        
+        atualizarListaParticipantes();
+    }
+    
+    function atualizarListaParticipantes() {
+        const container = document.getElementById('listaParticipantesSorteio');
+        if (!participantesFiltrados.length) {
+            container.innerHTML = '<div class="status-carregamento">📭 Nenhum participante disponível para sorteio</div>';
+            return;
+        }
+        container.innerHTML = participantesFiltrados.map(r => {
+            const isSelecionado = participantesSelecionados.includes(r.id);
+            const jaSorteado = ganhadoresIds.includes(r.id);
+            return `
+                <div class="participante-item ${jaSorteado ? 'sorteado' : ''}">
+                    <input type="checkbox" class="checkbox-participante" value="${r.id}" ${isSelecionado ? 'checked' : ''} ${jaSorteado ? 'disabled' : ''}>
+                    <span><strong>${r.nome}</strong> - ${r.instrumento || '-'} - ${r.nivel || '-'}</span>
+                    <div class="acoes-participante">
+                        <button class="btn-acoes" onclick="editarParticipante(${r.id})">✏️</button>
+                        <button class="btn-acoes" onclick="excluirParticipante(${r.id})">🗑️</button>
+                    </div>
+                </div>
+            `;
+        }).join('');
+        
+        document.querySelectorAll('.checkbox-participante').forEach(cb => {
+            cb.addEventListener('change', function() {
+                const id = parseInt(this.value);
+                if (this.checked) {
+                    if (!participantesSelecionados.includes(id)) participantesSelecionados.push(id);
+                } else {
+                    participantesSelecionados = participantesSelecionados.filter(i => i !== id);
+                }
+            });
+        });
+    }
+    
+    function editarParticipante(id) {
+        const ritmista = ritmistasOriginais.find(r => r.id === id);
+        if (!ritmista) return;
+        const novoNome = prompt('Editar nome:', ritmista.nome);
+        if (novoNome && novoNome !== ritmista.nome) {
+            fetch(`${API_BASE}/editar_ritmista`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ dados: { id: ritmista.id, nome: novoNome } })
+            }).then(() => {
+                carregarDados();
+                mostrarToast('✅ Participante atualizado!', 'success');
+            }).catch(() => mostrarToast('Erro ao editar', 'error'));
         }
     }
     
-    document.getElementById('btnTodos').addEventListener('click', () => {
-        const dataInicio = new Date(2020, 0, 1).toISOString().split('T')[0];
-        const dataFim = new Date().toISOString().split('T')[0];
-        document.getElementById('dataInicio').value = dataInicio;
-        document.getElementById('dataFim').value = dataFim;
-        carregarGraficoPresenca();
+    function excluirParticipante(id) {
+        if (confirm('Tem certeza que deseja excluir este participante?')) {
+            fetch(`${API_BASE}/excluir_ritmista`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nome: ritmistasOriginais.find(r => r.id === id)?.nome })
+            }).then(() => {
+                carregarDados();
+                mostrarToast('✅ Participante excluído!', 'success');
+            }).catch(() => mostrarToast('Erro ao excluir', 'error'));
+        }
+    }
+    
+    function selecionarTodosParticipantes() {
+        participantesSelecionados = participantesFiltrados.map(r => r.id);
+        atualizarListaParticipantes();
+        mostrarToast(`✅ ${participantesSelecionados.length} participantes selecionados`, 'success');
+    }
+    
+    function desmarcarTodosParticipantes() {
+        participantesSelecionados = [];
+        atualizarListaParticipantes();
+        mostrarToast('✅ Todos desmarcados', 'info');
+    }
+    
+    function limparHistoricoSorteio() {
+        if (confirm('Limpar histórico de ganhadores? Todos poderão ser sorteados novamente.')) {
+            ganhadoresIds = [];
+            localStorage.removeItem('ganhadoresIds');
+            participantesSelecionados = [];
+            aplicarFiltrosSorteio();
+            const btnSortear = document.getElementById('btnSortear');
+            if (btnSortear) btnSortear.disabled = false;
+            mostrarToast('🔄 Histórico de sorteio limpo!', 'success');
+        }
+    }
+    
+    function criarConfetes() {
+        const cores = ['#FFD700', '#1e90ff', '#FF6347', '#00FF7F', '#FF69B4', '#FF4500'];
+        for (let i = 0; i < 150; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.backgroundColor = cores[Math.floor(Math.random() * cores.length)];
+            confetti.style.width = Math.random() * 12 + 4 + 'px';
+            confetti.style.height = confetti.style.width;
+            confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+            confetti.style.animationDelay = Math.random() * 2 + 's';
+            confetti.style.animationName = 'confettiFall';
+            document.body.appendChild(confetti);
+            setTimeout(() => confetti.remove(), 5000);
+        }
+    }
+    
+    async function realizarSorteio() {
+        const btn = document.getElementById('btnSortear');
+        btn.disabled = true;
+        
+        if (participantesSelecionados.length === 0) {
+            mostrarToast('Nenhum participante selecionado!', 'error');
+            btn.disabled = false;
+            return;
+        }
+        
+        const quantidade = parseInt(document.getElementById('quantidadeVencedores').value);
+        if (quantidade > participantesSelecionados.length) {
+            mostrarToast(`Só é possível sortear ${participantesSelecionados.length} pessoa(s)`, 'error');
+            btn.disabled = false;
+            return;
+        }
+        
+        const animacaoDiv = document.createElement('div');
+        animacaoDiv.className = 'animacao-sorteio';
+        animacaoDiv.style.zIndex = '10000';
+        animacaoDiv.innerHTML = `<div class="roleta">🎲</div><p style="color:white; margin-top:20px;">SORTEANDO...</p>`;
+        document.body.appendChild(animacaoDiv);
+        
+        await new Promise(resolve => setTimeout(resolve, 3000));
+        animacaoDiv.remove();
+        
+        const selecionadosEmbaralhados = [...participantesSelecionados];
+        for (let i = selecionadosEmbaralhados.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [selecionadosEmbaralhados[i], selecionadosEmbaralhados[j]] = [selecionadosEmbaralhados[j], selecionadosEmbaralhados[i]];
+        }
+        
+        const vencedoresIds = selecionadosEmbaralhados.slice(0, quantidade);
+        const vencedores = vencedoresIds.map(id => ritmistasOriginais.find(r => r.id === id));
+        
+        ganhadoresIds = [...ganhadoresIds, ...vencedoresIds];
+        localStorage.setItem('ganhadoresIds', JSON.stringify(ganhadoresIds));
+        
+        criarConfetes();
+        
+        const modal = document.getElementById('modalVencedores');
+        const listaDiv = document.getElementById('listaVencedores');
+        listaDiv.innerHTML = vencedores.map((v, idx) => 
+            `<div style="padding: 12px; margin: 10px 0; background: ${document.body.classList.contains('dark') ? '#0f1a30' : '#f0f0f0'}; border-radius: 16px;">
+                <strong>${idx+1}º 🏆 ${v.nome}</strong><br>
+                🥁 ${v.instrumento || '-'} | ⭐ ${v.nivel || '-'}
+             </div>`
+        ).join('');
+        modal.style.display = 'flex';
+        
+        modal.onclick = function(e) {
+            if (e.target === modal) return;
+        };
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.style.display === 'flex') {
+                e.preventDefault();
+            }
+        });
+        
+        aplicarFiltrosSorteio();
+        btn.disabled = false;
+    }
+    
+    function fecharModalVencedores() {
+        document.getElementById('modalVencedores').style.display = 'none';
+    }
+    
+    function carregarParticipantesSorteio() {
+        const saved = localStorage.getItem('ganhadoresIds');
+        if (saved) ganhadoresIds = JSON.parse(saved);
+        aplicarFiltrosSorteio();
+    }
+    
+    document.querySelector('.filtro-sexo-todos')?.addEventListener('change', function() {
+        document.querySelectorAll('.filtro-sexo').forEach(cb => cb.checked = this.checked);
+        aplicarFiltrosSorteio();
+    });
+    document.querySelectorAll('.filtro-sexo').forEach(cb => {
+        cb.addEventListener('change', () => {
+            if (document.querySelector('.filtro-sexo-todos')) {
+                document.querySelector('.filtro-sexo-todos').checked = false;
+            }
+            aplicarFiltrosSorteio();
+        });
     });
     
-    document.getElementById('buscaNome').addEventListener('input', () => carregarRankingPresenca());
-    document.getElementById('filtroInstrumento').addEventListener('change', () => carregarRankingPresenca());
-    document.getElementById('filtroNivel').addEventListener('change', () => carregarRankingPresenca());
+    document.getElementById('btnSelecionarTodosParticipantes')?.addEventListener('click', selecionarTodosParticipantes);
+    document.getElementById('btnDesmarcarTodosParticipantes')?.addEventListener('click', desmarcarTodosParticipantes);
+    document.getElementById('btnLimparHistoricoSorteio')?.addEventListener('click', limparHistoricoSorteio);
+    document.getElementById('btnSortear')?.addEventListener('click', realizarSorteio);
+    document.getElementById('btnFecharModalVencedores')?.addEventListener('click', fecharModalVencedores);
+    
+    document.querySelectorAll('.filtro-nivel, .filtro-instrumento, input[name="filtroStatus"], input[name="filtroPresenca"]').forEach(el => {
+        el.addEventListener('change', () => aplicarFiltrosSorteio());
+    });
+    
+    document.querySelector('.filtro-nivel-todos')?.addEventListener('change', function() {
+        document.querySelectorAll('.filtro-nivel').forEach(cb => cb.checked = this.checked);
+        aplicarFiltrosSorteio();
+    });
+    
+    document.querySelector('.filtro-instrumento-todos')?.addEventListener('change', function() {
+        document.querySelectorAll('.filtro-instrumento').forEach(cb => cb.checked = this.checked);
+        aplicarFiltrosSorteio();
+    });
+    
+    document.getElementById('buscaNome')?.addEventListener('input', () => carregarRankingPresenca());
+    document.getElementById('filtroInstrumento')?.addEventListener('change', () => carregarRankingPresenca());
+    document.getElementById('filtroNivel')?.addEventListener('change', () => carregarRankingPresenca());
     
     carregarDados();
 </script>
-
 </body>
 </html>
