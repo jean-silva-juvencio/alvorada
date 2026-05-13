@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Unidos do Alvorada | Solicitações</title>
     
-    <!-- PWA LINKS -->
     <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#003399">
@@ -192,11 +191,11 @@
         .btn-recarga:hover { transform: scale(1.02); }
         body.dark .filtros input, body.dark .filtros select { background: #0f1a30; border-color: #1e3a5f; color: white; }
 
-        /* CORES DA LINHA INTEIRA POR CATEGORIA */
-        .categoria-primeira-vez { background-color: #dc2626 !important; color: white !important; }
+        /* CORES DAS CATEGORIAS - PADRÃO FORMULÁRIO */
+        .categoria-primeira-vez { background-color: #16a34a !important; color: white !important; }
         .categoria-basico { background-color: #2563eb !important; color: white !important; }
         .categoria-intermediario { background-color: #eab308 !important; color: #1a1a1a !important; }
-        .categoria-avancado { background-color: #16a34a !important; color: white !important; }
+        .categoria-avancado { background-color: #dc2626 !important; color: white !important; }
         .categoria-mestre { background-color: #111111 !important; color: #f0f0f0 !important; }
 
         .categoria-primeira-vez td,
@@ -249,6 +248,7 @@
         }
         body.dark .secao-titulo { border-bottom-color: #FFD700; }
 
+        /* MODAL VISUALIZAR/EDITAR */
         .modal {
             display: none;
             position: fixed;
@@ -265,14 +265,63 @@
             background: white;
             border-radius: 30px;
             padding: 30px;
-            max-width: 600px;
+            max-width: 800px;
             width: 90%;
-            max-height: 80vh;
+            max-height: 85vh;
             overflow-y: auto;
         }
-        .modal-content h2 { margin-bottom: 20px; color: #1e90ff; }
-        body.dark .modal-content h2 { color: #FFD700; }
-        .modal-content label { font-weight: 600; display: block; margin-top: 10px; margin-bottom: 5px; }
+        .modal-content h2 { margin-bottom: 20px; color: #1e90ff; border-bottom: 2px solid #1e90ff; padding-bottom: 10px; }
+        body.dark .modal-content h2 { color: #FFD700; border-bottom-color: #FFD700; }
+        
+        .modal-section {
+            margin-bottom: 25px;
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 15px;
+        }
+        body.dark .modal-section {
+            background: #0f1a30;
+        }
+        .modal-section h3 {
+            color: #1e90ff;
+            font-size: 1rem;
+            margin-bottom: 12px;
+            border-left: 3px solid #1e90ff;
+            padding-left: 10px;
+        }
+        body.dark .modal-section h3 {
+            color: #FFD700;
+            border-left-color: #FFD700;
+        }
+        .info-row {
+            display: flex;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+        .info-label {
+            font-weight: 600;
+            width: 130px;
+            flex-shrink: 0;
+        }
+        .info-value {
+            flex: 1;
+        }
+        .avaliacao-box {
+            background: #e8f0fe;
+            border-radius: 12px;
+            padding: 12px;
+            margin-top: 10px;
+        }
+        body.dark .avaliacao-box {
+            background: #1e3a5f;
+        }
+        
+        .modal-content label {
+            font-weight: 600;
+            display: block;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
         .modal-content input, .modal-content select {
             width: 100%;
             padding: 10px;
@@ -389,6 +438,8 @@
             table th, table td { padding: 8px; font-size: 0.7rem; }
             .filtros { flex-direction: column; }
             .btn-recarga { width: 100%; }
+            .info-label { width: 100px; font-size: 0.8rem; }
+            .modal-section { padding: 10px; }
         }
     </style>
 </head>
@@ -440,10 +491,10 @@
             </select>
             <select id="filtroCategoria" onchange="aplicarFiltros()">
                 <option value="todos">🏷️ Todas as categorias</option>
-                <option value="Primeira vez">🔴 Primeira vez</option>
+                <option value="Primeira vez">🟢 Primeira vez</option>
                 <option value="Básico">🔵 Básico</option>
                 <option value="Intermediário">🟡 Intermediário</option>
-                <option value="Avançado">🟢 Avançado</option>
+                <option value="Avançado">🔴 Avançado</option>
                 <option value="Mestre">⚫ Mestre</option>
             </select>
             <button class="btn-recarga" onclick="carregarRitmistas()">🔄 CARREGAR</button>
@@ -483,48 +534,119 @@
     <p>© 2026 Unidos do Alvorada. Todos os direitos reservados.</p>
 </div>
 
-<!-- MODAL EDITAR/VISUALIZAR -->
+<!-- MODAL VISUALIZAR/EDITAR -->
 <div id="modalEditar" class="modal">
     <div class="modal-content">
         <span class="fechar" onclick="fecharModal()">&times;</span>
-        <h2 id="modalTitulo">✏️ EDITAR RITMISTA</h2>
+        <h2 id="modalTitulo">👁️ VISUALIZAR RITMISTA</h2>
         <input type="hidden" id="editId">
-        <label>Nome completo:</label><input type="text" id="editNome">
-        <label>Data de nascimento:</label><input type="date" id="editDataNasc">
-        <label>Telefone:</label><input type="text" id="editTelefone">
-        <label>E-mail:</label><input type="email" id="editEmail">
-        <label>Instrumento:</label>
-        <select id="editInstrumento">
-            <option value="Surdo">Surdo</option>
-            <option value="Caixa">Caixa</option>
-            <option value="Repique">Repique</option>
-            <option value="Tamborim">Tamborim</option>
-            <option value="Chocalho">Chocalho</option>
-            <option value="Cuíca">Cuíca</option>
-            <option value="Agogô">Agogô</option>
-        </select>
-        <label>Nível experiência:</label><select id="editNivel">
-            <option value="Primeira vez">Primeira vez</option>
-            <option value="Básico">Básico</option>
-            <option value="Intermediário">Intermediário</option>
-            <option value="Avançado">Avançado</option>
-            <option value="Mestre">Mestre</option>
-        </select>
-        <label>Tamanho blusa:</label><select id="editBlusa">
-            <option value="PP">PP</option>
-            <option value="P">P</option>
-            <option value="M">M</option>
-            <option value="G">G</option>
-            <option value="GG">GG</option>
-            <option value="GGG">GGG</option>
-            <option value="XGG">XGG</option>
-        </select>
-        <label>Status:</label><select id="editStatus">
-            <option value="Ativo">🟢 Ativo</option>
-            <option value="Pendente">🟡 Pendente</option>
-            <option value="Desativado">🔴 Desativado</option>
-        </select>
-        <div class="modal-botoes"><button class="btn-cancelar" onclick="fecharModal()">CANCELAR</button><button class="btn-salvar" id="btnSalvarEdicao" onclick="salvarEdicao()">SALVAR</button></div>
+        
+        <!-- ========== VISUALIZAÇÃO (sempre visível) ========== -->
+        <div id="viewMode">
+            <div class="modal-section">
+                <h3>📌 DADOS PESSOAIS</h3>
+                <div class="info-row"><div class="info-label">Nome:</div><div class="info-value" id="viewNome"></div></div>
+                <div class="info-row"><div class="info-label">Data nascimento:</div><div class="info-value" id="viewDataNasc"></div></div>
+                <div class="info-row"><div class="info-label">Telefone:</div><div class="info-value" id="viewTelefone"></div></div>
+                <div class="info-row"><div class="info-label">E-mail:</div><div class="info-value" id="viewEmail"></div></div>
+            </div>
+            
+            <div class="modal-section">
+                <h3>📍 ENDEREÇO</h3>
+                <div class="info-row"><div class="info-label">CEP:</div><div class="info-value" id="viewCep"></div></div>
+                <div class="info-row"><div class="info-label">Endereço:</div><div class="info-value" id="viewEndereco"></div></div>
+                <div class="info-row"><div class="info-label">Bairro:</div><div class="info-value" id="viewBairro"></div></div>
+                <div class="info-row"><div class="info-label">Cidade/UF:</div><div class="info-value" id="viewCidade"></div></div>
+            </div>
+            
+            <div class="modal-section">
+                <h3>🥁 BATERIA</h3>
+                <div class="info-row"><div class="info-label">Instrumento:</div><div class="info-value" id="viewInstrumento"></div></div>
+                <div class="info-row"><div class="info-label">Nível:</div><div class="info-value" id="viewNivel"></div></div>
+                <div class="info-row"><div class="info-label">Blusa:</div><div class="info-value" id="viewBlusa"></div></div>
+                <div class="info-row"><div class="info-label">Status:</div><div class="info-value" id="viewStatus"></div></div>
+            </div>
+            
+            <div class="modal-section">
+                <h3>📢 COMO CONHECEU</h3>
+                <div class="info-row"><div class="info-label">Conheceu por:</div><div class="info-value" id="viewComoConheceu"></div></div>
+                <div class="info-row" id="viewComoConheceuOutroRow" style="display: none;"><div class="info-label">Especificar:</div><div class="info-value" id="viewComoConheceuOutro"></div></div>
+            </div>
+            
+            <div class="modal-section">
+                <h3>⭐ AVALIAÇÃO (OPCIONAL)</h3>
+                <div class="avaliacao-box">
+                    <div class="info-row"><div class="info-label">Tipo:</div><div class="info-value" id="viewAvaliacaoTipo">—</div></div>
+                    <div class="info-row"><div class="info-label">Nota:</div><div class="info-value" id="viewAvaliacaoNota">—</div></div>
+                    <div class="info-row"><div class="info-label">Comentário:</div><div class="info-value" id="viewAvaliacaoComentario">—</div></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ========== EDIÇÃO (escondido por padrão) ========== -->
+        <div id="editMode" style="display: none;">
+            <div class="modal-section">
+                <h3>📌 DADOS PESSOAIS</h3>
+                <label>Nome completo:</label><input type="text" id="editNome">
+                <label>Data de nascimento:</label><input type="date" id="editDataNasc">
+                <label>Telefone:</label><input type="text" id="editTelefone">
+                <label>E-mail:</label><input type="email" id="editEmail">
+            </div>
+            
+            <div class="modal-section">
+                <h3>📍 ENDEREÇO</h3>
+                <label>CEP:</label><input type="text" id="editCep">
+                <label>Endereço:</label><input type="text" id="editEndereco">
+                <label>Número:</label><input type="text" id="editNumero">
+                <label>Bairro:</label><input type="text" id="editBairro">
+                <label>Cidade:</label><input type="text" id="editCidade">
+                <label>Estado:</label><input type="text" id="editEstado" maxlength="2">
+            </div>
+            
+            <div class="modal-section">
+                <h3>🥁 BATERIA</h3>
+                <label>Instrumento:</label>
+                <select id="editInstrumento">
+                    <option value="Surdo">Surdo</option>
+                    <option value="Caixa">Caixa</option>
+                    <option value="Repique">Repique</option>
+                    <option value="Tamborim">Tamborim</option>
+                    <option value="Chocalho">Chocalho</option>
+                    <option value="Cuíca">Cuíca</option>
+                    <option value="Agogô">Agogô</option>
+                </select>
+                <label>Nível experiência:</label>
+                <select id="editNivel">
+                    <option value="Primeira vez">Primeira vez</option>
+                    <option value="Básico">Básico</option>
+                    <option value="Intermediário">Intermediário</option>
+                    <option value="Avançado">Avançado</option>
+                    <option value="Mestre">Mestre</option>
+                </select>
+                <label>Tamanho blusa:</label>
+                <select id="editBlusa">
+                    <option value="PP">PP</option>
+                    <option value="P">P</option>
+                    <option value="M">M</option>
+                    <option value="G">G</option>
+                    <option value="GG">GG</option>
+                    <option value="GGG">GGG</option>
+                    <option value="XGG">XGG</option>
+                </select>
+                <label>Status:</label>
+                <select id="editStatus">
+                    <option value="Ativo">🟢 Ativo</option>
+                    <option value="Pendente">🟡 Pendente</option>
+                    <option value="Desativado">🔴 Desativado</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="modal-botoes">
+            <button class="btn-cancelar" id="btnCancelarEdicao" onclick="fecharModal()" style="display: none;">CANCELAR</button>
+            <button class="btn-cancelar" id="btnFecharVisualizacao" onclick="fecharModal()">FECHAR</button>
+            <button class="btn-salvar" id="btnSalvarEdicao" onclick="salvarEdicao()" style="display: none;">SALVAR</button>
+        </div>
     </div>
 </div>
 
@@ -558,6 +680,7 @@
     }
     
     let ritmistaParaExcluir = null;
+    let modoEdicao = false;
     
     function sair() {
         localStorage.removeItem('usuario_logado');
@@ -586,9 +709,9 @@
         if (!categoria) return '';
         const catUpper = categoria.toString().toUpperCase().trim();
         if (catUpper === 'PRIMEIRA VEZ' || catUpper.includes('PRIMEIRA')) return 'Primeira vez';
-        if (catUpper === 'BÁSICO') return 'Básico';
-        if (catUpper === 'INTERMEDIÁRIO') return 'Intermediário';
-        if (catUpper === 'AVANÇADO') return 'Avançado';
+        if (catUpper === 'BÁSICO' || catUpper === 'BASICO') return 'Básico';
+        if (catUpper === 'INTERMEDIÁRIO' || catUpper === 'INTERMEDIARIO') return 'Intermediário';
+        if (catUpper === 'AVANÇADO' || catUpper === 'AVANCADO') return 'Avançado';
         if (catUpper === 'MESTRE') return 'Mestre';
         return categoria;
     }
@@ -606,16 +729,23 @@
         return instrumento;
     }
 
+    function normalizarStatus(status) {
+        if (!status) return '';
+        const statUpper = status.toString().toUpperCase().trim();
+        if (statUpper === 'ATIVO') return 'Ativo';
+        if (statUpper === 'PENDENTE') return 'Pendente';
+        if (statUpper === 'DESATIVADO') return 'Desativado';
+        return status;
+    }
+
     function getCategoriaClass(categoria) {
         if (!categoria) return '';
         const cat = categoria.toString().trim();
-        
         if (cat === 'Primeira vez') return 'categoria-primeira-vez';
         if (cat === 'Básico') return 'categoria-basico';
         if (cat === 'Intermediário') return 'categoria-intermediario';
         if (cat === 'Avançado') return 'categoria-avancado';
         if (cat === 'Mestre') return 'categoria-mestre';
-        
         return '';
     }
 
@@ -632,7 +762,11 @@
         
         if (filtroNome) filtrados = filtrados.filter(r => normalizarTexto(r.nome).includes(normalizarTexto(filtroNome)));
         if (filtroInstrumento !== 'todos') filtrados = filtrados.filter(r => normalizarInstrumento(r.instrumento) === filtroInstrumento);
-        if (filtroCategoria !== 'todos') filtrados = filtrados.filter(r => normalizarCategoria(r.nivel) === filtroCategoria);
+        
+        if (filtroCategoria !== 'todos') {
+            filtrados = filtrados.filter(r => normalizarCategoria(r.nivel) === filtroCategoria);
+        }
+        
         if (filtroStatus !== 'todos') filtrados = filtrados.filter(r => normalizarTexto(r.status) === normalizarTexto(filtroStatus));
         
         const ativos = filtrados.filter(r => normalizarTexto(r.status) === 'ATIVO');
@@ -643,76 +777,72 @@
         document.getElementById('totalPendentes').textContent = pendentes.length;
         document.getElementById('totalInativos').textContent = inativos.length;
 
-        // ATIVOS
-        const tbodyAtivos = document.getElementById('tbodyAtivos');
-        tbodyAtivos.innerHTML = '';
-        ativos.forEach(r => {
-            const row = tbodyAtivos.insertRow();
-            const categoriaClass = getCategoriaClass(r.nivel);
-            if (categoriaClass) row.className = categoriaClass;
-            row.insertCell(0).textContent = r.nome || '';
-            row.insertCell(1).textContent = normalizarInstrumento(r.instrumento) || '-';
-            row.insertCell(2).textContent = normalizarCategoria(r.nivel) || '-';
-            const cellBtn = row.insertCell(3);
-            
-            const btnVer = document.createElement('button'); btnVer.textContent = '👁️'; btnVer.className = 'btn-acao btn-visualizar'; btnVer.onclick = () => abrirModalVisualizar(r);
-            const btnEditar = document.createElement('button'); btnEditar.textContent = '✏️'; btnEditar.className = 'btn-acao btn-editar'; btnEditar.onclick = () => abrirModalEditar(r);
-            const btnDesativar = document.createElement('button'); btnDesativar.textContent = '❌'; btnDesativar.className = 'btn-acao btn-desativar'; btnDesativar.onclick = () => confirmarDesativacao(r);
-            const btnExcluir = document.createElement('button'); btnExcluir.textContent = '🗑️'; btnExcluir.className = 'btn-acao btn-excluir'; btnExcluir.onclick = () => abrirModalExcluir(r);
-            
-            cellBtn.appendChild(btnVer);
-            cellBtn.appendChild(btnEditar);
-            cellBtn.appendChild(btnDesativar);
-            cellBtn.appendChild(btnExcluir);
-        });
-
-        // PENDENTES
-        const tbodyPendentes = document.getElementById('tbodyPendentes');
-        tbodyPendentes.innerHTML = '';
-        pendentes.forEach(r => {
-            const row = tbodyPendentes.insertRow();
-            const categoriaClass = getCategoriaClass(r.nivel);
-            if (categoriaClass) row.className = categoriaClass;
-            row.insertCell(0).textContent = r.nome || '';
-            row.insertCell(1).textContent = normalizarInstrumento(r.instrumento) || '-';
-            row.insertCell(2).textContent = normalizarCategoria(r.nivel) || '-';
-            const cellBtn = row.insertCell(3);
-            
-            const btnAprovar = document.createElement('button'); btnAprovar.textContent = '✅'; btnAprovar.className = 'btn-acao btn-aprovar'; btnAprovar.onclick = () => confirmarAprovacao(r, 'Ativo');
-            const btnRecusar = document.createElement('button'); btnRecusar.textContent = '❌'; btnRecusar.className = 'btn-acao btn-recusar'; btnRecusar.onclick = () => confirmarAprovacao(r, 'Desativado');
-            const btnVer = document.createElement('button'); btnVer.textContent = '👁️'; btnVer.className = 'btn-acao btn-visualizar'; btnVer.onclick = () => abrirModalVisualizar(r);
-            const btnExcluir = document.createElement('button'); btnExcluir.textContent = '🗑️'; btnExcluir.className = 'btn-acao btn-excluir'; btnExcluir.onclick = () => abrirModalExcluir(r);
-            
-            cellBtn.appendChild(btnAprovar);
-            cellBtn.appendChild(btnRecusar);
-            cellBtn.appendChild(btnVer);
-            cellBtn.appendChild(btnExcluir);
-        });
-
-        // INATIVOS
-        const tbodyInativos = document.getElementById('tbodyInativos');
-        if (tbodyInativos) {
-            tbodyInativos.innerHTML = '';
-            inativos.forEach(r => {
-                const row = tbodyInativos.insertRow();
-                const categoriaClass = getCategoriaClass(r.nivel);
+        function renderizarGrupo(tbody, ritmistasGrupo, mostrarBotoesAprovacao = false, mostrarReativar = false) {
+            tbody.innerHTML = '';
+            ritmistasGrupo.forEach(r => {
+                const row = tbody.insertRow();
+                const nivelNormalizado = normalizarCategoria(r.nivel);
+                const categoriaClass = getCategoriaClass(nivelNormalizado);
                 if (categoriaClass) row.className = categoriaClass;
+                
                 row.insertCell(0).textContent = r.nome || '';
                 row.insertCell(1).textContent = normalizarInstrumento(r.instrumento) || '-';
-                row.insertCell(2).textContent = normalizarCategoria(r.nivel) || '-';
+                row.insertCell(2).textContent = nivelNormalizado || '-';
                 const cellBtn = row.insertCell(3);
                 
-                const btnReativar = document.createElement('button'); btnReativar.textContent = '🔄'; btnReativar.className = 'btn-acao btn-reativar'; btnReativar.onclick = () => confirmarAprovacao(r, 'Ativo');
-                const btnVer = document.createElement('button'); btnVer.textContent = '👁️'; btnVer.className = 'btn-acao btn-visualizar'; btnVer.onclick = () => abrirModalVisualizar(r);
-                const btnEditar = document.createElement('button'); btnEditar.textContent = '✏️'; btnEditar.className = 'btn-acao btn-editar'; btnEditar.onclick = () => abrirModalEditar(r);
-                const btnExcluir = document.createElement('button'); btnExcluir.textContent = '🗑️'; btnExcluir.className = 'btn-acao btn-excluir'; btnExcluir.onclick = () => abrirModalExcluir(r);
-                
-                cellBtn.appendChild(btnReativar);
+                const btnVer = document.createElement('button'); 
+                btnVer.textContent = '👁️'; 
+                btnVer.className = 'btn-acao btn-visualizar'; 
+                btnVer.onclick = () => abrirModalVisualizar(r);
                 cellBtn.appendChild(btnVer);
-                cellBtn.appendChild(btnEditar);
+                
+                if (mostrarBotoesAprovacao) {
+                    const btnAprovar = document.createElement('button'); 
+                    btnAprovar.textContent = '✅'; 
+                    btnAprovar.className = 'btn-acao btn-aprovar'; 
+                    btnAprovar.onclick = () => confirmarAprovacao(r, 'Ativo');
+                    cellBtn.appendChild(btnAprovar);
+                    
+                    const btnRecusar = document.createElement('button'); 
+                    btnRecusar.textContent = '❌'; 
+                    btnRecusar.className = 'btn-acao btn-recusar'; 
+                    btnRecusar.onclick = () => confirmarAprovacao(r, 'Desativado');
+                    cellBtn.appendChild(btnRecusar);
+                }
+                
+                if (mostrarReativar) {
+                    const btnReativar = document.createElement('button'); 
+                    btnReativar.textContent = '🔄'; 
+                    btnReativar.className = 'btn-acao btn-reativar'; 
+                    btnReativar.onclick = () => confirmarAprovacao(r, 'Ativo');
+                    cellBtn.appendChild(btnReativar);
+                }
+                
+                if (!mostrarBotoesAprovacao && !mostrarReativar) {
+                    const btnEditar = document.createElement('button'); 
+                    btnEditar.textContent = '✏️'; 
+                    btnEditar.className = 'btn-acao btn-editar'; 
+                    btnEditar.onclick = () => abrirModalEditar(r);
+                    cellBtn.appendChild(btnEditar);
+                    
+                    const btnDesativar = document.createElement('button'); 
+                    btnDesativar.textContent = '❌'; 
+                    btnDesativar.className = 'btn-acao btn-desativar'; 
+                    btnDesativar.onclick = () => confirmarDesativacao(r);
+                    cellBtn.appendChild(btnDesativar);
+                }
+                
+                const btnExcluir = document.createElement('button'); 
+                btnExcluir.textContent = '🗑️'; 
+                btnExcluir.className = 'btn-acao btn-excluir'; 
+                btnExcluir.onclick = () => abrirModalExcluir(r);
                 cellBtn.appendChild(btnExcluir);
             });
         }
+        
+        renderizarGrupo(document.getElementById('tbodyAtivos'), ativos, false, false);
+        renderizarGrupo(document.getElementById('tbodyPendentes'), pendentes, true, false);
+        renderizarGrupo(document.getElementById('tbodyInativos'), inativos, false, true);
     }
 
     function confirmarDesativacao(ritmista) {
@@ -721,35 +851,108 @@
         }
     }
 
+    function notaParaEstrelas(nota) {
+        if (!nota || nota < 1 || nota > 5) return '—';
+        const estrelasCheias = '★'.repeat(nota);
+        const estrelasVazias = '☆'.repeat(5 - nota);
+        return `${estrelasCheias}${estrelasVazias}`;
+    }
+
+    function getTipoEmoji(tipo) {
+        if (!tipo) return '—';
+        const t = tipo.toLowerCase();
+        if (t === 'elogio') return '💬 ELOGIO';
+        if (t === 'sugestao') return '💡 SUGESTÃO';
+        if (t === 'critica') return '👎 CRÍTICA';
+        return tipo;
+    }
+
+    function getEmojiNivel(nivel) {
+        const n = normalizarCategoria(nivel);
+        if (n === 'Primeira vez') return '🟢';
+        if (n === 'Básico') return '🔵';
+        if (n === 'Intermediário') return '🟡';
+        if (n === 'Avançado') return '🔴';
+        if (n === 'Mestre') return '⚫';
+        return '';
+    }
+    
+    function getStatusHtml(status) {
+        const s = normalizarTexto(status);
+        if (s === 'ATIVO') return '🟢 Ativo';
+        if (s === 'PENDENTE') return '🟡 Pendente';
+        if (s === 'DESATIVADO') return '🔴 Inativo';
+        return status || '—';
+    }
+
     function abrirModalVisualizar(ritmista) {
+        modoEdicao = false;
         document.getElementById('modalTitulo').textContent = '👁️ VISUALIZAR RITMISTA';
-        preencherModal(ritmista);
-        document.querySelectorAll('#modalEditar input, #modalEditar select').forEach(campo => campo.disabled = true);
+        
+        // Mostrar visualização, esconder edição
+        document.getElementById('viewMode').style.display = 'block';
+        document.getElementById('editMode').style.display = 'none';
+        document.getElementById('btnFecharVisualizacao').style.display = 'inline-block';
+        document.getElementById('btnCancelarEdicao').style.display = 'none';
+        document.getElementById('btnSalvarEdicao').style.display = 'none';
+        
+        // Preencher dados de visualização
+        document.getElementById('viewNome').textContent = ritmista.nome || '—';
+        document.getElementById('viewDataNasc').textContent = ritmista.dataNasc ? new Date(ritmista.dataNasc).toLocaleDateString('pt-BR') : '—';
+        document.getElementById('viewTelefone').textContent = ritmista.telefone || '—';
+        document.getElementById('viewEmail').textContent = ritmista.email || '—';
+        
+        document.getElementById('viewCep').textContent = ritmista.cep || '—';
+        document.getElementById('viewEndereco').textContent = `${ritmista.endereco || ''}, ${ritmista.numero || ''}`.trim() || '—';
+        document.getElementById('viewBairro').textContent = ritmista.bairro || '—';
+        document.getElementById('viewCidade').textContent = `${ritmista.cidade || ''} - ${ritmista.estado || ''}`.trim() || '—';
+        
+        document.getElementById('viewInstrumento').textContent = normalizarInstrumento(ritmista.instrumento) || '—';
+        document.getElementById('viewNivel').innerHTML = `${normalizarCategoria(ritmista.nivel) || '—'} ${getEmojiNivel(ritmista.nivel)}`;
+        document.getElementById('viewBlusa').textContent = ritmista.blusa || '—';
+        document.getElementById('viewStatus').innerHTML = getStatusHtml(ritmista.status);
+        
+        const comoConheceu = ritmista.como_conheceu || '—';
+        document.getElementById('viewComoConheceu').textContent = comoConheceu;
+        
+        const comoConheceuOutro = ritmista.como_conheceu_outro;
+        if (comoConheceuOutro && comoConheceu === 'Outro') {
+            document.getElementById('viewComoConheceuOutroRow').style.display = 'flex';
+            document.getElementById('viewComoConheceuOutro').textContent = comoConheceuOutro;
+        } else {
+            document.getElementById('viewComoConheceuOutroRow').style.display = 'none';
+        }
+        
+        document.getElementById('viewAvaliacaoTipo').innerHTML = getTipoEmoji(ritmista.avaliacao_tipo);
+        document.getElementById('viewAvaliacaoNota').innerHTML = ritmista.avaliacao_nota ? `${ritmista.avaliacao_nota} ${notaParaEstrelas(ritmista.avaliacao_nota)}` : '—';
+        document.getElementById('viewAvaliacaoComentario').textContent = ritmista.avaliacao_comentario || '—';
+        
         document.getElementById('modalEditar').style.display = 'flex';
     }
 
     function abrirModalEditar(ritmista) {
+        modoEdicao = true;
         document.getElementById('modalTitulo').textContent = '✏️ EDITAR RITMISTA';
-        preencherModal(ritmista);
-        document.querySelectorAll('#modalEditar input, #modalEditar select').forEach(campo => campo.disabled = false);
-        document.getElementById('modalEditar').style.display = 'flex';
-    }
-
-    function preencherModal(ritmista) {
+        
+        // Esconder visualização, mostrar edição
+        document.getElementById('viewMode').style.display = 'none';
+        document.getElementById('editMode').style.display = 'block';
+        document.getElementById('btnFecharVisualizacao').style.display = 'none';
+        document.getElementById('btnCancelarEdicao').style.display = 'inline-block';
+        document.getElementById('btnSalvarEdicao').style.display = 'inline-block';
+        
+        // Preencher campos de edição
         document.getElementById('editId').value = ritmista.id || '';
         document.getElementById('editNome').value = ritmista.nome || '';
-        
-        let dataNasc = ritmista.dataNasc || '';
-        let dataFormatada = '';
-        if (dataNasc) {
-            let dataObj = new Date(dataNasc);
-            if (!isNaN(dataObj.getTime())) {
-                dataFormatada = dataObj.toISOString().split('T')[0];
-            }
-        }
-        document.getElementById('editDataNasc').value = dataFormatada;
+        document.getElementById('editDataNasc').value = ritmista.dataNasc || '';
         document.getElementById('editTelefone').value = ritmista.telefone || '';
         document.getElementById('editEmail').value = ritmista.email || '';
+        document.getElementById('editCep').value = ritmista.cep || '';
+        document.getElementById('editEndereco').value = ritmista.endereco || '';
+        document.getElementById('editNumero').value = ritmista.numero || '';
+        document.getElementById('editBairro').value = ritmista.bairro || '';
+        document.getElementById('editCidade').value = ritmista.cidade || '';
+        document.getElementById('editEstado').value = ritmista.estado || '';
         
         if (ritmista.instrumento) document.getElementById('editInstrumento').value = normalizarInstrumento(ritmista.instrumento);
         if (ritmista.nivel) document.getElementById('editNivel').value = normalizarCategoria(ritmista.nivel);
@@ -760,6 +963,8 @@
             else if (statusNormalizado === 'PENDENTE') document.getElementById('editStatus').value = 'Pendente';
             else if (statusNormalizado === 'DESATIVADO') document.getElementById('editStatus').value = 'Desativado';
         }
+        
+        document.getElementById('modalEditar').style.display = 'flex';
     }
 
     async function salvarEdicao() {
@@ -773,6 +978,12 @@
             dataNasc: document.getElementById('editDataNasc').value,
             telefone: document.getElementById('editTelefone').value,
             email: document.getElementById('editEmail').value,
+            cep: document.getElementById('editCep').value,
+            endereco: document.getElementById('editEndereco').value,
+            numero: document.getElementById('editNumero').value,
+            bairro: document.getElementById('editBairro').value,
+            cidade: document.getElementById('editCidade').value,
+            estado: document.getElementById('editEstado').value,
             instrumento: document.getElementById('editInstrumento').value,
             nivel: document.getElementById('editNivel').value,
             blusa: document.getElementById('editBlusa').value,
