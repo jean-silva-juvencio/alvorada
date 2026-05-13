@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Unidos do Alvorada | Galeria</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#003399">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0a1628, #1e3a5f);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Fundo gradiente animado */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: linear-gradient(125deg, #0a1628, #1e3a5f, #0a1628);
+            background-size: 200% 200%;
+            animation: gradientBG 8s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Container principal */
+        .container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 40px;
+            max-width: 700px;
+            width: 90%;
+        }
+
+        /* Card principal */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 60px;
+            padding: 50px 40px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.6s ease-out;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        body.dark .card {
+            background: rgba(30, 58, 95, 0.95);
+            color: white;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Ícone animado */
+        .icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        /* Título */
+        h1 {
+            font-size: 2.5rem;
+            color: #1e90ff;
+            margin-bottom: 15px;
+            font-weight: 900;
+        }
+
+        body.dark h1 {
+            color: #FFD700;
+        }
+
+        /* Subtítulo */
+        .subtitle {
+            font-size: 1.1rem;
+            color: #4a627a;
+            margin-bottom: 30px;
+        }
+
+        body.dark .subtitle {
+            color: #b0c4de;
+        }
+
+        /* Spinner de loading */
+        .spinner-container {
+            margin: 30px 0;
+        }
+
+        .spinner {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+
+        .spinner:before,
+        .spinner:after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            animation: pulse-ring 1.5s ease-out infinite;
+        }
+
+        .spinner:before {
+            width: 100%;
+            height: 100%;
+            background: rgba(30, 144, 255, 0.1);
+            animation-delay: 0s;
+        }
+
+        .spinner:after {
+            width: 70%;
+            height: 70%;
+            background: #1e90ff;
+            top: 15%;
+            left: 15%;
+            animation-delay: 0.5s;
+        }
+
+        body.dark .spinner:after {
+            background: #FFD700;
+        }
+
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* Loading text com fade */
+        .loading-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, #1e90ff, #FFD700, #1e90ff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: shine 2s linear infinite;
+        }
+
+        @keyframes shine {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        /* Texto Em breve destacado */
+        .embreve-box {
+            background: rgba(255, 152, 0, 0.15);
+            border-radius: 50px;
+            padding: 12px 25px;
+            margin: 25px 0;
+            display: inline-block;
+            animation: glow 2s infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 0 0 5px rgba(255, 152, 0, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(255, 152, 0, 0.6);
+            }
+        }
+
+        .embreve-text {
+            font-size: 1.1rem;
+            color: #ff9800;
+            font-weight: bold;
+        }
+
+        /* Grid de imagem placeholder */
+        .placeholder-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .placeholder-img {
+            background: linear-gradient(135deg, #e0e0e0, #ccc);
+            border-radius: 16px;
+            height: 100px;
+            animation: pulse-img 1.5s infinite;
+        }
+
+        body.dark .placeholder-img {
+            background: linear-gradient(135deg, #1e3a5f, #0f1a30);
+        }
+
+        @keyframes pulse-img {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        /* Botão voltar */
+        .btn-voltar {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #1e90ff, #0a1628);
+            color: white;
+            text-decoration: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        body.dark .btn-voltar {
+            background: linear-gradient(135deg, #FFD700, #1e3a5f);
+            color: #0a1628;
+        }
+
+        .btn-voltar:hover {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #FFD700, #1e90ff);
+            color: #0a1628;
+        }
+
+        /* Tema button */
+        .theme-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(5px);
+            border: none;
+            border-radius: 50px;
+            padding: 8px 20px;
+            cursor: pointer;
+            color: white;
+            z-index: 100;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .theme-btn:hover {
+            background: rgba(255,255,255,0.4);
+        }
+
+        /* Raios de luz */
+        .light-ray {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            background: radial-gradient(circle at 50% 50%, rgba(255,215,0,0.05) 0%, transparent 70%);
+            animation: rotateRay 20s linear infinite;
+        }
+
+        @keyframes rotateRay {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .card { padding: 30px 20px; }
+            h1 { font-size: 1.8rem; }
+            .icon { font-size: 3.5rem; }
+            .placeholder-grid { gap: 10px; }
+            .placeholder-img { height: 70px; }
+        }
+    </style>
+</head>
+<body>
+
+<button class="theme-btn" onclick="toggleTheme()">🌓 TEMA</button>
+
+<div class="animated-bg"></div>
+<div class="light-ray"></div>
+
+<div class="container">
+    <div class="card">
+        <div class="icon">📸</div>
+        <h1>🖼️ GALERIA DE FOTOS</h1>
+        <p class="subtitle">Registros dos melhores momentos da Unidos do Alvorada</p>
+        
+        <!-- Placeholder de imagens -->
+        <div class="placeholder-grid">
+            <div class="placeholder-img"></div>
+            <div class="placeholder-img"></div>
+            <div class="placeholder-img"></div>
+            <div class="placeholder-img"></div>
+            <div class="placeholder-img"></div>
+            <div class="placeholder-img"></div>
+        </div>
+        
+        <div class="spinner-container">
+            <div class="spinner"></div>
+            <div class="loading-text">
+                CARREGANDO GALERIA
+            </div>
+        </div>
+        
+        <div class="embreve-box">
+            <span class="embreve-text">✨ EM BREVE - FOTOS E VÍDEOS EM BREVE ✨</span>
+        </div>
+        
+        <div class="loading-text" style="font-size: 0.9rem; margin-top: 10px;">
+            Aguarde, conteúdo especial está sendo preparado!
+        </div>
+        
+        <a href="./index.html" class="btn-voltar">
+            ← VOLTAR PARA A PAGINA INICIAL
+        </a>
+    </div>
+</div>
+
+<script>
+    function toggleTheme() {
+        document.body.classList.toggle('dark');
+        localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    }
+    
+    // Carregar tema salvo
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark');
+    }
+    
+    // Efeito de digitação no loading
+    const loadingText = document.querySelector('.loading-text');
+    if (loadingText) {
+        const originalText = loadingText.textContent;
+        let dots = 0;
+        setInterval(() => {
+            dots = (dots + 1) % 4;
+            loadingText.textContent = originalText.replace(/\.+$/, '') + '.'.repeat(dots);
+        }, 500);
+    }
+</script>
+
+</body>
+</html>
