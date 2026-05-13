@@ -437,6 +437,35 @@
         .historico-data { font-size: 1.1rem; font-weight: bold; color: #1e90ff; }
         body.dark .historico-data { color: #FFD700; }
 
+        /* Botões de apagar chamadas */
+        .btn-apagar-chamadas {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+        .btn-apagar-chamada {
+            background: #ff9800;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .btn-apagar-chamada:hover {
+            transform: scale(1.03);
+            opacity: 0.9;
+        }
+        .btn-apagar-chamada.ano {
+            background: #ff5722;
+        }
+        .btn-apagar-chamada.tudo {
+            background: #d32f2f;
+        }
+
         .modal, .modal-sorteio {
             display: none;
             position: fixed;
@@ -553,7 +582,6 @@
             cursor: not-allowed;
         }
 
-        /* Banner list */
         .banner-list {
             display: flex;
             flex-direction: column;
@@ -605,12 +633,185 @@
             text-align: center;
         }
 
+        /* ========== ESTILOS DA ABA COMENTÁRIOS ========== */
+        .card-dash {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        body.dark .card-dash { background: #1e3a5f; }
+        .card-dash .numero { font-size: 2rem; font-weight: bold; color: #1e90ff; }
+        body.dark .card-dash .numero { color: #FFD700; }
+        .card-dash .label { font-size: 0.85rem; margin-top: 5px; }
+
+        .filtros-comentarios {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+        }
+        .filtros-comentarios select, .filtros-comentarios input {
+            padding: 10px 15px;
+            border-radius: 12px;
+            border: 1px solid #ccc;
+            font-size: 0.9rem;
+            background: white;
+        }
+        body.dark .filtros-comentarios select, body.dark .filtros-comentarios input {
+            background: #0f1a30;
+            border-color: #1e3a5f;
+            color: white;
+        }
+
+        .comentario-card {
+            background: #f8f9fa;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.2s;
+            border-left: 5px solid;
+        }
+        body.dark .comentario-card {
+            background: #0f1a30;
+        }
+        .comentario-card.elogio { border-left-color: #28a745; }
+        .comentario-card.sugestao { border-left-color: #ffc107; }
+        .comentario-card.critica { border-left-color: #dc3545; }
+        .comentario-card:hover {
+            transform: translateX(5px);
+        }
+        .comentario-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+        .comentario-nome {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #1e90ff;
+        }
+        body.dark .comentario-nome { color: #FFD700; }
+        .comentario-data {
+            font-size: 0.8rem;
+            color: #888;
+        }
+        .comentario-nota {
+            margin: 10px 0;
+            font-size: 1.2rem;
+        }
+        .comentario-texto {
+            margin: 10px 0;
+            line-height: 1.4;
+            color: #4a627a;
+        }
+        body.dark .comentario-texto { color: #b0c4de; }
+        .comentario-tipo {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        .tipo-elogio { background: #28a745; color: white; }
+        .tipo-sugestao { background: #ffc107; color: #333; }
+        .tipo-critica { background: #dc3545; color: white; }
+        .btn-excluir-comentario {
+            background: #ff4444;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+        .btn-excluir-comentario:hover {
+            background: #cc0000;
+            transform: scale(1.05);
+        }
+        .sem-comentarios {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+        }
+
+        /* ========== GRÁFICO COMO CONHECEU ========== */
+        .como-conheceu-container {
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        .barra-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        .barra-label {
+            width: 120px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .barra-wrapper {
+            flex: 1;
+            min-width: 150px;
+        }
+        .barra-fundo {
+            background: #e0e0e0;
+            border-radius: 20px;
+            height: 30px;
+            overflow: hidden;
+        }
+        body.dark .barra-fundo {
+            background: #2c4a6e;
+        }
+        .barra-preenchimento {
+            background: linear-gradient(90deg, #1e90ff, #FFD700);
+            height: 100%;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: white;
+            font-weight: bold;
+            font-size: 0.8rem;
+            transition: width 0.5s ease;
+        }
+        .barra-numero {
+            width: 80px;
+            text-align: right;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        .total-respostas {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
+            font-weight: bold;
+        }
+        body.dark .total-respostas {
+            border-top-color: #1e3a5f;
+        }
+
         @media (max-width: 768px) {
             .graficos-grid { grid-template-columns: 1fr; }
             .cards { flex-direction: column; }
             .ranking-table th, .ranking-table td { padding: 8px; font-size: 0.7rem; }
             .opcoes-filtro { flex-direction: column; align-items: flex-start; }
             .banner-item { flex-direction: column; text-align: center; }
+            .comentario-header { flex-direction: column; align-items: flex-start; gap: 5px; }
+            .barra-label { width: 100px; font-size: 0.75rem; }
+            .barra-numero { width: 60px; font-size: 0.75rem; }
+            .btn-apagar-chamadas { justify-content: center; }
         }
     </style>
 </head>
@@ -642,6 +843,7 @@
             <button class="aba-btn" data-aba="noticias">📰 NOTÍCIAS</button>
             <button class="aba-btn" data-aba="banner">🖼️ BANNER</button>
             <button class="aba-btn" data-aba="sorteios">🎲 SORTEIOS</button>
+            <button class="aba-btn" data-aba="comentarios">💬 COMENTÁRIOS</button>
         </div>
 
         <!-- ABA DASHBOARD -->
@@ -667,6 +869,14 @@
                 </div>
             </div>
 
+            <!-- GRÁFICO COMO CONHECEU -->
+            <div class="grafico-card" style="margin-bottom: 25px;">
+                <h3>📢 COMO CONHECEU A UNIDOS DO ALVORADA?</h3>
+                <div id="comoConheceuGrafico" class="como-conheceu-container">
+                    <div style="text-align: center; padding: 20px;">🔄 Carregando dados...</div>
+                </div>
+            </div>
+
             <div class="grafico-card" style="margin-bottom: 25px;">
                 <h3>✅ PRESENÇA x AUSÊNCIA</h3>
                 <div class="data-calendario">
@@ -683,6 +893,14 @@
 
             <div class="secao">
                 <h2>📅 HISTÓRICO DE CHAMADAS</h2>
+                
+                <!-- BOTÕES DE APAGAR CHAMADAS -->
+                <div class="btn-apagar-chamadas">
+                    <button class="btn-apagar-chamada" onclick="abrirModalApagarChamadas('mes')">🗓️ APAGAR MÊS ATUAL</button>
+                    <button class="btn-apagar-chamada ano" onclick="abrirModalApagarChamadas('ano')">📅 APAGAR ANO ATUAL</button>
+                    <button class="btn-apagar-chamada tudo" onclick="abrirModalApagarChamadas('tudo')">⚠️ APAGAR TODAS</button>
+                </div>
+                
                 <div id="listaHistorico" style="display: flex; flex-direction: column; gap: 10px;"></div>
             </div>
 
@@ -881,6 +1099,56 @@
                 <button class="btn-sortear" id="btnSortear">🎲 SORTEAR</button>
             </div>
         </div>
+
+        <!-- ========== ABA COMENTÁRIOS ========== -->
+        <div id="abaComentarios" class="aba-conteudo">
+            <div class="secao">
+                <h2>💬 FEEDBACK DOS RITMISTAS</h2>
+                <p style="margin-bottom: 20px;">Avaliações, elogios, sugestões e críticas enviadas pelos ritmistas</p>
+
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 25px;">
+                    <div class="card-dash" style="background: linear-gradient(135deg, #1e90ff, #0a1628); color: white;">
+                        <div class="numero" id="totalComentarios">0</div>
+                        <div class="label">📝 TOTAL DE COMENTÁRIOS</div>
+                    </div>
+                    <div class="card-dash" style="background: linear-gradient(135deg, #f39c12, #e67e22); color: white;">
+                        <div class="numero" id="mediaEstrelas">0.0</div>
+                        <div class="label">⭐ MÉDIA GERAL</div>
+                    </div>
+                    <div class="card-dash" style="background: linear-gradient(135deg, #28a745, #1e7e34); color: white;">
+                        <div class="numero" id="totalElogios">0</div>
+                        <div class="label">💬 ELOGIOS</div>
+                    </div>
+                    <div class="card-dash" style="background: linear-gradient(135deg, #dc3545, #c82333); color: white;">
+                        <div class="numero" id="totalCriticas">0</div>
+                        <div class="label">👎 CRÍTICAS</div>
+                    </div>
+                </div>
+
+                <div class="filtros-comentarios">
+                    <select id="filtroTipoComentario" onchange="filtrarComentarios()">
+                        <option value="todos">📋 Todos os tipos</option>
+                        <option value="elogio">💬 ELOGIO</option>
+                        <option value="sugestao">💡 SUGESTÃO</option>
+                        <option value="critica">👎 CRÍTICA</option>
+                    </select>
+                    <select id="filtroNotaComentario" onchange="filtrarComentarios()">
+                        <option value="todas">⭐ Todas as notas</option>
+                        <option value="5">⭐⭐⭐⭐⭐ 5 estrelas</option>
+                        <option value="4">⭐⭐⭐⭐ 4 estrelas</option>
+                        <option value="3">⭐⭐⭐ 3 estrelas</option>
+                        <option value="2">⭐⭐ 2 estrelas</option>
+                        <option value="1">⭐ 1 estrela</option>
+                        <option value="sem">Sem nota</option>
+                    </select>
+                    <button class="btn-submit" onclick="carregarComentarios()" style="padding: 8px 20px;">🔄 ATUALIZAR</button>
+                </div>
+
+                <div id="listaComentarios">
+                    <div class="status-carregamento">🔄 Carregando comentários...</div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -921,6 +1189,32 @@
     </div>
 </div>
 
+<!-- MODAL CONFIRMAÇÃO EXCLUIR COMENTÁRIO -->
+<div id="modalConfirmarExcluir" class="modal">
+    <div class="modal-content">
+        <h3 style="color: #ff4444;">⚠️ CONFIRMAR EXCLUSÃO</h3>
+        <p id="confirmarExcluirMensagem">Tem certeza que deseja excluir este comentário?</p>
+        <p style="font-size: 0.8rem; color: #ff4444;">Esta ação é irreversível!</p>
+        <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;">
+            <button class="btn-fechar-modal" onclick="fecharModalConfirmarExcluir()" style="background: #999;">CANCELAR</button>
+            <button class="btn-fechar-modal" id="btnConfirmarExcluir" style="background: #ff4444;">EXCLUIR</button>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL CONFIRMAÇÃO APAGAR CHAMADAS -->
+<div id="modalApagarChamadas" class="modal">
+    <div class="modal-content">
+        <h3 id="modalApagarTitulo" style="color: #ff5722;">⚠️ APAGAR CHAMADAS</h3>
+        <p id="modalApagarMensagem">Tem certeza que deseja apagar as chamadas?</p>
+        <p style="font-size: 0.8rem; color: #ff4444;">Esta ação é irreversível!</p>
+        <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;">
+            <button class="btn-fechar-modal" onclick="fecharModalApagarChamadas()" style="background: #999;">CANCELAR</button>
+            <button class="btn-fechar-modal" id="btnConfirmarApagar" style="background: #ff5722;">CONFIRMAR</button>
+        </div>
+    </div>
+</div>
+
 <div class="footer">
     <p>Desenvolvido por Jean Silva | ✨ Tecnologia a favor do samba ✨</p>
     <p>© 2026 Unidos do Alvorada</p>
@@ -955,15 +1249,24 @@
     let ordemRanking = 'mais';
     let dadosRankingReal = [];
     let ganhadoresIds = [];
+    let apagarTipo = null;
 
-    // ========== TOAST ==========
     function mostrarToast(mensagem, tipo = 'success') {
         const toast = document.createElement('div');
-        toast.className = `toast ${tipo}`;
+        toast.style.cssText = `
+            position: fixed; bottom: 20px; right: 20px; 
+            background: ${tipo === 'success' ? '#00cc66' : '#ff4444'}; 
+            color: white; padding: 12px 24px; border-radius: 50px; 
+            z-index: 9999; animation: fadeOut 3s forwards;
+        `;
         toast.textContent = mensagem;
         document.body.appendChild(toast);
         setTimeout(() => toast.remove(), 3000);
     }
+
+    const style = document.createElement('style');
+    style.textContent = `@keyframes fadeOut { 0% { opacity: 1; transform: translateY(0); } 70% { opacity: 1; } 100% { opacity: 0; transform: translateY(20px); visibility: hidden; } }`;
+    document.head.appendChild(style);
 
     // ========== ABAS ==========
     document.querySelectorAll('.aba-btn').forEach(btn => {
@@ -971,21 +1274,21 @@
             document.querySelectorAll('.aba-btn').forEach(b => b.classList.remove('ativa'));
             btn.classList.add('ativa');
             document.querySelectorAll('.aba-conteudo').forEach(c => c.classList.remove('ativa'));
-            document.getElementById(`aba${btn.dataset.aba.charAt(0).toUpperCase() + btn.dataset.aba.slice(1)}`).classList.add('ativa');
+            const abaId = `aba${btn.dataset.aba.charAt(0).toUpperCase() + btn.dataset.aba.slice(1)}`;
+            document.getElementById(abaId).classList.add('ativa');
             if (btn.dataset.aba === 'noticias') carregarNoticiasAdmin();
             if (btn.dataset.aba === 'sorteios') carregarParticipantesSorteio();
             if (btn.dataset.aba === 'banner') carregarBanners();
+            if (btn.dataset.aba === 'comentarios') carregarComentarios();
         });
     });
 
-    // Datas padrão
     const hoje = new Date();
     const trintaDiasAtras = new Date();
     trintaDiasAtras.setDate(hoje.getDate() - 30);
     document.getElementById('dataInicio').value = trintaDiasAtras.toISOString().split('T')[0];
     document.getElementById('dataFim').value = hoje.toISOString().split('T')[0];
 
-    // Velocidade do carrossel
     function salvarVelocidade() {
         const velocidade = document.getElementById('velocidadeCarrossel').value;
         localStorage.setItem('velocidadeCarrossel', velocidade);
@@ -994,12 +1297,9 @@
 
     function carregarVelocidade() {
         const saved = localStorage.getItem('velocidadeCarrossel');
-        if (saved) {
-            document.getElementById('velocidadeCarrossel').value = saved;
-        }
+        if (saved) document.getElementById('velocidadeCarrossel').value = saved;
     }
 
-    // Agendamento
     document.querySelectorAll('input[name="tipoPublicacao"]').forEach(radio => {
         radio.addEventListener('change', function() {
             const dateInput = document.getElementById('noticiaDataPublicacao');
@@ -1082,6 +1382,130 @@
         document.getElementById('modalDetalhesChamada').style.display = 'none';
     }
 
+    // ========== APAGAR CHAMADAS ==========
+    function abrirModalApagarChamadas(tipo) {
+        apagarTipo = tipo;
+        const titulo = document.getElementById('modalApagarTitulo');
+        const mensagem = document.getElementById('modalApagarMensagem');
+        
+        if (tipo === 'mes') {
+            const data = new Date();
+            const mesAtual = data.toLocaleString('pt-BR', { month: 'long', year: 'numeric' });
+            titulo.innerHTML = '🗓️ APAGAR MÊS ATUAL';
+            mensagem.innerHTML = `Tem certeza que deseja apagar TODAS as chamadas do mês de <strong>${mesAtual}</strong>?`;
+        } else if (tipo === 'ano') {
+            const anoAtual = new Date().getFullYear();
+            titulo.innerHTML = '📅 APAGAR ANO ATUAL';
+            mensagem.innerHTML = `Tem certeza que deseja apagar TODAS as chamadas do ano de <strong>${anoAtual}</strong>?`;
+        } else {
+            titulo.innerHTML = '⚠️ APAGAR TODAS AS CHAMADAS';
+            mensagem.innerHTML = 'Tem certeza que deseja apagar TODAS as chamadas registradas? Esta ação é irreversível!';
+        }
+        
+        document.getElementById('modalApagarChamadas').style.display = 'flex';
+    }
+
+    function fecharModalApagarChamadas() {
+        document.getElementById('modalApagarChamadas').style.display = 'none';
+        apagarTipo = null;
+    }
+
+    async function confirmarApagarChamadas() {
+        if (!apagarTipo) return;
+        
+        const btn = document.getElementById('btnConfirmarApagar');
+        btn.disabled = true;
+        btn.textContent = '⏳ APAGANDO...';
+        
+        try {
+            const response = await fetch(`${API_BASE}/apagar_chamadas`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ tipo: apagarTipo })
+            });
+            const result = await response.json();
+            
+            if (result.success) {
+                mostrarToast(result.message, 'success');
+                fecharModalApagarChamadas();
+                await carregarHistorico();
+                await carregarGraficoPresenca();
+                await carregarRankingReal();
+                carregarRankingPresenca();
+            } else {
+                mostrarToast('❌ Erro: ' + result.error, 'error');
+            }
+        } catch (error) {
+            mostrarToast('❌ Erro de conexão', 'error');
+        } finally {
+            btn.disabled = false;
+            btn.textContent = 'CONFIRMAR';
+        }
+    }
+
+    document.getElementById('btnConfirmarApagar')?.addEventListener('click', confirmarApagarChamadas);
+
+    // ========== GRÁFICO COMO CONHECEU ==========
+    function carregarGraficoComoConheceu() {
+        const mapeamento = {
+            'instagram': '📸 Instagram',
+            'facebook': '📘 Facebook',
+            'whatsapp': '💚 WhatsApp',
+            'amigo': '👥 Amigo/Indicação',
+            'ensaio': '🥁 Ensaio/Presente',
+            'youtube': '▶️ YouTube',
+            'tiktok': '🎵 TikTok',
+            'outdoor': '📢 Outdoor/Panfleto',
+            'outro': '📝 Outro'
+        };
+        
+        const contagem = {};
+        let total = 0;
+        
+        ritmistasOriginais.forEach(r => {
+            let origem = r.como_conheceu;
+            if (origem && origem !== '') {
+                origem = origem.toLowerCase();
+                let chave = mapeamento[origem] || origem;
+                if (!contagem[chave]) contagem[chave] = 0;
+                contagem[chave]++;
+                total++;
+            }
+        });
+        
+        const container = document.getElementById('comoConheceuGrafico');
+        
+        if (total === 0) {
+            container.innerHTML = '<div style="text-align: center; padding: 20px;">📭 Nenhuma resposta registrada ainda</div>';
+            return;
+        }
+        
+        const sorted = Object.entries(contagem).sort((a, b) => b[1] - a[1]);
+        
+        container.innerHTML = `
+            <div class="como-conheceu-container">
+                ${sorted.map(([label, qtd]) => {
+                    const percentual = ((qtd / total) * 100).toFixed(1);
+                    return `
+                        <div class="barra-item">
+                            <div class="barra-label">${label}</div>
+                            <div class="barra-wrapper">
+                                <div class="barra-fundo">
+                                    <div class="barra-preenchimento" style="width: ${percentual}%;">
+                                        ${percentual}%
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="barra-numero">${qtd} (${percentual}%)</div>
+                        </div>
+                    `;
+                }).join('')}
+                <div class="total-respostas">📊 Total de respostas: ${total}</div>
+            </div>
+        `;
+    }
+
+    // ========== CARREGAR DADOS PRINCIPAIS ==========
     async function carregarDados() {
         try {
             const response = await fetch(`${API_BASE}/exec?acao=buscarTodosRitmistas`);
@@ -1141,6 +1565,8 @@
                     bairrosLista.innerHTML += `<div class="nivel-item"><span>🏠 ${bairro}</span><span>${qtd} (${pct}%)</span></div>`;
                 });
 
+                carregarGraficoComoConheceu();
+
                 await carregarRankingReal();
                 carregarRankingPresenca();
                 carregarRankingCamisas();
@@ -1185,10 +1611,7 @@
             if (index === 0) medalha = '🥇 1º';
             else if (index === 1) medalha = '🥈 2º';
             else if (index === 2) medalha = '🥉 3º';
-            let destaqueClass = '';
-            if (r.percentual === 100) destaqueClass = 'destaque-100';
             const row = rankingBody.insertRow();
-            if (destaqueClass) row.className = destaqueClass;
             row.insertCell(0).innerHTML = medalha;
             row.insertCell(1).innerHTML = nome || '-';
             row.insertCell(2).innerHTML = instrumento || '-';
@@ -1321,10 +1744,7 @@
             data_publicacao = new Date().toISOString().slice(0, 16);
         }
         
-        const dados = {
-            titulo, resumo, conteudo, status, destaque, data_publicacao,
-            imagem_base64: imagemBase64
-        };
+        const dados = { titulo, resumo, conteudo, status, destaque, data_publicacao, imagem_base64: imagemBase64 };
         
         try {
             const response = await fetch(`${API_BASE}/noticias/criar`, {
@@ -1402,13 +1822,8 @@
 
     async function apagarNoticia(id) {
         if (!confirm('Tem certeza que deseja apagar esta notícia?')) return;
-        const token = localStorage.getItem('token_admin') || 'admin';
         try {
-            const response = await fetch(`${API_BASE}/noticias/excluir/${id}`, {
-                method: 'DELETE',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ token: token })
-            });
+            const response = await fetch(`${API_BASE}/noticias/excluir/${id}`, { method: 'DELETE' });
             const result = await response.json();
             if (result.success) {
                 mostrarToast('✅ Notícia apagada!', 'success');
@@ -1486,10 +1901,7 @@
     async function excluirBanner(id) {
         if (!confirm('Tem certeza que deseja excluir este banner?')) return;
         try {
-            const response = await fetch(`${API_BASE}/banners/excluir/${id}`, {
-                method: 'DELETE',
-                headers: { 'Content-Type': 'application/json' }
-            });
+            const response = await fetch(`${API_BASE}/banners/excluir/${id}`, { method: 'DELETE' });
             const result = await response.json();
             if (result.success) {
                 mostrarToast('✅ Banner excluído!', 'success');
@@ -1572,7 +1984,6 @@
         
         filtrados = filtrados.filter(r => !ganhadoresIds.includes(r.id));
         participantesFiltrados = filtrados;
-        
         atualizarListaParticipantes();
     }
     
@@ -1586,13 +1997,9 @@
             const isSelecionado = participantesSelecionados.includes(r.id);
             const jaSorteado = ganhadoresIds.includes(r.id);
             return `
-                <div class="participante-item ${jaSorteado ? 'sorteado' : ''}">
+                <div class="participante-item" style="display: flex; align-items: center; gap: 10px; padding: 10px; background: #f8f9fa; border-radius: 10px; margin-bottom: 8px;">
                     <input type="checkbox" class="checkbox-participante" value="${r.id}" ${isSelecionado ? 'checked' : ''} ${jaSorteado ? 'disabled' : ''}>
                     <span><strong>${r.nome}</strong> - ${r.instrumento || '-'} - ${r.nivel || '-'}</span>
-                    <div class="acoes-participante">
-                        <button class="btn-acoes" onclick="editarParticipante(${r.id})">✏️</button>
-                        <button class="btn-acoes" onclick="excluirParticipante(${r.id})">🗑️</button>
-                    </div>
                 </div>
             `;
         }).join('');
@@ -1607,35 +2014,6 @@
                 }
             });
         });
-    }
-    
-    function editarParticipante(id) {
-        const ritmista = ritmistasOriginais.find(r => r.id === id);
-        if (!ritmista) return;
-        const novoNome = prompt('Editar nome:', ritmista.nome);
-        if (novoNome && novoNome !== ritmista.nome) {
-            fetch(`${API_BASE}/editar_ritmista`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ dados: { id: ritmista.id, nome: novoNome } })
-            }).then(() => {
-                carregarDados();
-                mostrarToast('✅ Participante atualizado!', 'success');
-            }).catch(() => mostrarToast('Erro ao editar', 'error'));
-        }
-    }
-    
-    function excluirParticipante(id) {
-        if (confirm('Tem certeza que deseja excluir este participante?')) {
-            fetch(`${API_BASE}/excluir_ritmista`, {
-                method: 'DELETE',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ nome: ritmistasOriginais.find(r => r.id === id)?.nome })
-            }).then(() => {
-                carregarDados();
-                mostrarToast('✅ Participante excluído!', 'success');
-            }).catch(() => mostrarToast('Erro ao excluir', 'error'));
-        }
     }
     
     function selecionarTodosParticipantes() {
@@ -1656,8 +2034,6 @@
             localStorage.removeItem('ganhadoresIds');
             participantesSelecionados = [];
             aplicarFiltrosSorteio();
-            const btnSortear = document.getElementById('btnSortear');
-            if (btnSortear) btnSortear.disabled = false;
             mostrarToast('🔄 Histórico de sorteio limpo!', 'success');
         }
     }
@@ -1666,18 +2042,21 @@
         const cores = ['#FFD700', '#1e90ff', '#FF6347', '#00FF7F', '#FF69B4', '#FF4500'];
         for (let i = 0; i < 150; i++) {
             const confetti = document.createElement('div');
-            confetti.className = 'confetti';
-            confetti.style.left = Math.random() * 100 + '%';
-            confetti.style.backgroundColor = cores[Math.floor(Math.random() * cores.length)];
-            confetti.style.width = Math.random() * 12 + 4 + 'px';
-            confetti.style.height = confetti.style.width;
-            confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
-            confetti.style.animationDelay = Math.random() * 2 + 's';
-            confetti.style.animationName = 'confettiFall';
+            confetti.style.cssText = `
+                position: fixed; left: ${Math.random() * 100}%; top: -10px;
+                background-color: ${cores[Math.floor(Math.random() * cores.length)]};
+                width: ${Math.random() * 12 + 4}px; height: ${Math.random() * 12 + 4}px;
+                pointer-events: none; z-index: 9999;
+                animation: confettiFall ${Math.random() * 3 + 2}s linear forwards;
+            `;
             document.body.appendChild(confetti);
             setTimeout(() => confetti.remove(), 5000);
         }
     }
+    
+    const confettiStyle = document.createElement('style');
+    confettiStyle.textContent = `@keyframes confettiFall { 0% { transform: translateY(-10px) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(360deg); opacity: 0; } }`;
+    document.head.appendChild(confettiStyle);
     
     async function realizarSorteio() {
         const btn = document.getElementById('btnSortear');
@@ -1697,10 +2076,13 @@
         }
         
         const animacaoDiv = document.createElement('div');
-        animacaoDiv.className = 'animacao-sorteio';
-        animacaoDiv.style.zIndex = '10000';
-        animacaoDiv.innerHTML = `<div class="roleta">🎲</div><p style="color:white; margin-top:20px;">SORTEANDO...</p>`;
+        animacaoDiv.style.cssText = `position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10000;`;
+        animacaoDiv.innerHTML = `<div style="font-size: 5rem; animation: girar 0.5s infinite;">🎲</div><p style="color:white; margin-top:20px;">SORTEANDO...</p>`;
         document.body.appendChild(animacaoDiv);
+        
+        const girarStyle = document.createElement('style');
+        girarStyle.textContent = `@keyframes girar { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`;
+        document.head.appendChild(girarStyle);
         
         await new Promise(resolve => setTimeout(resolve, 3000));
         animacaoDiv.remove();
@@ -1729,15 +2111,6 @@
         ).join('');
         modal.style.display = 'flex';
         
-        modal.onclick = function(e) {
-            if (e.target === modal) return;
-        };
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && modal.style.display === 'flex') {
-                e.preventDefault();
-            }
-        });
-        
         aplicarFiltrosSorteio();
         btn.disabled = false;
     }
@@ -1752,42 +2125,207 @@
         aplicarFiltrosSorteio();
     }
     
-    document.querySelector('.filtro-sexo-todos')?.addEventListener('change', function() {
-        document.querySelectorAll('.filtro-sexo').forEach(cb => cb.checked = this.checked);
-        aplicarFiltrosSorteio();
-    });
-    document.querySelectorAll('.filtro-sexo').forEach(cb => {
-        cb.addEventListener('change', () => {
-            if (document.querySelector('.filtro-sexo-todos')) {
-                document.querySelector('.filtro-sexo-todos').checked = false;
-            }
-            aplicarFiltrosSorteio();
-        });
-    });
-    
     document.getElementById('btnSelecionarTodosParticipantes')?.addEventListener('click', selecionarTodosParticipantes);
     document.getElementById('btnDesmarcarTodosParticipantes')?.addEventListener('click', desmarcarTodosParticipantes);
     document.getElementById('btnLimparHistoricoSorteio')?.addEventListener('click', limparHistoricoSorteio);
     document.getElementById('btnSortear')?.addEventListener('click', realizarSorteio);
     document.getElementById('btnFecharModalVencedores')?.addEventListener('click', fecharModalVencedores);
     
-    document.querySelectorAll('.filtro-nivel, .filtro-instrumento, input[name="filtroStatus"], input[name="filtroPresenca"]').forEach(el => {
-        el.addEventListener('change', () => aplicarFiltrosSorteio());
-    });
-    
-    document.querySelector('.filtro-nivel-todos')?.addEventListener('change', function() {
-        document.querySelectorAll('.filtro-nivel').forEach(cb => cb.checked = this.checked);
-        aplicarFiltrosSorteio();
-    });
-    
-    document.querySelector('.filtro-instrumento-todos')?.addEventListener('change', function() {
-        document.querySelectorAll('.filtro-instrumento').forEach(cb => cb.checked = this.checked);
-        aplicarFiltrosSorteio();
-    });
-    
     document.getElementById('buscaNome')?.addEventListener('input', () => carregarRankingPresenca());
     document.getElementById('filtroInstrumento')?.addEventListener('change', () => carregarRankingPresenca());
     document.getElementById('filtroNivel')?.addEventListener('change', () => carregarRankingPresenca());
+
+    // ========== COMENTÁRIOS ==========
+    let todosComentarios = [];
+    let comentarioParaExcluir = null;
+
+    function formatarData(dataString) {
+        if (!dataString || dataString === '') return 'Data não informada';
+        
+        try {
+            if (dataString.includes('/')) {
+                const partes = dataString.split(' ');
+                const dataParte = partes[0].split('/');
+                if (dataParte.length === 3) {
+                    const dia = dataParte[0].padStart(2, '0');
+                    const mes = dataParte[1].padStart(2, '0');
+                    const ano = dataParte[2];
+                    return `${dia}/${mes}/${ano}`;
+                }
+            }
+            
+            const data = new Date(dataString);
+            if (!isNaN(data.getTime())) {
+                const dia = data.getDate().toString().padStart(2, '0');
+                const mes = (data.getMonth() + 1).toString().padStart(2, '0');
+                const ano = data.getFullYear();
+                return `${dia}/${mes}/${ano}`;
+            }
+            
+            return 'Data inválida';
+        } catch (error) {
+            console.error('Erro ao formatar data:', error);
+            return 'Data inválida';
+        }
+    }
+
+    function renderizarEstrelas(nota) {
+        if (!nota || nota === 0) return '⭐ Sem nota';
+        let estrelas = '';
+        for (let i = 1; i <= 5; i++) {
+            estrelas += i <= nota ? '★' : '☆';
+        }
+        return estrelas;
+    }
+
+    function getTipoClass(tipo) {
+        if (!tipo) return 'sugestao';
+        const t = tipo.toLowerCase();
+        if (t === 'elogio') return 'elogio';
+        if (t === 'critica') return 'critica';
+        return 'sugestao';
+    }
+
+    function getTipoLabel(tipo) {
+        if (!tipo) return '💡 Sugestão';
+        const t = tipo.toLowerCase();
+        if (t === 'elogio') return '💬 Elogio';
+        if (t === 'critica') return '👎 Crítica';
+        return '💡 Sugestão';
+    }
+
+    function getTipoBadgeClass(tipo) {
+        if (!tipo) return 'tipo-sugestao';
+        const t = tipo.toLowerCase();
+        if (t === 'elogio') return 'tipo-elogio';
+        if (t === 'critica') return 'tipo-critica';
+        return 'tipo-sugestao';
+    }
+
+    function abrirModalConfirmarExcluir(id, nome) {
+        comentarioParaExcluir = { id, nome };
+        document.getElementById('confirmarExcluirMensagem').innerHTML = `Tem certeza que deseja excluir o comentário de <strong>${nome}</strong>?`;
+        document.getElementById('modalConfirmarExcluir').style.display = 'flex';
+    }
+
+    function fecharModalConfirmarExcluir() {
+        document.getElementById('modalConfirmarExcluir').style.display = 'none';
+        comentarioParaExcluir = null;
+    }
+
+    async function confirmarExclusaoComentario() {
+        if (!comentarioParaExcluir) return;
+        
+        try {
+            const response = await fetch(`${API_BASE}/excluir_comentario`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: comentarioParaExcluir.id })
+            });
+            const result = await response.json();
+            if (result.success) {
+                mostrarToast('✅ Comentário excluído com sucesso!', 'success');
+                fecharModalConfirmarExcluir();
+                carregarComentarios();
+                carregarDados();
+            } else {
+                mostrarToast('❌ Erro ao excluir comentário', 'error');
+            }
+        } catch (error) {
+            mostrarToast('❌ Erro de conexão', 'error');
+        }
+    }
+
+    document.getElementById('btnConfirmarExcluir')?.addEventListener('click', confirmarExclusaoComentario);
+
+    function filtrarComentarios() {
+        const tipoFiltro = document.getElementById('filtroTipoComentario').value;
+        const notaFiltro = document.getElementById('filtroNotaComentario').value;
+        
+        let filtrados = [...todosComentarios];
+        
+        if (tipoFiltro !== 'todos') {
+            filtrados = filtrados.filter(c => (c.avaliacao_tipo || '').toLowerCase() === tipoFiltro);
+        }
+        
+        if (notaFiltro !== 'todas') {
+            if (notaFiltro === 'sem') {
+                filtrados = filtrados.filter(c => !c.avaliacao_nota || c.avaliacao_nota === 0);
+            } else {
+                const nota = parseInt(notaFiltro);
+                filtrados = filtrados.filter(c => c.avaliacao_nota === nota);
+            }
+        }
+        
+        const container = document.getElementById('listaComentarios');
+        
+        if (filtrados.length === 0) {
+            container.innerHTML = '<div class="sem-comentarios">📭 Nenhum comentário encontrado</div>';
+            return;
+        }
+        
+        container.innerHTML = filtrados.map(c => {
+            const tipoClass = getTipoClass(c.avaliacao_tipo);
+            const tipoLabel = getTipoLabel(c.avaliacao_tipo);
+            const badgeClass = getTipoBadgeClass(c.avaliacao_tipo);
+            const estrelas = renderizarEstrelas(c.avaliacao_nota);
+            const dataFormatada = formatarData(c.dataCadastro);
+            
+            return `
+                <div class="comentario-card ${tipoClass}">
+                    <div class="comentario-header">
+                        <div>
+                            <span class="comentario-nome">${c.nome || 'Anônimo'}</span>
+                            <span class="comentario-tipo ${badgeClass}" style="margin-left: 10px;">${tipoLabel}</span>
+                        </div>
+                        <div class="comentario-data">📅 ${dataFormatada}</div>
+                    </div>
+                    <div class="comentario-nota">${estrelas}</div>
+                    <div class="comentario-texto">${c.avaliacao_comentario || '(Sem comentário escrito)'}</div>
+                    <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
+                        <button class="btn-excluir-comentario" onclick="abrirModalConfirmarExcluir(${c.id}, '${c.nome.replace(/'/g, "\\'")}')">🗑️ Excluir</button>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    async function carregarComentarios() {
+        const container = document.getElementById('listaComentarios');
+        container.innerHTML = '<div class="status-carregamento">🔄 Carregando comentários...</div>';
+        
+        try {
+            const response = await fetch(`${API_BASE}/exec?acao=buscarTodosRitmistas`);
+            const data = await response.json();
+            
+            if (data.success && data.ritmistas) {
+                const comentarios = data.ritmistas.filter(r => 
+                    r.avaliacao_comentario || (r.avaliacao_nota && r.avaliacao_nota > 0)
+                );
+                
+                todosComentarios = comentarios;
+                
+                const total = comentarios.length;
+                const comAvaliacao = comentarios.filter(c => c.avaliacao_nota && c.avaliacao_nota > 0);
+                const somaNotas = comAvaliacao.reduce((acc, c) => acc + (c.avaliacao_nota || 0), 0);
+                const media = comAvaliacao.length > 0 ? (somaNotas / comAvaliacao.length).toFixed(1) : 0;
+                const elogios = comentarios.filter(c => (c.avaliacao_tipo || '').toLowerCase() === 'elogio').length;
+                const criticas = comentarios.filter(c => (c.avaliacao_tipo || '').toLowerCase() === 'critica').length;
+                
+                document.getElementById('totalComentarios').textContent = total;
+                document.getElementById('mediaEstrelas').innerHTML = media;
+                document.getElementById('totalElogios').textContent = elogios;
+                document.getElementById('totalCriticas').textContent = criticas;
+                
+                filtrarComentarios();
+            } else {
+                container.innerHTML = '<div class="sem-comentarios">📭 Nenhum comentário encontrado</div>';
+            }
+        } catch (error) {
+            console.error('Erro:', error);
+            container.innerHTML = '<div class="sem-comentarios">❌ Erro ao carregar comentários</div>';
+        }
+    }
     
     carregarDados();
 </script>
